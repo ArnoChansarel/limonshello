@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:28:41 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/17 15:40:14 by achansar         ###   ########.fr       */
+/*   Updated: 2023/02/20 17:04:28 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,13 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <unistd.h>
+
+typedef struct node {
+	int			export;
+	char		*key;
+	char		*value;
+	struct node *next;
+}	t_node;
 
 typedef struct s_token {
 	char	*pipe;
@@ -35,24 +42,29 @@ typedef struct s_lexlst {
 typedef struct s_parser {
 	char				**cmd;
 	int					(*builtin)(struct s_parser *);
-	t_lexlst			*rdrctn;
+	char				*rd_in;
+	char				*rd_out;
 	struct s_parser 	*next;
 }	t_parser;
 
 // PARSER FUNCTIONS
 t_lexlst 	*lexer(char *cmd_line);
-int			parser(char *cmd_line);
+int			parser(char *cmd_line, t_parser **lstp);
+int			expander(t_lexlst **lex, t_node **env);
 
 // PARSER UTILS
 int 		count_pipes(t_lexlst *lex);
 void    	goto_next(t_lexlst **lex);
 int			is_builtin(char *str);
 int			elem_parser_init(t_parser **ele, int c);
+int 		count_word_lex(t_lexlst  **lex);
+int			add_rdrctn(t_parser *p, t_lexlst *lex);
 
 //LEXER UTILS
 int			checker_quotes(char *line, int s, int d);
 int			size_quotes(const char *str);
 int			is_token(char *str);
+int			check_token(char *line);
 
 // LIBFT FUNCTIONS
 char		**ft_split(char const *s, char c);
@@ -82,5 +94,6 @@ t_parser	*parser_new(char **cmd, int (*builtin)(struct s_parser *),
 // DISPLAY
 void    	ft_printlist(t_lexlst *head_a);
 void    	ft_printparse(t_parser *head);
+int			error_msg(char *str);
 
 #endif

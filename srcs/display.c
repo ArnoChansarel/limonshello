@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 15:02:58 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/17 15:42:51 by achansar         ###   ########.fr       */
+/*   Updated: 2023/02/18 17:31:17 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,31 @@ void    ft_printparse(t_parser *head)
 	t_parser *current;
 
 	current = head;
-	printf("+--------+\n");
-	printf("| PARSER |\n");
-	printf("+--------+\n");
+	printf("+------------------------+\n");
+	printf("|          PARSER        |\n");
+	printf("+------------------------+\n");
     while (current)
 	{
 		if (current)
 		{
 			j = 0;
-			printf("ELEMENT %d :\n###########\ncommand :\n", i++);
+			printf("         ELEMENT %d :\n##########################\nCommand     : ", i++);
 			while (current->cmd[j])
-				printf("%s\n", current->cmd[j++]);
+				printf("%s ", current->cmd[j++]);
 			if (current->builtin)
-				printf("#####\nBuiltin : %s\n", current->cmd[0]);
+				printf("\nBuiltin       : %s\n", current->cmd[0]);
 			else
-				printf("\nBuiltin : No\n##########\n");
+				printf("\nBuiltin       : No\n");
+			if (current->rd_in)
+				printf("Redirection IN  : %s\n", current->rd_in);
+			else
+				printf("Redirection IN : No\n");
+			if (current->rd_out)
+				printf("Redirection OUT : %s\n##########################\n\n", current->rd_out);
+			else
+				printf("Redirection OUT : No\n##########################\n\n");
 			current = current->next;
 		}
 	}
-	printf("+--------+\n\n");
+	printf("+------------------------+\n\n");
 }

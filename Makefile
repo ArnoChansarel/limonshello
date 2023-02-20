@@ -6,7 +6,7 @@
 #    By: achansar <achansar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/06 14:37:56 by achansar          #+#    #+#              #
-#    Updated: 2023/02/17 15:06:06 by achansar         ###   ########.fr        #
+#    Updated: 2023/02/20 17:36:36 by achansar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,9 @@ P_SRC_PATH = ./srcs/parser/
 P_SRC = 	lexer \
 			lexer_utils \
 			parser \
-			parser_utils
+			parser_utils \
+			expander \
+			expander_utils
 P_C_FILES = $(addprefix $(P_SRC_PATH), $(P_SRC:=.c))
 P_OBJ = $(addprefix $(P_SRC_PATH), $(P_SRC:=.o))
 

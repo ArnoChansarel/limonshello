@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:59:43 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/17 15:05:32 by achansar         ###   ########.fr       */
+/*   Updated: 2023/02/18 17:58:56 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int count_pipes(t_lexlst *lex)
             c++;
         lex = lex->next;
     }
-    printf("On compte %d pipes.\n", c);
+    printf("On compte %d pipes.\n\n", c);
     return (c);
 }
 
@@ -32,7 +32,7 @@ void    goto_next(t_lexlst **lex)
     t_lexlst    *head;
 
     head = *lex;
-    while(head)
+    while (head)
     {
         if (ft_strncmp(head->word, "|", 2) == 0)
         {
@@ -72,7 +72,8 @@ int	elem_parser_init(t_parser **ele, int c)
 	temp->builtin = NULL;
 	temp->cmd = NULL;
 	temp->next = NULL;
-	temp->rdrctn = NULL;
+	temp->rd_in = NULL;
+    temp->rd_out = NULL;
 	temp->cmd = malloc(sizeof(char *) * c + 1);
 	if(!temp->cmd)
 	{
@@ -81,4 +82,49 @@ int	elem_parser_init(t_parser **ele, int c)
 	}
 	*ele = temp;
 	return (0);
+}
+
+int count_word_lex(t_lexlst  **lex)
+{
+	int         c;
+	t_lexlst    *head;
+	
+	head = *lex;
+	c = 0;
+	while (head && ft_strncmp(head->word, "|", 2) != 0)
+	{
+		if(ft_strncmp(head->word, "|", 2) != 0
+			&& is_token(head->word))
+			head = head->next->next;
+		else
+		{
+			c++;
+			head = head->next;
+		}
+	}
+	// printf("on compte %d mots\n", c);
+	return (c);
+}
+
+int add_rdrctn(t_parser *p, t_lexlst *lex)
+{
+    if (lex->word[0] == '<')
+    {
+        if (p->rd_in)
+        {
+            free(p->rd_in);
+            p->rd_in = NULL;
+        }
+        p->rd_in = ft_strjoin(lex->word, lex->next->word);
+    }
+    else
+    {
+        if (p->rd_out)
+        {
+            free(p->rd_out);
+            p->rd_out = NULL;
+        }
+        p->rd_out = ft_strjoin(lex->word, lex->next->word);
+    }
+    return (0);
 }

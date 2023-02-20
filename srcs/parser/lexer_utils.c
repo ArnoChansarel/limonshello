@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 16:25:34 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/15 16:26:03 by achansar         ###   ########.fr       */
+/*   Updated: 2023/02/20 15:05:42 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,3 +66,45 @@ int is_token(char *str)
 	}
 	return (0);
 }
+
+static int	check_token_ends(char *line)
+{
+	while (*line == ' ')
+		line++;
+	if (*line == '|')
+		return (1);
+	line += ft_strlen(line) - 1;
+	while (*line == ' ')
+		line--;
+	if (is_token(line))
+		return (1);
+	return (0);
+}
+
+int	check_token(char *line)
+{
+	if (check_token_ends(line))
+		return (error_msg("Unexpected Token.\n"));
+	while (*line)
+	{
+		if (is_token(line) && *line == '|')
+		{
+			line += is_token(line);
+			while (*line == ' ')
+				line++;
+			if (is_token(line) && *line == '|')
+				return (error_msg("Unexpected Token.\n"));
+		}
+		else if (is_token(line) && (*line == '<' || *line == '>')) 
+		{
+			line += is_token(line);
+			while (*line == ' ')
+				line++;
+			if (is_token(line))
+				return (error_msg("Unexpected Token.\n"));
+		}
+		line++;
+	}
+	return (0);
+}
+

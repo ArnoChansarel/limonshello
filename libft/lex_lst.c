@@ -38,7 +38,7 @@ void	lexlst_clear(t_lexlst **lst)
 	{
 		tmp = *lst;
 		*lst = (*lst)->next;
-		free(tmp->word);
+		// free(tmp->word);
 		free(tmp);
 	}
 }
