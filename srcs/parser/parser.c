@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 12:55:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/20 17:06:23 by achansar         ###   ########.fr       */
+/*   Updated: 2023/02/21 16:56:01 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,6 @@ int parser(char *cmd_line, t_parser **lstp)
 	ft_printlist(lexer_lst);
 	pipes = count_pipes(lexer_lst);
 	get_parser_list(&lexer_lst, lstp, pipes);
-	lexlst_clear(&lexer_lst);//                      => on clean tres certainement juste la fin
+	lexlst_clear(&lexer_lst);
 	return (0);
 }

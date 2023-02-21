@@ -6,13 +6,13 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:24:39 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/20 19:20:34 by achansar         ###   ########.fr       */
+/*   Updated: 2023/02/21 15:57:08 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// char    *replace_env(char *str, char *env, int size)
+// char    *replace_env(char *str, char *env, int size)//       => getenv("VARIABLE") !!!
 // {
 //    char *rtr;
 //    int i;
@@ -68,6 +68,7 @@ static int expand_quotes(t_lexlst *lex, t_node **env)
     char *str;
     int len;
 
+    (void)env;
     i = 0;
     len = ft_strlen(lex->word);
     str = malloc(sizeof(char *) * len - 2);

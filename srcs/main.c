@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:50:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/20 17:31:22 by achansar         ###   ########.fr       */
+/*   Updated: 2023/02/21 17:00:01 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,11 @@ int main(void)
     */
     line = readline("minishell>");
     // printf("line = %s.", line);
-    if(parser(line, &lst))
+    if (parser(line, &lst))
+    {
+        printf("NUL\n");
         return (1);
+    }
     ft_printparse(lst);
     free(line);
     return (0);

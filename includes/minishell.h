@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:28:41 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/20 17:04:28 by achansar         ###   ########.fr       */
+/*   Updated: 2023/02/21 16:31:33 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ t_parser	*parserlst_last(t_parser *lst, int stop);
 void		parserlst_addback(t_parser **lst, t_parser *new);
 t_parser	*parser_new(char **cmd, int (*builtin)(struct s_parser *),
 			t_lexlst *rdrctn);
-
 
 // DISPLAY
 void    	ft_printlist(t_lexlst *head_a);
