@@ -6,20 +6,19 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 09:46:45 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/02/21 14:02:39 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/02/21 16:47:07 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "minishell.h"
 
-int sdgvz = 0;
 
-char *cmdtrim(t_lexer *lexer)
+char	*cmdtrim(t_lexer *lexer)
 {
-	char **str;
-	str = ft_split(lexer->str,32);
-	printf("%s",str[1]);
+	char	**str;
+	str = ft_split(lexer->str, 32);
+	printf("%s", str[1]);
 	return (str[0]);
 }
 
@@ -27,11 +26,11 @@ int	main(int argc, char ** argv, char **envp)
 {
 	argc = 0;
 	argv = 0;
-	t_cmd cmd;
-	t_lexer lexer;
-	char *prompt =">$";
-	
-	build_env_list(envp,&cmd);
+	t_cmd	cmd;
+	t_lexer	lexer;
+	char	*prompt = ">$";
+
+	build_env_list(envp, &cmd);
 	while (1)
 	{
 		cmd.tab = NULL;
@@ -49,7 +48,8 @@ int	main(int argc, char ** argv, char **envp)
 			ft_cd(&cmd);
 		if (strcmp(cmd.tab[0],"env") == 0)
 			ft_env(&cmd);
-		//cmdtrim(&lexer);
+		if (strcmp(cmd.tab[0], "exit") == 0)
+			ft_exit(&cmd);
 	}
-	return 0;
+	return (0);
 }

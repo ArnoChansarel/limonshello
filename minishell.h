@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 09:46:55 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/02/21 14:25:32 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/02/21 16:06:41 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ typedef struct s_cmd
 {
 	char	buf[PATH_MAX];
 	char	**tab;
-	int		fd;
-	int		pid;
 	int		exit_status;
 	t_env	*head;
 }				t_cmd;
@@ -80,6 +78,6 @@ t_env	*is_pwd_set(t_cmd *cmd);
 int		update_old_pwd(t_cmd *cmd, char *str);
 void	build_env_list(char **envp, t_cmd *cmd);
 void	delete_node(t_env *head);
-void	push(t_env * head, int export, char *key, char *value);
+void	push(t_env *head, int export, char *key, char *value);
 void	printlist(t_cmd *cmd);
 #endif

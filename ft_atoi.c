@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 13:25:54 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/02/21 12:26:29 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/02/21 16:08:48 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_atoi(const char *str)
 	long		sign;
 	int			i;
 	long		save;
-	
+
 
 	nb = 0;
 	sign = 1;

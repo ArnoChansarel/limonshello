@@ -6,16 +6,17 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:56:34 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/02/21 14:25:14 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/02/21 16:43:27 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	static cd_exec(t_cmd *cmd, char *home, char *directory, char *pwd, t_env *tmp)
+void	static	cd_exec(t_cmd *cmd, char *home, char *directory,
+	char *pwd, t_env *tmp)
 {
 	if (!cmd->tab[1])
-	cd_home(home, pwd, cmd);
+		cd_home(home, pwd, cmd);
 	else
 	{
 		if (cmd->tab[1][0] == '.' && !cmd->tab[1][1])
@@ -29,7 +30,7 @@ void	static cd_exec(t_cmd *cmd, char *home, char *directory, char *pwd, t_env *t
 	}
 }
 
-int ft_cd(t_cmd *cmd)
+int	ft_cd(t_cmd *cmd)
 {
 	char	*home;
 	char	*directory;
@@ -42,11 +43,11 @@ int ft_cd(t_cmd *cmd)
 	directory = malloc(sizeof(char) * PATH_MAX + 1);
 	buf = malloc(sizeof(char) * PATH_MAX + 1);
 	pwd = malloc(sizeof(char) * PATH_MAX + 1);
-	
-	if (!home || !buf || !directory || !pwd || !tmp)			//! Ft_Malloc free if fail
+
+	if (!home || !buf || !directory || !pwd || !tmp)			
 		return (0);
 	pwd = getcwd(buf, PATH_MAX);
 	home = list_return_value_from_key(cmd, "HOME");
 	cd_exec(cmd, home, directory, pwd, tmp);
-	return  (0);
+	return (0);
 }
