@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 09:43:51 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/02/21 16:08:34 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/02/21 18:01:04 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	cd_home(char *home, char *pwd, t_cmd *cmd)
 {
 	if (!opendir(home))
-		ft_putstr_fd("minishell: cd: No such file or directory\n",2);
+		ft_putstr_fd("minishell: cd: No such file or directory\n", 2);
 	else
 	{
 		chdir(home);
@@ -43,7 +43,7 @@ void	cd_minus(t_cmd *cmd, t_env *tmp)
 		printf("%s\n", tmp->value);
 	}
 	else
-		ft_putstr_fd("minishell: cd: OLDPWD not set\n",2);
+		ft_putstr_fd("minishell: cd: OLDPWD not set\n", 2);
 }
 
 void	cd_go_to_directory(char *directory, char *pwd, t_cmd *cmd)
@@ -52,7 +52,7 @@ void	cd_go_to_directory(char *directory, char *pwd, t_cmd *cmd)
 	// ft_memcpy(directory, ft_strjoin(pwd, ft_strjoin("/", cmd->tab[1])),
 	// ft_strlen(ft_strjoin(pwd, ft_strjoin("/", cmd->tab[1]))));
 	if (!opendir(directory))
-		ft_putstr_fd("No such file or directory\n",2);
+		ft_putstr_fd("No such file or directory\n", 2);
 	else
 	{
 		chdir(directory);
@@ -64,7 +64,7 @@ void	cd_go_to_directory(char *directory, char *pwd, t_cmd *cmd)
 void	cd_slash(t_cmd *cmd, char *pwd)
 {
 	if ((!opendir(cmd->tab[1])))
-		ft_putstr_fd("no such file or directory\n",2);
+		ft_putstr_fd("no such file or directory\n", 2);
 	else
 	{
 		chdir(cmd->tab[1]);

@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:56:58 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/02/21 16:45:37 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/02/21 17:56:56 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	ft_export(t_cmd *cmd)
 	tmp = cmd->head;
 	if (!cmd->tab || !cmd->tab[1])
 		return (0);
-	if (ft_strchr(cmd->tab[1],'=') != 0)
+	if (ft_strchr(cmd->tab[1], '=') != 0)
 	{
 		tab = ft_split(cmd->tab[1], '=');
 		if (!list_cmp_key(cmd, tab[0], tab[1]))
@@ -47,7 +47,7 @@ int	ft_export(t_cmd *cmd)
 			if (ft_isalpha(tab[0][0]))
 				push(cmd->head, 0, tab[0], tab[1]);
 			else
-				printf("bash: export: '%s': not a valid identifier\n",tab[0]);
+				printf("bash: export: '%s': not a valid identifier\n", tab[0]);
 		}
 	}
 	return (0);
