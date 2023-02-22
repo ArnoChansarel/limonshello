@@ -6,51 +6,19 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 10:30:28 by arnalove          #+#    #+#             */
-/*   Updated: 2023/02/14 17:44:31 by achansar         ###   ########.fr       */
+/*   Updated: 2023/02/22 16:25:39 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-/*
-quotes : check
-si token, count++, word++  & etre separateur 
-*/
-
-static char	**ft_free_split(char **tab, int w)
+static int	word_count(const char *s, char c)
 {
-	while (w > 0)
-	{
-		w--;
-		free (tab[w]);
-	}
-	free (tab);
-	tab = NULL;
-	return (tab);
-}
-
-static int	size_str(const char *str)
-{
-	int i;
+	int	i;
+	int	count;
 
 	i = 0;
-	if (str[i] == '\'')
-	{
-		i++;
-		while(str[i] != '\'')
-			i++;
-	}
-	else if (str[i] == '\"')
-	{
-		i++;
-		while (str[i] != '\"')
-			i++;
-	}
-	return (i + 1);
-}
-
-static int	word_count(const char *s, char c, int i, int count)//        => ajout count ++ si | ou >>
-{
+	count = 0;
 	while (s[i] != '\0')
 	{
 		while (s[i] != '\0')
@@ -63,18 +31,24 @@ static int	word_count(const char *s, char c, int i, int count)//        => ajout
 			count++;
 		while (s[i] != '\0')
 		{
-			if (s[i] == '\'' || s[i] == '\"')
-			{
-				i += size_str(&s[i]);
-				break ;
-			}
-			else if (s[i] == c)
+			if (s[i] == c)
 				break ;
 			i++;
 		}
 	}
-	printf("on a compte %d mots.\n\n", count);
 	return (count);
+}
+
+static char	**ft_free_split(char **tab, int w)
+{
+	while (w > 0)
+	{
+		w--;
+		free (tab[w]);
+	}
+	free (tab);
+	tab = NULL;
+	return (tab);
 }
 
 static char	**ft_intab(char **tab, const char *s, char c, int w)
@@ -94,13 +68,8 @@ static char	**ft_intab(char **tab, const char *s, char c, int w)
 			i++;
 		}
 		old_i = i;
-		if (s[i] == '\'' || s[i] == '\"')
-			i += size_str(&s[i]);
-		else
-		{
-			while (s[i] != '\0' && s[i] != c)
-				i++;
-		}
+		while (s[i] != '\0' && s[i] != c)
+			i++;
 		tab[j] = ft_substr(s, old_i, i - old_i);
 		if (!tab[j])
 			ft_free_split(tab, j);
@@ -113,11 +82,11 @@ static char	**ft_intab(char **tab, const char *s, char c, int w)
 char	**ft_split(char const *s, char c)
 {
 	int		words;
-	char	**tab = NULL;
+	char	**tab;
 
 	if (!s)
 		return (NULL);
-	words = word_count(s, c, 0, 0);
+	words = word_count(s, c);
 	tab = malloc((words + 1) * sizeof(char *));
 	if (!tab)
 		return (NULL);

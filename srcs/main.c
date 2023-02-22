@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:50:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/21 17:00:01 by achansar         ###   ########.fr       */
+/*   Updated: 2023/02/21 18:10:28 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,11 @@ int	error_msg(char *str)
 
 int main(void)
 {
-    t_parser *lst;
-    char *line;
+    int         pipes;
+    t_cmd       *lst;
+    char        *line;
 
+    pipes = 0;
     /*
     Minishell loop {
         line = readline
@@ -41,14 +43,15 @@ int main(void)
         free()
     }
     */
-    line = readline("minishell>");
-    // printf("line = %s.", line);
-    if (parser(line, &lst))
-    {
-        printf("NUL\n");
-        return (1);
-    }
-    ft_printparse(lst);
-    free(line);
-    return (0);
+   while (1)
+   {
+        line = readline("minishell$>");
+        // printf("line = %s.", line);
+        if (parser(line, &lst, &pipes))
+            return (1);
+        ft_printparse(lst);
+        executor(&lst);
+        free(line);
+   }
+   return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 15:02:58 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/18 17:31:17 by achansar         ###   ########.fr       */
+/*   Updated: 2023/02/21 17:31:02 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ void    ft_printlist(t_lexlst *head_a)
 	printf("+-------+\n\n");
 }
 
-void    ft_printparse(t_parser *head)
+void    ft_printparse(t_cmd *head)
 {
 	int j;
 	int i = 0;
-	t_parser *current;
+	t_cmd *current;
 
 	current = head;
 	printf("+------------------------+\n");

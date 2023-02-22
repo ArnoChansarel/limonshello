@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:59:43 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/18 17:58:56 by achansar         ###   ########.fr       */
+/*   Updated: 2023/02/21 17:31:02 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,11 @@ int is_builtin(char *str)
     return (0);
 }
 
-int	elem_parser_init(t_parser **ele, int c)
+int	elem_parser_init(t_cmd **ele, int c)
 {
-	t_parser	*temp;
+	t_cmd	*temp;
 	
-	temp = malloc(sizeof(t_parser));
+	temp = malloc(sizeof(t_cmd));
 	if (!temp)
 		return (1);
 	temp->builtin = NULL;
@@ -106,7 +106,7 @@ int count_word_lex(t_lexlst  **lex)
 	return (c);
 }
 
-int add_rdrctn(t_parser *p, t_lexlst *lex)
+int add_rdrctn(t_cmd *p, t_lexlst *lex)
 {
     if (lex->word[0] == '<')
     {

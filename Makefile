@@ -6,12 +6,12 @@
 #    By: achansar <achansar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/06 14:37:56 by achansar          #+#    #+#              #
-#    Updated: 2023/02/20 17:36:36 by achansar         ###   ########.fr        #
+#    Updated: 2023/02/21 17:29:35 by achansar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #TARGET
-NAME = mnshl
+NAME = minishell
 
 #ARGUMENTS
 CC = gcc

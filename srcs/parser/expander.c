@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:24:39 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/21 15:57:08 by achansar         ###   ########.fr       */
+/*   Updated: 2023/02/21 17:35:25 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@
 //    return (rtr);
 // }
 
-// int lookfor_env(t_lexlst *lex, t_node **env)
+// int lookfor_env(t_lexlst *lex, t_env **env)
 // {
 //     int     i;
 //     int     size;
-//     t_node  *head;
+//     t_env  *head;
 
 //     i = 0;
 //     size = 0;
@@ -62,7 +62,7 @@
 //     //        => $?
 // }
 
-static int expand_quotes(t_lexlst *lex, t_node **env)
+static int expand_quotes(t_lexlst *lex, t_env **env)
 {
     int i;
     char *str;
@@ -84,7 +84,7 @@ static int expand_quotes(t_lexlst *lex, t_node **env)
     return (0);
 }
 
-int expander(t_lexlst **lex, t_node **env)
+int expander(t_lexlst **lex, t_env **env)
 {
     t_lexlst *head;
 

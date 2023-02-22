@@ -6,18 +6,18 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 12:55:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/21 16:56:01 by achansar         ###   ########.fr       */
+/*   Updated: 2023/02/21 17:31:02 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_parser    *get_parser_elem(t_lexlst **lex)
+t_cmd    *get_cmd_elem(t_lexlst **lex)
 {
 	int         c;
 	int         i;
 	t_lexlst    *head;
-	t_parser	*ele = NULL;
+	t_cmd	*ele = NULL;
 
 	i = 0;
 	c = count_word_lex(lex);
@@ -45,16 +45,16 @@ t_parser    *get_parser_elem(t_lexlst **lex)
 	return (ele);
 }
 
-int get_parser_list(t_lexlst **lex, t_parser **parser_lst, int p)
+int get_cmd_list(t_lexlst **lex, t_cmd **parser_lst, int p)
 {
 	int i;
-	t_parser    *temp;
+	t_cmd    *temp;
 
 	i = 0;
 	*parser_lst = NULL;
 	while (i <= p)
 	{
-		temp = get_parser_elem(lex);		
+		temp = get_cmd_elem(lex);		
 		if (!temp)
 		    return (1);//                            => return error
 		parserlst_addback(parser_lst, temp);
@@ -64,9 +64,8 @@ int get_parser_list(t_lexlst **lex, t_parser **parser_lst, int p)
 	return (0);
 }
 
-int parser(char *cmd_line, t_parser **lstp)
+int parser(char *cmd_line, t_cmd **lstp, int *pipes)
 {
-	int pipes;
 	t_lexlst *lexer_lst;
 
 	if(check_token(cmd_line))
@@ -76,8 +75,8 @@ int parser(char *cmd_line, t_parser **lstp)
 		return (1);
 	expander(&lexer_lst, NULL);
 	ft_printlist(lexer_lst);
-	pipes = count_pipes(lexer_lst);
-	get_parser_list(&lexer_lst, lstp, pipes);
+	*pipes = count_pipes(lexer_lst);
+	get_cmd_list(&lexer_lst, lstp, *pipes);
 	lexlst_clear(&lexer_lst);
 	return (0);
 }

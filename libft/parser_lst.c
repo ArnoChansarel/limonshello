@@ -6,13 +6,13 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:29:33 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/18 12:09:27 by achansar         ###   ########.fr       */
+/*   Updated: 2023/02/21 17:31:02 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	parserlst_size(t_parser *lst)
+int	parserlst_size(t_cmd *lst)
 {
 	int	i;
 
@@ -27,7 +27,7 @@ int	parserlst_size(t_parser *lst)
 	return (i);
 }
 
-t_parser	*parserlst_last(t_parser *lst, int stop)
+t_cmd	*parserlst_last(t_cmd *lst, int stop)
 {
 	int	s;
 	int	i;
@@ -44,9 +44,9 @@ t_parser	*parserlst_last(t_parser *lst, int stop)
 	return (lst);
 }
 
-void	parserlst_addback(t_parser **lst, t_parser *new)
+void	parserlst_addback(t_cmd **lst, t_cmd *new)
 {
-	t_parser	*last;
+	t_cmd	*last;
 
 	if (!lst || !new)
 		return ;
