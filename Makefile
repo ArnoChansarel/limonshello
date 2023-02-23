@@ -6,7 +6,7 @@
 #    By: achansar <achansar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/06 14:37:56 by achansar          #+#    #+#              #
-#    Updated: 2023/02/21 17:29:35 by achansar         ###   ########.fr        #
+#    Updated: 2023/02/23 14:58:57 by achansar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ READLINE = -lreadline
 
 # MAIN FILE
 MAIN_PATH = ./srcs/
-MAIN_SRC = 	main \
+MAIN_SRC = 	minishell \
 			display
 MAIN_CFILE = $(addprefix $(MAIN_PATH), $(MAIN_SRC:=.c))
 MAIN_OBJ = $(addprefix $(MAIN_PATH), $(MAIN_SRC:=.o))
@@ -39,7 +39,9 @@ P_OBJ = $(addprefix $(P_SRC_PATH), $(P_SRC:=.o))
 
 #EXECUTER FILES
 E_SRC_PATH = ./srcs/executor/
-#E_SRC =
+E_SRC = 	executor \
+			executor_utils \
+			command
 E_C_FILES = $(addprefix $(E_SRC_PATH), $(E_SRC:=.c))
 E_OBJ = $(addprefix $(E_SRC_PATH), $(E_SRC:=.o))
 
@@ -65,8 +67,8 @@ LBFT_OBJ = $(addprefix $(LBFT_PATH), $(LBFT:=.o))
 #RULES
 all: $(NAME)
 
-$(NAME): $(MAIN_OBJ) $(P_OBJ) $(LBFT_OBJ)
-	@ $(CC) $(FLAGS) $(READLINE) $(MAIN_OBJ) $(P_OBJ) $(LBFT_OBJ) -o $(NAME)
+$(NAME): $(MAIN_OBJ) $(P_OBJ) $(LBFT_OBJ) $(E_OBJ)
+	@ $(CC) $(FLAGS) $(READLINE) $(MAIN_OBJ) $(P_OBJ) $(LBFT_OBJ) $(E_OBJ) -o $(NAME)
 
 .c.o:
 	@ $(CC) $(FLAGS) -c $< -o $@

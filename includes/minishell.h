@@ -6,48 +6,14 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:28:41 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/22 16:54:21 by achansar         ###   ########.fr       */
+/*   Updated: 2023/02/23 13:40:15 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
-#include <stdlib.h>
-#include <stdio.h>
-#include <fcntl.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <unistd.h>
 #include "executor.h"
-
-typedef struct s_env {
-	int			export;
-	char		*key;
-	char		*value;
-	struct s_env *next;
-}	t_env;
-
-typedef struct s_token {
-	char	*pipe;
-	char	*r_in;
-	char	*r_out;
-	int		append;
-	char	*here_doc;
-}	t_token;
-
-typedef struct s_lexlst {
-	char			*word;
-	struct s_lexlst	*next;
-}	t_lexlst;
-
-typedef struct s_cmd {
-	char			**cmd;
-	int				(*builtin)(struct s_cmd *);
-	char			*rd_in;
-	char			*rd_out;
-	struct s_cmd 	*next;
-}	t_cmd;
+#include "structs.h"
 
 // PARSER FUNCTIONS
 t_lexlst 	*lexer(char *cmd_line);

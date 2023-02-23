@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:12:18 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/22 16:31:07 by achansar         ###   ########.fr       */
+/*   Updated: 2023/02/23 15:02:02 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // /!\ CHECK AWK /!
 // USE GETENV() !!
 
-static char	*check_cmd(t_pipex *pipex, char **cmd)
+static char	*check_cmd(t_process *process, char **cmd)
 {
 	int		i;
 	char	*cmd_path;
@@ -26,9 +26,9 @@ static char	*check_cmd(t_pipex *pipex, char **cmd)
 		return (cmd[0]);
 	else
 	{
-		while (pipex->cmd_paths[i])
+		while (process->cmd_paths[i])
 		{
-			join = ft_strjoin(pipex->cmd_paths[i], "/");
+			join = ft_strjoin(process->cmd_paths[i], "/");
 			if (!join)
 				return (NULL);
 			cmd_path = ft_strjoin(join, cmd[0]);
@@ -44,15 +44,15 @@ static char	*check_cmd(t_pipex *pipex, char **cmd)
 	return (NULL);
 }
 
-char	*get_cmd(t_pipex *pipex, char **cmd)
+char	*get_cmd(t_process *process, char **cmd)
 {
 	char	*cmd_rtr;
 
-	if (*cmd == '\0')//             => voir si utile
-		return (NULL);
+	// if (*cmd == '\0')//             => voir si utile
+	// 	return (NULL);
 	cmd_rtr = NULL;
-    pipex->env_path = getenv("PATH");
-	cmd_rtr = check_cmd(pipex, cmd);
+    process->env_path = getenv("PATH");
+	cmd_rtr = check_cmd(process, cmd);
 	if (!cmd_rtr)
 		return (NULL);
 	return (cmd_rtr);

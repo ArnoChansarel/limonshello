@@ -6,30 +6,22 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:00:50 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/22 17:29:33 by achansar         ###   ########.fr       */
+/*   Updated: 2023/02/23 15:01:34 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTOR_H
 # define EXECUTOR_H
-#include "minishell.h"
+#include "structs.h"
 
-typedef struct s_pipex {
-	pid_t	pid;
-	int		pipe[2];
-	char	*env_path;
-	char	**cmd_paths;
-	char	**command;
-	char	*cmd;
-	int		fd1;
-	int		fd2;
-    int     here_doc;
-}	t_pipex;
 
 // EXECUTOR FUNCTIONS
-int     executor(t_cmd **cmd_lst, int pipes);
+int		executor(t_process *process, t_cmd **cmd_lst, int pipes, char **env);
 
 // EXECUTOR UTILS
-char	*get_cmd(t_pipex *pipex, char **cmd);
+char	*get_cmd(t_process *process, char **cmd);
+int		open_infile(t_process *process, t_cmd *ele);
+int		open_outfile(t_process *process, t_cmd *ele);
+// int		get_here_doc(t_process *process, char *eof);
 
 #endif
