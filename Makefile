@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/02/28 13:45:07 by ade-bast          #+#    #+#              #
-#    Updated: 2023/02/28 13:45:42 by ade-bast         ###   ########.fr        #
+#    Created: 2023/02/06 14:37:56 by achansar          #+#    #+#              #
+#    Updated: 2023/02/28 14:36:12 by ade-bast         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,10 +55,12 @@ P_C_FILES = $(addprefix $(P_SRC_PATH), $(P_SRC:=.c))
 P_OBJ = $(addprefix $(P_SRC_PATH), $(P_SRC:=.o))
 
 #EXECUTER FILES
-# E_SRC_PATH = ./srcs/executor/
-# #E_SRC =
-# E_C_FILES = $(addprefix $(E_SRC_PATH), $(E_SRC:=.c))
-# E_OBJ = $(addprefix $(E_SRC_PATH), $(E_SRC:=.o))
+E_SRC_PATH = ./srcs/executor/
+E_SRC = 	executor \
+			executor_utils \
+			get_command
+E_C_FILES = $(addprefix $(E_SRC_PATH), $(E_SRC:=.c))
+E_OBJ = $(addprefix $(E_SRC_PATH), $(E_SRC:=.o))
 
 #LIBFT
 LBFT_PATH = ./libft/
@@ -86,14 +88,14 @@ LBFT_OBJ = $(addprefix $(LBFT_PATH), $(LBFT:=.o))
 #RULES
 all: $(NAME)
 
-$(NAME): $(MAIN_OBJ) $(P_OBJ) $(B_OBJ) $(LBFT_OBJ) 
-	@ $(CC) $(FLAGS) $(READLINE) $(MAIN_OBJ) $(P_OBJ) $(B_OBJ) $(LBFT_OBJ) -o $(NAME) -fsanitize=address -g
+$(NAME): $(MAIN_OBJ) $(P_OBJ) $(B_OBJ) $(LBFT_OBJ) $(E_OBJ)
+	@ $(CC) $(FLAGS) $(READLINE) $(MAIN_OBJ) $(P_OBJ) $(B_OBJ) $(E_OBJ) $(LBFT_OBJ) -o $(NAME) -fsanitize=address -g
 
 .c.o:
 	@ $(CC) $(FLAGS) -c $< -o $@ -fsanitize=address -g
 
 clean:
-	@rm -f $(MAIN_OBJ) $(P_OBJ) $(B_OBJ) $(LBFT_OBJ)
+	@rm -f $(MAIN_OBJ) $(P_OBJ) $(B_OBJ) $(E_OBJ) $(LBFT_OBJ)
 
 fclean: clean
 	@rm -f $(NAME)

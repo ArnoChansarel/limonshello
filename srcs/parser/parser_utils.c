@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
+/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:59:43 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/27 16:07:43 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/02/28 14:14:47 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int is_builtin(char *str)
 int	elem_parser_init(t_cmd **ele, int c)
 {
 	t_cmd	*temp;
-	
+
 	temp = malloc(sizeof(t_cmd));
 	if (!temp)
 		return (1);

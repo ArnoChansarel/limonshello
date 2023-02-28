@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
+/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:28:41 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/27 15:30:57 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/02/28 14:17:45 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+#include "executor.h"
+#include "structs.h"
 
 # ifndef PATH_MAX
 #  define PATH_MAX 1024
@@ -149,7 +151,7 @@ void	cd_go_to_directory(char *directory, char *pwd, t_cmd *cmd);
 void	cd_slash(t_cmd *cmd, char *pwd);
 t_env	*is_pwd_set(t_cmd *cmd);
 int		update_old_pwd(t_cmd *cmd, char *str);
-int		get_cmd(char *str);
+// int		get_cmd(char *str);
 void 	buitins_exec(int i, t_cmd *cmd);
 
 #endif

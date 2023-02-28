@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
+/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:50:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/27 18:37:11 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/02/28 14:18:07 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,24 @@ int	error_msg(char *str)
 	return (1);
 }
 
-int	main(int argc, char **argv, char **envp)
+int init_process(t_process *pro)
 {
-    int         pipes;
+    pro->cmd_paths = NULL;
+    pro->env_path = NULL;
+    pro->fd1 = -1;
+    pro->fd2 = -1;
+    pro->here_doc = 0;
+    pro->pid = -1;
+    return (0);
+}
+
+int main(int argc, char **argv, char **env)
+{
+    t_process     process;
     t_cmd       *lst;
     char        *line;
 	t_cmd		cmd;
-	char 		**temp_test;
+    int         pipes;
 
 	(void) argc;
 	(void) argv;
@@ -48,7 +59,7 @@ int	main(int argc, char **argv, char **envp)
     }
     */
    
-   build_env_list(envp, &cmd);
+   build_env_list(env, &cmd);
    while (1)
    {
         line = readline("minishell$>");
@@ -57,11 +68,10 @@ int	main(int argc, char **argv, char **envp)
         if (parser(line, &lst, &pipes))
             return (1);
         ft_printparse(lst);
+        // process = malloc(sizeof(t_process *)); pourquoi ne pas malloc ?
+        init_process(&process);
+        executor(&process, &lst, pipes, env);
         // executor(&lst);
-
-		temp_test = ft_split(line, ' ');
-		printf("------------------------%s\n",temp_test[0]);
-		buitins_exec(get_cmd(temp_test[0]), &cmd);
 		
         free(line);
    }

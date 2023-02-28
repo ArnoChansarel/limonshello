@@ -6,65 +6,68 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:53:00 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/22 17:32:23 by achansar         ###   ########.fr       */
+/*   Updated: 2023/02/28 12:43:14 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	get_here_doc(t_pipex *pipex, char *eof)
-{
-	char	*line;
+// int	get_here_doc(t_process *process, char *eof)
+// {
+// 	char	*line;
 
-    pipex->here_doc = 1;
-	pipex->fd1 = open("here_doc", O_CREAT | O_WRONLY | O_TRUNC, 0444);
-	if (pipex->fd1 < 0)
-		return (1);
-	line = get_next_line(0);
-	while (line)
+//     process->here_doc = 1;
+// 	process->fd1 = open("here_doc", O_CREAT | O_WRONLY | O_TRUNC, 0444);
+// 	if (process->fd1 < 0)
+// 		return (1);
+// 	line = get_next_line(0);
+// 	while (line)
+// 	{
+// 		write(process->fd1, line, ft_strlen(line));
+// 		if (line)
+// 			free(line);
+// 		line = get_next_line(0);
+// 		if (ft_strncmp(line, eof, ft_strlen(eof) + 1) == 0)
+// 			break ;
+// 	}
+// 	free(line);
+// 	close(process->fd1);
+// 	return (0);
+// }
+
+int open_outfile(t_process *process, t_cmd *ele)
+{
+	if (ft_strncmp(ele->rd_out, ">>", 2) == 0)
 	{
-		write(pipex->fd1, line, ft_strlen(line));
-		if (line)
-			free(line);
-		line = get_next_line(0);
-		if (ft_strncmp(line, eof, ft_strlen(eof)) == 0)
-			break ;
+		ele->rd_out += 2;
+        process->fd2 = open(ele->rd_out, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	}
-	free(line);
-	close(pipex->fd1);
-	return (0);
-}
-
-int open_outfile(t_pipex *pipex, int argc, char **argv, char **env)
-{
-	if (pipex->here_doc)
-		pipex->fd2 = open(argv[argc - 1], O_CREAT | O_WRONLY | O_APPEND, 0644);
 	else
-		pipex->fd2 = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (pipex->fd2 < 0)
-	{
-		perror(argv[argc - 1]);
-		return (1);
+    {
+		ele->rd_out++;
+		process->fd2 = open(ele->rd_out, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	}
-	if (pipex->args.here_doc == 1)
-		get_here_doc(pipex, argv);
-	pipex->fd1 = open(argv[1], O_RDONLY);
-	if (pipex->fd1 < 0)
+	if (process->fd2 < 0)
 	{
-		close (pipex->fd2);
-		perror(argv[1 + pipex->args.here_doc]);
+		perror(ele->rd_out);
 		return (1);
 	}
 	return (0);
 }
 
-int	open_infile(t_pipex *pipex, char **argv, char **env)
+int	open_infile(t_process *process, t_cmd *ele)
 {
-	pipex->fd1 = open(argv[1], O_RDONLY);
-	if (pipex->fd1 < 0)
+	if (process->here_doc)
+		process->fd1 = open("here_doc", O_CREAT, O_RDONLY);
+	else
 	{
-		close (pipex->fd2);
-		perror(argv[1 + pipex->here_doc]);
+		while (*ele->rd_in && *ele->rd_in == '<')
+			ele->rd_in++;
+		process->fd1 = open(ele->rd_in, O_RDONLY);
+	}
+	if (process->fd1 < 0)
+	{
+		perror(ele->rd_in);
 		return (1);
 	}
 	return (0);
