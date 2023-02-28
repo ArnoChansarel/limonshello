@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:50:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/21 18:10:28 by achansar         ###   ########.fr       */
+/*   Updated: 2023/02/27 18:37:11 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,16 @@ int	error_msg(char *str)
 	return (1);
 }
 
-int main(void)
+int	main(int argc, char **argv, char **envp)
 {
     int         pipes;
     t_cmd       *lst;
     char        *line;
+	t_cmd		cmd;
+	char 		**temp_test;
 
+	(void) argc;
+	(void) argv;
     pipes = 0;
     /*
     Minishell loop {
@@ -43,14 +47,22 @@ int main(void)
         free()
     }
     */
+   
+   build_env_list(envp, &cmd);
    while (1)
    {
         line = readline("minishell$>");
+		
         // printf("line = %s.", line);
         if (parser(line, &lst, &pipes))
             return (1);
         ft_printparse(lst);
-        executor(&lst);
+        // executor(&lst);
+
+		temp_test = ft_split(line, ' ');
+		printf("------------------------%s\n",temp_test[0]);
+		buitins_exec(get_cmd(temp_test[0]), &cmd);
+		
         free(line);
    }
    return (0);

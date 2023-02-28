@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:59:43 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/21 17:31:02 by achansar         ###   ########.fr       */
+/*   Updated: 2023/02/27 16:07:43 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	elem_parser_init(t_cmd **ele, int c)
 	temp->next = NULL;
 	temp->rd_in = NULL;
     temp->rd_out = NULL;
-	temp->cmd = malloc(sizeof(char *) * c + 1);
+	temp->cmd = malloc(sizeof(char *) * (c + 1));
 	if(!temp->cmd)
 	{
 		free(temp);
