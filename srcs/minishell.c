@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:50:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/26 17:17:11 by achansar         ###   ########.fr       */
+/*   Updated: 2023/02/28 14:01:20 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int main(int argc, char **argv, char **env)
     (void)argc;
     (void)argv;
     (void)env;
-    
+
     /*
     Minishell loop {
         line = readline
