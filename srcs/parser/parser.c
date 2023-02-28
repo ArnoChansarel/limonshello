@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 12:55:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/21 17:31:02 by achansar         ###   ########.fr       */
+/*   Updated: 2023/02/28 13:32:59 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ t_cmd    *get_cmd_elem(t_lexlst **lex)
 	if(elem_parser_init(&ele, c))
 		return (ele);
 	// if (is_builtin(head->word))
-	// 	ele->builtin = get_cmd(head->word);
+	// {
+		// buitin_exec(get_cmd(head->word));
+		// ele->builtin = get_cmd(head->word);
+	// }
 	while (head && ft_strncmp(head->word, "|", 2) != 0)
 	{
 		if (is_token(head->word))

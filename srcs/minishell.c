@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:50:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/28 14:01:20 by achansar         ###   ########.fr       */
+/*   Updated: 2023/02/28 14:18:07 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ int main(int argc, char **argv, char **env)
     t_process     process;
     t_cmd       *lst;
     char        *line;
-    int         pipes = 0;
+	t_cmd		cmd;
+    int         pipes;
 
-    (void)argc;
-    (void)argv;
-    (void)env;
-
+	(void) argc;
+	(void) argv;
+    pipes = 0;
     /*
     Minishell loop {
         line = readline
@@ -58,9 +58,12 @@ int main(int argc, char **argv, char **env)
         free()
     }
     */
+   
+   build_env_list(env, &cmd);
    while (1)
    {
         line = readline("minishell$>");
+		
         // printf("line = %s.", line);
         if (parser(line, &lst, &pipes))
             return (1);
@@ -68,6 +71,8 @@ int main(int argc, char **argv, char **env)
         // process = malloc(sizeof(t_process *)); pourquoi ne pas malloc ?
         init_process(&process);
         executor(&process, &lst, pipes, env);
+        // executor(&lst);
+		
         free(line);
    }
    return (0);
