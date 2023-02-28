@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:53:00 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/23 15:01:26 by achansar         ###   ########.fr       */
+/*   Updated: 2023/02/28 12:43:14 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,16 @@
 
 int open_outfile(t_process *process, t_cmd *ele)
 {
-    if (ft_strncmp(ele->rd_in, ">>", 2) == 0)
-        process->fd2 = open(ele->rd_out + 2, O_CREAT | O_WRONLY | O_APPEND, 0644);
-    else
-        process->fd2 = open(ele->rd_out + 1, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if (ft_strncmp(ele->rd_out, ">>", 2) == 0)
+	{
+		ele->rd_out += 2;
+        process->fd2 = open(ele->rd_out, O_CREAT | O_WRONLY | O_APPEND, 0644);
+	}
+	else
+    {
+		ele->rd_out++;
+		process->fd2 = open(ele->rd_out, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	}
 	if (process->fd2 < 0)
 	{
 		perror(ele->rd_out);
@@ -57,7 +63,7 @@ int	open_infile(t_process *process, t_cmd *ele)
 	{
 		while (*ele->rd_in && *ele->rd_in == '<')
 			ele->rd_in++;
-		process->fd1 = open(ele->rd_in, O_CREAT, O_RDONLY);
+		process->fd1 = open(ele->rd_in, O_RDONLY);
 	}
 	if (process->fd1 < 0)
 	{

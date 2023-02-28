@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:59:43 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/21 17:31:02 by achansar         ###   ########.fr       */
+/*   Updated: 2023/02/28 12:31:38 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int is_builtin(char *str)
 int	elem_parser_init(t_cmd **ele, int c)
 {
 	t_cmd	*temp;
-	
+
 	temp = malloc(sizeof(t_cmd));
 	if (!temp)
 		return (1);
@@ -74,7 +74,7 @@ int	elem_parser_init(t_cmd **ele, int c)
 	temp->next = NULL;
 	temp->rd_in = NULL;
     temp->rd_out = NULL;
-	temp->cmd = malloc(sizeof(char *) * c + 1);
+	temp->cmd = malloc(sizeof(char *) * (c + 1));
 	if(!temp->cmd)
 	{
 		free(temp);

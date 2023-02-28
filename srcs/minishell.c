@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:50:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/23 14:57:25 by achansar         ###   ########.fr       */
+/*   Updated: 2023/02/26 17:17:11 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int init_process(t_process *pro)
 {
     pro->cmd_paths = NULL;
     pro->env_path = NULL;
-    pro->fd1 = 0;
-    pro->fd2 = 0;
+    pro->fd1 = -1;
+    pro->fd2 = -1;
     pro->here_doc = 0;
     pro->pid = -1;
     return (0);
@@ -41,15 +41,15 @@ int init_process(t_process *pro)
 
 int main(int argc, char **argv, char **env)
 {
-    t_process     *process;
+    t_process     process;
     t_cmd       *lst;
     char        *line;
     int         pipes = 0;
 
     (void)argc;
     (void)argv;
-    process = malloc(sizeof(t_process *));
-    init_process(process);
+    (void)env;
+    
     /*
     Minishell loop {
         line = readline
@@ -65,7 +65,9 @@ int main(int argc, char **argv, char **env)
         if (parser(line, &lst, &pipes))
             return (1);
         ft_printparse(lst);
-        executor(process, &lst, pipes, env);
+        // process = malloc(sizeof(t_process *)); pourquoi ne pas malloc ?
+        init_process(&process);
+        executor(&process, &lst, pipes, env);
         free(line);
    }
    return (0);

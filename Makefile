@@ -6,7 +6,7 @@
 #    By: achansar <achansar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/06 14:37:56 by achansar          #+#    #+#              #
-#    Updated: 2023/02/23 14:58:57 by achansar         ###   ########.fr        #
+#    Updated: 2023/02/26 18:11:04 by achansar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ P_OBJ = $(addprefix $(P_SRC_PATH), $(P_SRC:=.o))
 E_SRC_PATH = ./srcs/executor/
 E_SRC = 	executor \
 			executor_utils \
-			command
+			get_command
 E_C_FILES = $(addprefix $(E_SRC_PATH), $(E_SRC:=.c))
 E_OBJ = $(addprefix $(E_SRC_PATH), $(E_SRC:=.o))
 
@@ -74,7 +74,7 @@ $(NAME): $(MAIN_OBJ) $(P_OBJ) $(LBFT_OBJ) $(E_OBJ)
 	@ $(CC) $(FLAGS) -c $< -o $@
 
 clean:
-	@rm -f $(MAIN_OBJ) $(P_OBJ) $(LBFT_OBJ)
+	@rm -f $(MAIN_OBJ) $(P_OBJ) $(LBFT_OBJ) $(E_OBJ)
 
 fclean: clean
 	@rm -f $(NAME)
