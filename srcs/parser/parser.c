@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
+/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 12:55:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/28 13:32:59 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/02/28 18:09:29 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_cmd    *get_cmd_elem(t_lexlst **lex)
+t_cmd    *get_cmd_elem(t_lexlst **lex, t_env *env)
 {
 	int         c;
 	int         i;
@@ -24,6 +24,7 @@ t_cmd    *get_cmd_elem(t_lexlst **lex)
 	head = *lex;
 	if(elem_parser_init(&ele, c))
 		return (ele);
+	ele->head = env;
 	// if (is_builtin(head->word))
 	// {
 		// buitin_exec(get_cmd(head->word));
@@ -48,7 +49,7 @@ t_cmd    *get_cmd_elem(t_lexlst **lex)
 	return (ele);
 }
 
-int get_cmd_list(t_lexlst **lex, t_cmd **parser_lst, int p)
+int get_cmd_list(t_lexlst **lex, t_cmd **parser_lst, int p, t_env *env)
 {
 	int i;
 	t_cmd    *temp;
@@ -57,7 +58,7 @@ int get_cmd_list(t_lexlst **lex, t_cmd **parser_lst, int p)
 	*parser_lst = NULL;
 	while (i <= p)
 	{
-		temp = get_cmd_elem(lex);		
+		temp = get_cmd_elem(lex, env);		
 		if (!temp)
 		    return (1);//                            => return error
 		parserlst_addback(parser_lst, temp);
@@ -67,7 +68,7 @@ int get_cmd_list(t_lexlst **lex, t_cmd **parser_lst, int p)
 	return (0);
 }
 
-int parser(char *cmd_line, t_cmd **lstp, int *pipes)
+int parser(char *cmd_line, t_cmd **lstp, int *pipes, t_env *env)
 {
 	t_lexlst *lexer_lst;
 
@@ -76,10 +77,9 @@ int parser(char *cmd_line, t_cmd **lstp, int *pipes)
 	lexer_lst = lexer(cmd_line);
 	if (!lexer_lst)
 		return (1);
-	expander(&lexer_lst, NULL);
 	ft_printlist(lexer_lst);
 	*pipes = count_pipes(lexer_lst);
-	get_cmd_list(&lexer_lst, lstp, *pipes);
+	get_cmd_list(&lexer_lst, lstp, *pipes, env);
 	lexlst_clear(&lexer_lst);
 	return (0);
 }

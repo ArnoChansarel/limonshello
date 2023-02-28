@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 13:38:30 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/28 13:35:15 by achansar         ###   ########.fr       */
+/*   Updated: 2023/02/28 14:44:58 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,16 @@
 #include <readline/history.h>
 #include <unistd.h>
 
+enum {
+	ECHO,
+	CD,
+	PWD,
+	EXPORT,
+	UNSET,
+	ENV,
+	EXIT
+};
+
 typedef struct s_process {
 	pid_t	pid;
 	int		pipe[2];
@@ -30,7 +40,7 @@ typedef struct s_process {
 }	t_process;
 
 typedef struct s_env {
-	int			exp;
+	int			export;
 	char		*key;
 	char		*value;
 	struct s_env *next;
@@ -48,6 +58,7 @@ typedef struct s_cmd {
 	char			*rd_out;
 	t_env			*head;
 	struct s_cmd 	*next;
+	int				exit_status;
 }	t_cmd;
 
 #endif

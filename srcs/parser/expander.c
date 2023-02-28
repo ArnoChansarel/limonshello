@@ -6,13 +6,13 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:24:39 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/21 17:35:25 by achansar         ###   ########.fr       */
+/*   Updated: 2023/02/28 16:03:07 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// char    *replace_env(char *str, char *env, int size)//       => getenv("VARIABLE") !!!
+// char    *replace_var(char *str, char *env, int size)//       => getenv("VARIABLE") !!!
 // {
 //    char *rtr;
 //    int i;
@@ -33,34 +33,39 @@
 //    return (rtr);
 // }
 
-// int lookfor_env(t_lexlst *lex, t_env **env)
-// {
-//     int     i;
-//     int     size;
-//     t_env  *head;
+int lookfor_var(t_lexlst *lex, t_env **env)
+{
+    int     i;
+    int     size;
+    t_env  *head;
 
-//     i = 0;
-//     size = 0;
-//     head = *env;
-//     while(lex->word[i])
-//     {
-//         if(lex->word[i] == '$')
-//         {
-//             while (head)
-//             {
-//                 size = ft_strlen(head->key);
-//                 if(ft_strncmp(lex->word[i + 1], head->key, size) != 0)
-//                 {
-//                     lex->word = replace_env(lex->word, head->value, size);
-//                     break ;
-//                 }
-//                 head = head->next;
-//             }
-//         }
-//         i++;
-//     }
-//     //        => $?
-// }
+    i = 0;
+    size = 0;
+    head = *env;
+    printf("HERE1\n");
+    while(lex->word[i])
+    {
+        if(lex->word[i] == '$')
+        {
+            printf("HERE1bis\n");
+            while (head)
+            {
+                printf("HERE2\n");
+                size = ft_strlen(head->key);
+                if(ft_strncmp(&lex->word[i + 1], head->key, size) != 0)
+                {
+                    // lex->word = replace_var(lex->word, head->value, size);
+                    printf("HERE3\n");
+                    break ;
+                }
+                head = head->next;
+            }
+        }
+        i++;
+    }
+    //        => $?
+    return (0);
+}
 
 static int expand_quotes(t_lexlst *lex, t_env **env)
 {
@@ -73,7 +78,7 @@ static int expand_quotes(t_lexlst *lex, t_env **env)
     len = ft_strlen(lex->word);
     str = malloc(sizeof(char *) * len - 2);
     // if (lex->word[0] == '\"')
-    //     lookfor_env(lex);
+    //     lookfor_var(lex);
     while (i <= len - 3)
     {
         str[i] = lex->word[i + 1];
@@ -93,9 +98,10 @@ int expander(t_lexlst **lex, t_env **env)
     {
         if (head->word[0] == '\'' || head->word[0] == '\"')
             expand_quotes(head, env);
-        // else
-        //     lookfor_env(head);
+        else
+            lookfor_var(head, env);
         head = head->next;
     }
     return (0);
 }
+

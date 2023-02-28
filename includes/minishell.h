@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:28:41 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/28 14:17:45 by achansar         ###   ########.fr       */
+/*   Updated: 2023/02/28 17:13:47 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,49 +30,9 @@
 # include <string.h>
 #include "executor.h"
 
-enum {
-	ECHO,
-	CD,
-	PWD,
-	EXPORT,
-	UNSET,
-	ENV,
-	EXIT
-};
-
-typedef struct s_env {
-	int			export;
-	char		*key;
-	char		*value;
-	struct s_env *next;
-}	t_env;
-
-typedef struct s_token {
-	char	*pipe;
-	char	*r_in;
-	char	*r_out;
-	int		append;
-	char	*here_doc;
-}	t_token;
-
-typedef struct s_lexlst {
-	char			*word;
-	struct s_lexlst	*next;
-}	t_lexlst;
-
-typedef struct s_cmd {
-	char			**cmd;
-	int				(*builtin)(struct s_cmd *);
-	char			*rd_in;
-	char			*rd_out;
-	t_env			*head;
-	struct s_cmd 	*next;
-	int				exit_status;
-}	t_cmd;
-
 // PARSER FUNCTIONS
 t_lexlst 	*lexer(char *cmd_line);
-int			parser(char *cmd_line, t_cmd **lstp, int *pipes);
+int			parser(char *cmd_line, t_cmd **lstp, int *pipes, t_env *env);
 int			expander(t_lexlst **lex, t_env **env);
 
 // PARSER UTILS
@@ -116,9 +76,9 @@ void		lexlst_clear(t_lexlst **lst);
 
 //LST PARSER FUNCTIONS
 int			parserlst_size(t_cmd *lst);
-t_cmd	*parserlst_last(t_cmd *lst, int stop);
+t_cmd		*parserlst_last(t_cmd *lst, int stop);
 void		parserlst_addback(t_cmd **lst, t_cmd *new);
-t_cmd	*parser_new(char **cmd, int (*builtin)(struct s_cmd *),
+t_cmd		*parser_new(char **cmd, int (*builtin)(struct s_cmd *),
 			t_lexlst *rdrctn);
 
 // DISPLAY
@@ -139,7 +99,7 @@ int	ft_unset(t_cmd *cmd);
 // BUILTINS LINKED LIST
 void	delete_node(t_env *head);
 void	push(t_env *head, int export, char *key, char *value);
-void	build_env_list(char **envp, t_cmd *cmd);
+t_env	*build_env_list(char **envp);
 char	*list_return_value_from_key(t_cmd *cmd, char *str1);
 void	printlist(t_cmd *cmd);
 

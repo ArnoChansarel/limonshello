@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:50:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/28 14:18:07 by achansar         ###   ########.fr       */
+/*   Updated: 2023/02/28 18:11:09 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,41 +39,34 @@ int init_process(t_process *pro)
     return (0);
 }
 
-int main(int argc, char **argv, char **env)
+int main(int argc, char **argv, char **envp)
 {
     t_process     process;
     t_cmd       *lst;
     char        *line;
-	t_cmd		cmd;
     int         pipes;
+    t_env       *env;
 
 	(void) argc;
 	(void) argv;
     pipes = 0;
-    /*
-    Minishell loop {
-        line = readline
-        parser()
-        executor()
-        free()
-    }
-    */
-   
-   build_env_list(env, &cmd);
-   while (1)
-   {
+
+    env = build_env_list(envp);// free apres protection
+    if (!env)
+        return (1);
+    while (1)
+    {
         line = readline("minishell$>");
 		
         // printf("line = %s.", line);
-        if (parser(line, &lst, &pipes))
+        if (parser(line, &lst, &pipes, env))
             return (1);
         ft_printparse(lst);
         // process = malloc(sizeof(t_process *)); pourquoi ne pas malloc ?
         init_process(&process);
-        executor(&process, &lst, pipes, env);
-        // executor(&lst);
+        // executor(&process, &lst, pipes, env);
 		
         free(line);
-   }
-   return (0);
+    }
+    return (0);
 }
