@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:50:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/28 18:11:09 by achansar         ###   ########.fr       */
+/*   Updated: 2023/03/01 16:34:02 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ probleme 1  : syntax error near unexpected token `|'
 probleme 2	: check double pipe ou faux chevrons des le debut
 probleme 3  : si builtin, checker arguments suivant (unset vide, pwd + arg doit renvoyer erreur...)
               a checker juste apres la lexlist
-probleme 4  : 
+probleme 4  : expander : si $? comment on fait
 */
 
 int	error_msg(char *str)
@@ -58,14 +58,16 @@ int main(int argc, char **argv, char **envp)
     {
         line = readline("minishell$>");
 		
-        // printf("line = %s.", line);
-        if (parser(line, &lst, &pipes, env))
-            return (1);
-        ft_printparse(lst);
-        // process = malloc(sizeof(t_process *)); pourquoi ne pas malloc ?
-        init_process(&process);
-        // executor(&process, &lst, pipes, env);
-		
+        if (*line)
+        {
+            // printf("line = %s.", line);
+            if (parser(line, &lst, &pipes, env))
+                return (1);
+            ft_printparse(lst);
+            // process = malloc(sizeof(t_process *)); pourquoi ne pas malloc ?
+            init_process(&process);
+            // executor(&process, &lst, pipes, env);
+        }
         free(line);
     }
     return (0);
