@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 13:38:30 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/28 14:44:58 by achansar         ###   ########.fr       */
+/*   Updated: 2023/03/01 17:28:52 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,6 @@ enum {
 	EXIT
 };
 
-typedef struct s_process {
-	pid_t	pid;
-	int		pipe[2];
-	char	*env_path;
-	char	**cmd_paths;
-	int		fd1;
-	int		fd2;
-    int     here_doc;
-}	t_process;
-
 typedef struct s_env {
 	int			export;
 	char		*key;
@@ -60,5 +50,15 @@ typedef struct s_cmd {
 	struct s_cmd 	*next;
 	int				exit_status;
 }	t_cmd;
+
+typedef struct s_process {
+	pid_t	pid;
+	int		pipe[2];
+	char	*env_path;
+	char	**cmd_paths;
+	int		fd1;
+	int		fd2;
+    int     here_doc;
+}	t_process;
 
 #endif

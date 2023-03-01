@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:50:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/01 16:34:02 by achansar         ###   ########.fr       */
+/*   Updated: 2023/03/01 17:25:16 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int main(int argc, char **argv, char **envp)
             ft_printparse(lst);
             // process = malloc(sizeof(t_process *)); pourquoi ne pas malloc ?
             init_process(&process);
-            // executor(&process, &lst, pipes, env);
+            executor(&process, &lst, pipes, envp);
         }
         free(line);
     }
