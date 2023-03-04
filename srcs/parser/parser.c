@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 12:55:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/01 16:15:33 by achansar         ###   ########.fr       */
+/*   Updated: 2023/03/04 12:01:29 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,12 @@ t_cmd    *get_cmd_elem(t_lexlst **lex, t_env *env)
 	if(elem_parser_init(&ele, c))
 		return (ele);
 	ele->head = env;
-	// if (is_builtin(head->word))
-	// {
-		// buitin_exec(get_cmd(head->word));
-		// ele->builtin = get_cmd(head->word);
-	// }
+	if (is_builtin(head->word))
+	{
+		get_builtin_function(head->word, ele->builtin);
+		if (*ele->builtin == NULL)
+			printf("OUI2\n");
+	}
 	while (head && ft_strncmp(head->word, "|", 2) != 0)
 	{
 		if (is_token(head->word))
@@ -77,7 +78,7 @@ int parser(char *cmd_line, t_cmd **lstp, int *pipes, t_env *env)
 	lexer_lst = lexer(cmd_line);
 	if (!lexer_lst)
 		return (1);
-	// ft_printlist(lexer_lst);
+	ft_printlist(lexer_lst);
 	expander(&lexer_lst, &env);
 	*pipes = count_pipes(lexer_lst);
 	get_cmd_list(&lexer_lst, lstp, *pipes, env);

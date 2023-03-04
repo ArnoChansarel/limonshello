@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:49:11 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/21 16:34:31 by achansar         ###   ########.fr       */
+/*   Updated: 2023/03/04 11:03:13 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,15 @@ t_lexlst	*ft_split_lexer(char *cmd_line, t_lexlst *lexer_lst)
 				break ;
 			i++;
 		}
-		old_i = i;
-		i = get_new_i(i, cmd_line);
-		buff = ft_substr(cmd_line, old_i, i - old_i);
-		if (!buff)
-			lexlst_clear(&lexer_lst);//                    => doit return error
-		ft_lstadd_back(&lexer_lst, lexlst_new(buff));
+		if (cmd_line[i])
+		{
+			old_i = i;
+			i = get_new_i(i, cmd_line);
+			buff = ft_substr(cmd_line, old_i, i - old_i);
+			if (!*buff)
+				lexlst_clear(&lexer_lst);//                    => doit return error
+			ft_lstadd_back(&lexer_lst, lexlst_new(buff));
+		}
 	}
 	return (lexer_lst);
 }

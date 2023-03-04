@@ -6,7 +6,7 @@
 #    By: achansar <achansar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/06 14:37:56 by achansar          #+#    #+#              #
-#    Updated: 2023/02/28 15:56:15 by achansar         ###   ########.fr        #
+#    Updated: 2023/03/04 11:27:04 by achansar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ B_SRC = builtins_linked_list \
 		ft_env \
 		ft_exit \
 		ft_export \
-		ft_unset 
+		ft_unset
 B_C_FILES = $(addprefix $(B_SRC_PATH), $(B_SRC:=.c))
 B_OBJ = $(addprefix $(B_SRC_PATH), $(B_SRC:=.o))
 
@@ -49,7 +49,8 @@ P_SRC = 	lexer \
 			parser \
 			parser_utils \
 			expander \
-			expander_utils
+			expander_utils \
+			get_builtin
 P_C_FILES = $(addprefix $(P_SRC_PATH), $(P_SRC:=.c))
 P_OBJ = $(addprefix $(P_SRC_PATH), $(P_SRC:=.o))
 

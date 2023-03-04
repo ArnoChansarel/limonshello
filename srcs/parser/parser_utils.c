@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:59:43 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/28 14:14:47 by achansar         ###   ########.fr       */
+/*   Updated: 2023/03/04 11:12:12 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,25 +41,6 @@ void    goto_next(t_lexlst **lex)
         }
         head = head->next;
     }
-}
-
-int is_builtin(char *str)
-{
-    if (ft_strncmp(str, "echo", ft_strlen(str) + 1) == 0)
-        return (1);
-    else if (ft_strncmp(str, "cd", ft_strlen(str) + 1) == 0)
-        return (1);
-    else if (ft_strncmp(str, "pwd", ft_strlen(str) + 1) == 0)
-        return (1);
-    else if (ft_strncmp(str, "export", ft_strlen(str) + 1) == 0)
-        return (1);
-    else if (ft_strncmp(str, "unset", ft_strlen(str) + 1) == 0)
-        return (1);
-    else if (ft_strncmp(str, "env", ft_strlen(str) + 1) == 0)
-        return (1);
-    else if (ft_strncmp(str, "exit", ft_strlen(str) + 1) == 0)
-        return (1);
-    return (0);
 }
 
 int	elem_parser_init(t_cmd **ele, int c)
