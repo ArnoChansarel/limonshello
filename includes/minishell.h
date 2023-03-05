@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arnalove <arnalove@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:28:41 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/04 11:23:57 by achansar         ###   ########.fr       */
+/*   Updated: 2023/03/05 19:13:14 by arnalove         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,6 @@ int		update_old_pwd(t_cmd *cmd, char *str);
 // int		get_cmd(char *str);
 void 	buitins_exec(int i, t_cmd *cmd);
 int 		is_builtin(char *str);
-void    	get_builtin_function(char *str, int (*builtin)(struct s_cmd *));
+void    	get_builtin_function(char *str, int (**builtin)(struct s_cmd *));
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arnalove <arnalove@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 12:55:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/04 12:01:29 by achansar         ###   ########.fr       */
+/*   Updated: 2023/03/05 19:15:49 by arnalove         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,7 @@ t_cmd    *get_cmd_elem(t_lexlst **lex, t_env *env)
 		return (ele);
 	ele->head = env;
 	if (is_builtin(head->word))
-	{
-		get_builtin_function(head->word, ele->builtin);
-		if (*ele->builtin == NULL)
-			printf("OUI2\n");
-	}
+		get_builtin_function(head->word, &ele->builtin);
 	while (head && ft_strncmp(head->word, "|", 2) != 0)
 	{
 		if (is_token(head->word))
