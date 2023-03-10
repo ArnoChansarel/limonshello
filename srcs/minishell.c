@@ -3,22 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arnalove <arnalove@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:50:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/01 17:25:16 by achansar         ###   ########.fr       */
+/*   Updated: 2023/03/07 16:10:53 by arnalove         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 /*
-probleme 1  : syntax error near unexpected token `|'
-                quand token mal place
-probleme 2	: check double pipe ou faux chevrons des le debut
+probleme 1  : here_doc
+probleme 2	: 
 probleme 3  : si builtin, checker arguments suivant (unset vide, pwd + arg doit renvoyer erreur...)
               a checker juste apres la lexlist
 probleme 4  : expander : si $? comment on fait
+probleme 5  : AWK
+probleme 6  : encore probleme d'espace.. (echo hello' '> outfile)
 */
 
 int	error_msg(char *str)

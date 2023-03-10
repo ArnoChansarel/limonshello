@@ -6,7 +6,7 @@
 /*   By: arnalove <arnalove@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 13:38:30 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/05 18:16:01 by arnalove         ###   ########.fr       */
+/*   Updated: 2023/03/10 10:31:57 by arnalove         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ typedef struct s_cmd {
 
 typedef struct s_process {
 	pid_t	pid;
-	int		pipe[2];
+	int		*pipes_array;
 	char	*env_path;
 	char	**cmd_paths;
 	int		fd1;
