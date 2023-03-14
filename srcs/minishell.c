@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arnalove <arnalove@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:50:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/07 16:10:53 by arnalove         ###   ########.fr       */
+/*   Updated: 2023/03/13 11:09:23 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int init_process(t_process *pro)
 {
     pro->cmd_paths = NULL;
     pro->env_path = NULL;
+    pro->pipes_array = NULL;
     pro->fd1 = -1;
     pro->fd2 = -1;
     pro->here_doc = 0;

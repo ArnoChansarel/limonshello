@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:53:00 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/01 17:23:59 by achansar         ###   ########.fr       */
+/*   Updated: 2023/03/14 14:30:12 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,37 @@ int	open_infile(t_process *process, t_cmd *ele)
 		perror(ele->rd_in);
 		return (1);
 	}
+	return (0);
+}
+
+int	create_pipes(t_process *process, int pipes)
+{
+	int	i;
+
+	i = 0;
+	process->pipes_array = malloc((pipes * 2 + 1) * sizeof(int *));
+	if (!process->pipes_array)
+		exit(EXIT_FAILURE);
+	while (pipes)
+	{
+		pipe(process->pipes_array + i);
+		i += 2;
+		pipes--;
+	}
+	process->pipes_array[i] = -1;
+	return (0);
+}
+
+int	close_pipes(int *array)
+{
+	int i = 0;
+	while (array[i] != -1)
+	{
+		close(array[i++]);
+	}
+	i = 0;
+	while (array[i] != -1)
+		printf("%d ", array[i++]);
+	printf("\n");
 	return (0);
 }

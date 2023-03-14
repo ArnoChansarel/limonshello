@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arnalove <arnalove@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:25:59 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/10 10:55:47 by arnalove         ###   ########.fr       */
+/*   Updated: 2023/03/14 14:34:27 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int open_redirections(t_process *process, t_cmd *ele)// Implique de remettre fd a 0 apres les avoir ferme
+int open_redirections(t_process *process, t_cmd *ele)
 {
 	if (ele->rd_in)
 	{
@@ -30,64 +30,35 @@ int open_redirections(t_process *process, t_cmd *ele)// Implique de remettre fd 
 				close(process->fd1);
 			return (1);//                             exit ?
 		}
-		// close pipe ?
 	}
 	printf("fd1 = %d | fd2 = %d\n", process->fd1, process->fd2);
 	return (0);
 }
 
-int	child(t_process *process, t_cmd *ele, char **env, int p_index)
+int	child(t_process *process, t_cmd *ele, char **env, int pi)
 {
-	char	*cmd;//                       check before if cmd IN ?
-
-	(void)p_index;
 	if (ele->rd_in || ele->rd_out)
 		open_redirections(process, ele);
-	if (process->fd1 >= 0)
-		dup2(process->fd1, STDIN_FILENO);
-	if (process->fd2 >= 0)
-		dup2(process->fd2, STDOUT_FILENO);
-		// close(process->pipe[0]);
-		// dup2(process->fd1, STDIN_FILENO);
-		// close(process->fd1);
 
-		// dup2(process->pipe[1], STDOUT_FILENO);
-		// close(process->pipe[1]);
-	
-	
-	if (*ele->builtin != NULL)
+	if (process->pipes_array)
 	{
-		ele->builtin(ele);
-		exit(EXIT_SUCCESS);
+		if (pi == 0)
+			first_process(process, pi);
+		else if (process->pipes_array[pi] < 0)
+			last_process(process, pi);
+		else
+			next_process(process, pi);
 	}
 	else
 	{
-		cmd = get_cmd(process, ele->cmd);
-		if (!cmd)
-		{
-			// cmd_not_found(process, ele->cmd[0]);
-			exit(127);
-		}
-		if (execve(cmd, ele->cmd, env) == -1)
-			perror("execve ");
+		if (process->fd1 >= 0)
+			dup2(process->fd1, STDIN_FILENO);
+		if (process->fd2 >= 0)
+			dup2(process->fd2, STDOUT_FILENO);
 	}
-	return (0);
-}
-
-int	create_pipes(t_process *process, int pipes)
-{
-	int	i;
-
-	i = 0;
-	process->pipes_array = malloc((pipes * 2) * sizeof(int *));
-	if (!process->pipes_array)
-		exit(EXIT_FAILURE);
-	while (pipes)
-	{
-		pipe(process->pipes_array + i);
-		i += 2;
-		pipes--;
-	}
+	if (process->pipes_array)
+		close_pipes(process->pipes_array);
+	execute_process(ele, process, env);
 	return (0);
 }
 
@@ -96,20 +67,29 @@ int executor(t_process *process, t_cmd **cmd_lst, int pipes, char **env)
 	int i;
 	int j = 0;
 	int	fork_id;
-//                          Pipes va devenir le nb MAX de processus. Peut etre renommer 
-//                          pour etre plus lisible.
+	t_cmd	*head;
+
 	i = 0;
+	head = *cmd_lst;
 	if (pipes)
 		create_pipes(process, pipes);
-	while (i <= pipes)
+	while (i++ <= pipes)
 	{
 		fork_id = fork();
 		if (fork_id < 0)
 			exit(EXIT_FAILURE);
 		if (!fork_id)
-			child(process, *cmd_lst, env, j);
-		i++;
+			child(process, head, env, j);
+		// close(process->pipes_array[j + 1]);
+		if (j > 0)
+			close(process->pipes_array[j - 2]);
 		j += 2;
+		head = head->next;
+	}
+	if (process->pipes_array)
+	{
+		close_pipes(process->pipes_array);
+		free(process->pipes_array);
 	}
 	i = 0;
 	while (i <= pipes)
@@ -121,8 +101,3 @@ int executor(t_process *process, t_cmd **cmd_lst, int pipes, char **env)
 	// mais fichiers ouverts dans fils, il faut pas les fermer alors ?
 	return (0);
 }
-
-/*
-Probleme avec cat > outfile 
-     :(
-*/
