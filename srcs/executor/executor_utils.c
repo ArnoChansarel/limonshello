@@ -6,23 +6,20 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:53:00 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/15 11:51:16 by achansar         ###   ########.fr       */
+/*   Updated: 2023/03/15 12:46:28 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	get_here_doc(t_process *process, char *eof)
+static int	get_here_doc(t_process *process, char *eof, int index)
 {
 	char	*line;
+	char	*name;
 
-	// printf("APPEL HEREDOC\n");
+	name = ft_strjoin("here_doc", ft_itoa(index));
     process->here_doc = 1;
-	if (process->fd1 < 0)
-		process->fd1 = open("here_doc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	else
-		process->fd1 = open("here_doc", O_WRONLY | O_APPEND);
-	// printf("fd here_doc = %d\n", process->fd1);
+	process->fd1 = open(name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (process->fd1 < 0)
 		return (1);
 	line = get_next_line(0);
@@ -36,6 +33,7 @@ static int	get_here_doc(t_process *process, char *eof)
 			break ;
 	}
 	free(line);
+	free(name);
 	close(process->fd1);
 	return (0);
 }
@@ -48,7 +46,7 @@ int	create_here_doc(t_process *process, t_cmd **cmd_lst)
 	while (head)
 	{
 		if (ft_strncmp(head->rd_in, "<<", 2) == 0)
-	    	get_here_doc(process, head->rd_in + 2);
+	    	get_here_doc(process, head->rd_in + 2, head->index);
 		head = head->next;
 	}
 	return (0);
@@ -76,8 +74,15 @@ int open_outfile(t_process *process, t_cmd *ele)
 
 int	open_infile(t_process *process, t_cmd *ele)
 {
+	char	*name;
+
+	name = NULL;
 	if (process->here_doc)
-		process->fd1 = open("here_doc", O_CREAT, O_RDONLY);
+	{
+		name = ft_strjoin("here_doc", ft_itoa(ele->index));
+		process->fd1 = open(name, O_CREAT, O_RDONLY);
+		free(name);
+	}
 	else
 	{
 		while (*ele->rd_in && *ele->rd_in == '<')

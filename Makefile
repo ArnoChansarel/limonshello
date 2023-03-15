@@ -6,7 +6,7 @@
 #    By: achansar <achansar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/06 14:37:56 by achansar          #+#    #+#              #
-#    Updated: 2023/03/14 17:37:47 by achansar         ###   ########.fr        #
+#    Updated: 2023/03/15 12:36:01 by achansar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,7 +89,8 @@ LBFT = 	ft_split \
 		ft_putstr_fd \
 		ft_isalpha \
 		ft_strchr \
-		ft_atoi
+		ft_atoi \
+		ft_itoa
 LBFT_FILES = $(addprefix $(LBFT_PATH), $(LBFT:=.c))
 LBFT_OBJ = $(addprefix $(LBFT_PATH), $(LBFT:=.o))
 

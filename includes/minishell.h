@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:28:41 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/14 17:50:05 by achansar         ###   ########.fr       */
+/*   Updated: 2023/03/15 12:35:43 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int			expander(t_lexlst **lex, t_env **env);
 int 		count_pipes(t_lexlst *lex);
 void    	goto_next(t_lexlst **lex);
 int			is_builtin(char *str);
-int			elem_parser_init(t_cmd **ele, int c);
+int			elem_parser_init(t_cmd **ele, int c, int index);
 int 		count_word_lex(t_lexlst  **lex);
 int			add_rdrctn(t_cmd *p, t_lexlst *lex);
 
@@ -66,6 +66,7 @@ void		ft_putstr_fd(char *str, int fd);
 void		ft_putchar_fd(char c, int fd);
 char		*ft_strchr(const char *s, int c);
 int			ft_isalpha(int c);
+char		*ft_itoa(int n);
 
 //LST LEX FUNCTIONS
 t_lexlst	*lexlst_new(void *content);

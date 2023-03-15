@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:50:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/15 12:09:25 by achansar         ###   ########.fr       */
+/*   Updated: 2023/03/15 12:44:17 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,22 @@ int init_process(t_process *pro)
     return (0);
 }
 
+int ft_unlink(t_cmd **cmd)
+{
+    char    *name;
+    t_cmd   *head;
+
+    head = *cmd;
+    while (head)
+    {
+        name = ft_strjoin("here_doc", ft_itoa(head->index));
+        unlink(name);
+        free(name);
+        head = head->next;
+    }
+    return (0);
+}
+
 int main(int argc, char **argv, char **envp)
 {
     t_process     process;
@@ -69,7 +85,7 @@ int main(int argc, char **argv, char **envp)
             // process = malloc(sizeof(t_process *)); pourquoi ne pas malloc ?
             init_process(&process);
             executor(&process, &lst, pipes, envp);
-            unlink("here_doc");
+            ft_unlink(&lst);
         }
         free(line);
     }

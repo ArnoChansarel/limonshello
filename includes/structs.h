@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 13:38:30 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/13 10:34:55 by achansar         ###   ########.fr       */
+/*   Updated: 2023/03/15 12:31:04 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_cmd {
 	struct s_cmd 	*next;
 	int				exit_status;
 	int				*test;
+	int				index;
 }	t_cmd;
 
 typedef struct s_process {

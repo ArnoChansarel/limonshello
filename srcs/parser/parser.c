@@ -6,13 +6,13 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 12:55:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/15 11:03:43 by achansar         ###   ########.fr       */
+/*   Updated: 2023/03/15 12:29:33 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_cmd    *get_cmd_elem(t_lexlst **lex, t_env *env)
+t_cmd    *get_cmd_elem(t_lexlst **lex, t_env *env, int index)
 {
 	int         c;
 	int         i;
@@ -22,7 +22,7 @@ t_cmd    *get_cmd_elem(t_lexlst **lex, t_env *env)
 	i = 0;
 	c = count_word_lex(lex);
 	head = *lex;
-	if(elem_parser_init(&ele, c))
+	if(elem_parser_init(&ele, c, index))
 		return (ele);
 	ele->head = env;
 	get_builtin_function(head->word, &ele->builtin);
@@ -52,7 +52,7 @@ int get_cmd_list(t_lexlst **lex, t_cmd **parser_lst, int p, t_env *env)
 	*parser_lst = NULL;
 	while (i <= p)
 	{
-		temp = get_cmd_elem(lex, env);		
+		temp = get_cmd_elem(lex, env, i);		
 		if (!temp)
 			return (1);//                            => return error
 		parserlst_addback(parser_lst, temp);

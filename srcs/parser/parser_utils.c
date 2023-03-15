@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:59:43 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/14 15:02:22 by achansar         ###   ########.fr       */
+/*   Updated: 2023/03/15 12:30:11 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,14 @@ void    goto_next(t_lexlst **lex)
 	}
 }
 
-int	elem_parser_init(t_cmd **ele, int c)
+int	elem_parser_init(t_cmd **ele, int c, int index)
 {
 	t_cmd	*temp;
 
 	temp = malloc(sizeof(t_cmd));
 	if (!temp)
 		return (1);
+	temp->index = index;
 	temp->builtin = NULL;
 	temp->cmd = NULL;
 	temp->next = NULL;
