@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:00:50 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/14 12:28:25 by achansar         ###   ########.fr       */
+/*   Updated: 2023/03/15 11:11:02 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ int		open_infile(t_process *process, t_cmd *ele);
 int		open_outfile(t_process *process, t_cmd *ele);
 int	    create_pipes(t_process *process, int pipes);
 int	    close_pipes(int *array);
-// int		get_here_doc(t_process *process, char *eof);
+int	    create_here_doc(t_process *process, t_cmd **cmd_lst);
 
 #endif

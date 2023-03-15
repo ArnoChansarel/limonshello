@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:25:31 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/14 13:24:58 by achansar         ###   ########.fr       */
+/*   Updated: 2023/03/15 11:53:51 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int first_process(t_process *process, int pi)
 {
-    printf("First Process\n");
+    printf("============\nFirst Process\n============\n");
 	if (process->fd1 >= 0)
 		dup2(process->fd1, STDIN_FILENO);
 	if (process->fd2 >= 0)
@@ -27,7 +27,7 @@ int first_process(t_process *process, int pi)
 
 int next_process(t_process *process, int pi)
 {
-    printf("next Process\n");
+    printf("============\nNext Process\n============\n");
 	if (process->fd1 >= 0)
 		dup2(process->fd1, STDIN_FILENO);
 	else
@@ -41,7 +41,7 @@ int next_process(t_process *process, int pi)
 
 int last_process(t_process *process, int pi)
 {
-    printf("last Process\n");
+    printf("============\nLast Process\n============\n");
 	if (process->fd1 >= 0)
 		dup2(process->fd1, STDIN_FILENO);
 	else

@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:28:41 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/13 10:34:48 by achansar         ###   ########.fr       */
+/*   Updated: 2023/03/14 17:50:05 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 # define MINISHELL_H
 #include "executor.h"
 #include "structs.h"
+#include "../srcs/gnl/get_next_line.h"
 
 # ifndef PATH_MAX
-#  define PATH_MAX 1024
+#	define PATH_MAX 1024
 # endif
 
 #include <stdlib.h>
@@ -113,7 +114,6 @@ t_env	*is_pwd_set(t_cmd *cmd);
 int		update_old_pwd(t_cmd *cmd, char *str);
 // int		get_cmd(char *str);
 void 	buitins_exec(int i, t_cmd *cmd);
-int 		is_builtin(char *str);
 void    	get_builtin_function(char *str, int (**builtin)(struct s_cmd *));
 
 #endif

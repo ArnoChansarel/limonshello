@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arnalove <arnalove@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 12:55:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/05 19:15:49 by arnalove         ###   ########.fr       */
+/*   Updated: 2023/03/15 11:03:43 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_cmd    *get_cmd_elem(t_lexlst **lex, t_env *env)
 	int         c;
 	int         i;
 	t_lexlst    *head;
-	t_cmd	*ele = NULL;
+	t_cmd		*ele = NULL;
 
 	i = 0;
 	c = count_word_lex(lex);
@@ -25,17 +25,14 @@ t_cmd    *get_cmd_elem(t_lexlst **lex, t_env *env)
 	if(elem_parser_init(&ele, c))
 		return (ele);
 	ele->head = env;
-	if (is_builtin(head->word))
-		get_builtin_function(head->word, &ele->builtin);
+	get_builtin_function(head->word, &ele->builtin);
 	while (head && ft_strncmp(head->word, "|", 2) != 0)
 	{
 		if (is_token(head->word))
 		{
-		    add_rdrctn(ele, head);
+			add_rdrctn(ele, head);
 			head = head->next->next;
 		}
-		// else if (heredoc)
-		//     check that
 		else
 		{
 			ele->cmd[i++] = head->word;
@@ -57,7 +54,7 @@ int get_cmd_list(t_lexlst **lex, t_cmd **parser_lst, int p, t_env *env)
 	{
 		temp = get_cmd_elem(lex, env);		
 		if (!temp)
-		    return (1);//                            => return error
+			return (1);//                            => return error
 		parserlst_addback(parser_lst, temp);
 		goto_next(lex);
 		i++;

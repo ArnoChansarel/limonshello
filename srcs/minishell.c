@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:50:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/13 11:09:23 by achansar         ###   ########.fr       */
+/*   Updated: 2023/03/15 12:09:25 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /*
 probleme 1  : here_doc
-probleme 2	: 
+probleme 2	: SHLVL +999 + letters = 1
 probleme 3  : si builtin, checker arguments suivant (unset vide, pwd + arg doit renvoyer erreur...)
               a checker juste apres la lexlist
 probleme 4  : expander : si $? comment on fait
@@ -58,7 +58,7 @@ int main(int argc, char **argv, char **envp)
         return (1);
     while (1)
     {
-        line = readline("minishell$>");
+        line = readline("minishell$> ");
 		
         if (*line)
         {
@@ -69,6 +69,7 @@ int main(int argc, char **argv, char **envp)
             // process = malloc(sizeof(t_process *)); pourquoi ne pas malloc ?
             init_process(&process);
             executor(&process, &lst, pipes, envp);
+            unlink("here_doc");
         }
         free(line);
     }

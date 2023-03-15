@@ -6,34 +6,53 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:53:00 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/14 14:30:12 by achansar         ###   ########.fr       */
+/*   Updated: 2023/03/15 11:51:16 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// int	get_here_doc(t_process *process, char *eof)
-// {
-// 	char	*line;
+static int	get_here_doc(t_process *process, char *eof)
+{
+	char	*line;
 
-//     process->here_doc = 1;
-// 	process->fd1 = open("here_doc", O_CREAT | O_WRONLY | O_TRUNC, 0444);
-// 	if (process->fd1 < 0)
-// 		return (1);
-// 	line = get_next_line(0);
-// 	while (line)
-// 	{
-// 		write(process->fd1, line, ft_strlen(line));
-// 		if (line)
-// 			free(line);
-// 		line = get_next_line(0);
-// 		if (ft_strncmp(line, eof, ft_strlen(eof) + 1) == 0)
-// 			break ;
-// 	}
-// 	free(line);
-// 	close(process->fd1);
-// 	return (0);
-// }
+	// printf("APPEL HEREDOC\n");
+    process->here_doc = 1;
+	if (process->fd1 < 0)
+		process->fd1 = open("here_doc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	else
+		process->fd1 = open("here_doc", O_WRONLY | O_APPEND);
+	// printf("fd here_doc = %d\n", process->fd1);
+	if (process->fd1 < 0)
+		return (1);
+	line = get_next_line(0);
+	while (line)
+	{
+		write(process->fd1, line, ft_strlen(line));
+		if (line)
+			free(line);
+		line = get_next_line(0);
+		if (ft_strncmp(line, eof, ft_strlen(eof)) == 0)//        /!\ warning check +1
+			break ;
+	}
+	free(line);
+	close(process->fd1);
+	return (0);
+}
+
+int	create_here_doc(t_process *process, t_cmd **cmd_lst)
+{
+	t_cmd	*head;
+
+	head = *cmd_lst;
+	while (head)
+	{
+		if (ft_strncmp(head->rd_in, "<<", 2) == 0)
+	    	get_here_doc(process, head->rd_in + 2);
+		head = head->next;
+	}
+	return (0);
+}
 
 int open_outfile(t_process *process, t_cmd *ele)
 {
@@ -98,9 +117,10 @@ int	close_pipes(int *array)
 	{
 		close(array[i++]);
 	}
-	i = 0;
-	while (array[i] != -1)
-		printf("%d ", array[i++]);
-	printf("\n");
+	// printf("Pipes fd : ");
+	// i = 0;
+	// while (array[i] != -1)
+	// 	printf("%d ", array[i++]);
+	// printf("\n");
 	return (0);
 }
