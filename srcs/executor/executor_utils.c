@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:53:00 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/15 12:46:28 by achansar         ###   ########.fr       */
+/*   Updated: 2023/03/15 13:26:27 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,16 @@ static int	get_here_doc(t_process *process, char *eof, int index)
 	process->fd1 = open(name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (process->fd1 < 0)
 		return (1);
-	line = get_next_line(0);
+	line = readline("> ");
+	if (ft_strncmp(line, eof, ft_strlen(eof)) == 0)//        /!\ warning check +1
+		return (0);
 	while (line)
 	{
 		write(process->fd1, line, ft_strlen(line));
+		write(process->fd1, "\n", 1);
 		if (line)
 			free(line);
-		line = get_next_line(0);
+		line = readline("> ");
 		if (ft_strncmp(line, eof, ft_strlen(eof)) == 0)//        /!\ warning check +1
 			break ;
 	}
@@ -45,8 +48,11 @@ int	create_here_doc(t_process *process, t_cmd **cmd_lst)
 	head = *cmd_lst;
 	while (head)
 	{
-		if (ft_strncmp(head->rd_in, "<<", 2) == 0)
-	    	get_here_doc(process, head->rd_in + 2, head->index);
+		if (head->rd_in)
+		{
+			if (ft_strncmp(head->rd_in, "<<", 2) == 0)
+				get_here_doc(process, head->rd_in + 2, head->index);
+		}
 		head = head->next;
 	}
 	return (0);

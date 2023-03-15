@@ -6,7 +6,7 @@
 #    By: achansar <achansar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/06 14:37:56 by achansar          #+#    #+#              #
-#    Updated: 2023/03/15 12:36:01 by achansar         ###   ########.fr        #
+#    Updated: 2023/03/15 13:28:13 by achansar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,13 +63,6 @@ E_SRC = 	executor \
 E_C_FILES = $(addprefix $(E_SRC_PATH), $(E_SRC:=.c))
 E_OBJ = $(addprefix $(E_SRC_PATH), $(E_SRC:=.o))
 
-#GNL
-GNL_PATH = ./srcs/gnl/
-GNL_SRC = 	get_next_line \
-			get_next_line_utils
-GNL_C_FILES = $(addprefix $(GNL_PATH), $(GNL_SRC:=.c))
-GNL_OBJ = $(addprefix $(GNL_PATH), $(GNL_SRC:=.o))
-
 #LIBFT
 LBFT_PATH = ./libft/
 LBFT = 	ft_split \
@@ -97,14 +90,14 @@ LBFT_OBJ = $(addprefix $(LBFT_PATH), $(LBFT:=.o))
 #RULES
 all: $(NAME)
 
-$(NAME): $(MAIN_OBJ) $(P_OBJ) $(B_OBJ) $(LBFT_OBJ) $(E_OBJ) $(GNL_OBJ)
-	@ $(CC) $(FLAGS) $(SEG) $(READLINE) $(MAIN_OBJ) $(P_OBJ) $(B_OBJ) $(E_OBJ) $(GNL_OBJ) $(LBFT_OBJ) -o $(NAME)
+$(NAME): $(MAIN_OBJ) $(P_OBJ) $(B_OBJ) $(LBFT_OBJ) $(E_OBJ)
+	@ $(CC) $(FLAGS) $(SEG) $(READLINE) $(MAIN_OBJ) $(P_OBJ) $(B_OBJ) $(E_OBJ) $(LBFT_OBJ) -o $(NAME)
 
 .c.o:
 	@ $(CC) $(FLAGS) $(SEG) -c $< -o $@
 
 clean:
-	@rm -f $(MAIN_OBJ) $(P_OBJ) $(B_OBJ) $(E_OBJ) $(LBFT_OBJ) $(GNL_OBJ)
+	@rm -f $(MAIN_OBJ) $(P_OBJ) $(B_OBJ) $(E_OBJ) $(LBFT_OBJ)
 
 fclean: clean
 	@rm -f $(NAME)

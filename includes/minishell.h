@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:28:41 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/15 12:35:43 by achansar         ###   ########.fr       */
+/*   Updated: 2023/03/15 13:27:41 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define MINISHELL_H
 #include "executor.h"
 #include "structs.h"
-#include "../srcs/gnl/get_next_line.h"
 
 # ifndef PATH_MAX
 #	define PATH_MAX 1024

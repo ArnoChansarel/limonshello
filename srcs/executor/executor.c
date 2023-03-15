@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:25:59 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/15 11:11:33 by achansar         ###   ########.fr       */
+/*   Updated: 2023/03/15 12:48:14 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int open_redirections(t_process *process, t_cmd *ele)
 	{
 		if (open_infile(process, ele))
 			return (1);//                             exit ?
-		//close pipe before
 	}
 	if (ele->rd_out)
 	{
@@ -69,10 +68,8 @@ int executor(t_process *process, t_cmd **cmd_lst, int pipes, char **env)
 
 	i = 0;
 	head = *cmd_lst;
-	if (pipes){
-		printf("CREATING PIPES\n");
+	if (pipes)
 		create_pipes(process, pipes);
-	}
 	create_here_doc(process, cmd_lst);
 	while (i++ <= pipes)
 	{

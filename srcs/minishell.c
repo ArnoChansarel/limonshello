@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:50:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/15 12:44:17 by achansar         ###   ########.fr       */
+/*   Updated: 2023/03/15 13:29:29 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,9 @@ int main(int argc, char **argv, char **envp)
 		
         if (*line)
         {
-            // printf("line = %s.", line);
             if (parser(line, &lst, &pipes, env))
                 return (1);
             ft_printparse(lst);
-            // process = malloc(sizeof(t_process *)); pourquoi ne pas malloc ?
             init_process(&process);
             executor(&process, &lst, pipes, envp);
             ft_unlink(&lst);
