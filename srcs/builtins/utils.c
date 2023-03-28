@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:52:21 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/02/28 14:07:56 by achansar         ###   ########.fr       */
+/*   Updated: 2023/03/28 13:55:51 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,21 +51,21 @@ void buitins_exec(int i, t_cmd *cmd)
 		return ;
 }
 
-// int	get_cmd(char *str)
-// {
-//     if (ft_strncmp(str, "echo", ft_strlen(str) + 1) == 0)
-//         return(ECHO);
-//     else if (ft_strncmp(str, "cd", ft_strlen(str) + 1) == 0)
-//         return(CD);
-//     else if (ft_strncmp(str, "pwd", ft_strlen(str) + 1) == 0)
-//         return(PWD);
-//     else if (ft_strncmp(str, "export", ft_strlen(str) + 1) == 0)
-//         return(EXPORT);
-//     else if (ft_strncmp(str, "unset", ft_strlen(str) + 1) == 0)
-//         return(UNSET);
-//     else if (ft_strncmp(str, "env", ft_strlen(str) + 1) == 0)
-//         return(ENV);
-//     else if (ft_strncmp(str, "exit", ft_strlen(str) + 1) == 0)
-//         return (EXIT);
-//     return 0;
-// }
+int	get_cmd_id(char *str)
+{
+    if (ft_strncmp(str, "echo", ft_strlen(str) + 1) == 0)
+        return(ECHO);
+    else if (ft_strncmp(str, "cd", ft_strlen(str) + 1) == 0)
+        return(CD);
+    else if (ft_strncmp(str, "pwd", ft_strlen(str) + 1) == 0)
+        return(PWD);
+    else if (ft_strncmp(str, "export", ft_strlen(str) + 1) == 0)
+        return(EXPORT);
+    else if (ft_strncmp(str, "unset", ft_strlen(str) + 1) == 0)
+        return(UNSET);
+    else if (ft_strncmp(str, "env", ft_strlen(str) + 1) == 0)
+        return(ENV);
+    else if (ft_strncmp(str, "exit", ft_strlen(str) + 1) == 0)
+        return (EXIT);
+    return 0;
+}

@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 12:55:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/15 12:29:33 by achansar         ###   ########.fr       */
+/*   Updated: 2023/03/28 13:43:24 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int parser(char *cmd_line, t_cmd **lstp, int *pipes, t_env *env)
 {
 	t_lexlst *lexer_lst;
 
-	if(check_token(cmd_line))
+	if (check_token(cmd_line))
 		return (1);
 	lexer_lst = lexer(cmd_line);
 	if (!lexer_lst)

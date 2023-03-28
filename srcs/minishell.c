@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:50:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/15 13:29:29 by achansar         ###   ########.fr       */
+/*   Updated: 2023/03/28 13:31:18 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int main(int argc, char **argv, char **envp)
             ft_printparse(lst);
             init_process(&process);
             executor(&process, &lst, pipes, envp);
-            ft_unlink(&lst);
+            // ft_unlink(&lst);
         }
         free(line);
     }
