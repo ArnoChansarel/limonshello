@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:25:59 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/28 14:08:54 by achansar         ###   ########.fr       */
+/*   Updated: 2023/03/29 15:32:22 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	child(t_process *process, t_cmd *ele, char **env, int pi)
 {
 	if (ele->rd_in || ele->rd_out)
 		open_redirections(process, ele);
-
 	if (process->pipes_array)
 	{
 		if (pi == 0)
@@ -107,24 +106,47 @@ int	fork_n_wait(t_process *process, t_cmd *cmd_lst, int pipes, char **env)
 	return (0);
 }
 
-int	single_cmd(t_process *process, t_cmd *cmd_lst, char **env)
+int	single_cmd(t_process *process, t_cmd *cmd)
 {
-	if (cmd_lst->builtin)
-		cmd_lst->builtin(cmd_lst);
-	else
-		fork_n_wait(process, cmd_lst, 0, env);
+	int	saved_fd1;
+	int	saved_fd2;
+
+	saved_fd1 = -1;
+	saved_fd2 = -1;
+	if (cmd->rd_in || cmd->rd_out)
+		open_redirections(process, cmd);
+	if (process->fd1 >= 0)
+	{
+		saved_fd1 = dup(STDIN_FILENO);
+		dup2(process->fd1, STDIN_FILENO);
+	}
+	if (process->fd2 >= 0)
+	{
+		saved_fd2 = dup(STDOUT_FILENO);
+		dup2(process->fd2, STDOUT_FILENO);
+	}
+	cmd->builtin(cmd);
+	dup2(saved_fd1, STDIN_FILENO);
+	close(saved_fd1);
+	dup2(saved_fd2, STDOUT_FILENO);
+	close(saved_fd2);
 	return (0);
 }
 
-int executor(t_process *process, t_cmd **cmd_lst, int pipes, char **env)
+int executor(t_process *process, t_cmd *cmd_lst, int pipes, char **env)
 {
-	create_here_doc(process, cmd_lst);
+	create_here_doc(process, &cmd_lst);
 	if (pipes)
 	{
 		create_pipes(process, pipes);
-		fork_n_wait(process, *cmd_lst, pipes, env);
+		fork_n_wait(process, cmd_lst, pipes, env);
 	}
 	else
-		single_cmd(process, *cmd_lst, env);
+	{
+		if (cmd_lst->builtin)
+			single_cmd(process, cmd_lst);
+		else
+			fork_n_wait(process, cmd_lst, 0, env);
+	}
 	return (0);
 }

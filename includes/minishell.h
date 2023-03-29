@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:28:41 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/28 13:56:09 by achansar         ###   ########.fr       */
+/*   Updated: 2023/03/29 15:47:44 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ t_cmd		*parser_new(char **cmd, int (*builtin)(struct s_cmd *),
 void    	ft_printlist(t_lexlst *head_a);
 void    	ft_printparse(t_cmd *head);
 int			error_msg(char *str);
+void	print_head(void);
 
 // BUILTINS FUNCTIONS
 int	ft_pwd(t_cmd *cmd);

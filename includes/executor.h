@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:00:50 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/15 11:11:02 by achansar         ###   ########.fr       */
+/*   Updated: 2023/03/29 15:29:31 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 
 // EXECUTOR FUNCTIONS
-int		executor(t_process *process, t_cmd **cmd_lst, int pipes, char **env);
+int		executor(t_process *process, t_cmd *cmd_lst, int pipes, char **env);
 int     execute_process(t_cmd *ele, t_process *process, char **env);
 int     first_process(t_process *process, int pi);
 int     next_process(t_process *process, int pi);

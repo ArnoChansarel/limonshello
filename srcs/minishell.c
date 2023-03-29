@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:50:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/28 13:31:18 by achansar         ###   ########.fr       */
+/*   Updated: 2023/03/29 15:48:00 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,17 +72,17 @@ int main(int argc, char **argv, char **envp)
     env = build_env_list(envp);// free apres protection
     if (!env)
         return (1);
+    print_head();
     while (1)
     {
         line = readline("minishell$> ");
-		
         if (*line)
         {
             if (parser(line, &lst, &pipes, env))
                 return (1);
             ft_printparse(lst);
             init_process(&process);
-            executor(&process, &lst, pipes, envp);
+            executor(&process, lst, pipes, envp);
             // ft_unlink(&lst);
         }
         free(line);
