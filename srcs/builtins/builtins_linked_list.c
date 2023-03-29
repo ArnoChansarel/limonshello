@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:48:54 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/03/27 12:15:56 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/03/29 16:47:30 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,18 @@ void	push(t_env *head, int export, char *key, char *value)
 	current->next->next = NULL;
 }
 
-void	build_env_list(char **envp, t_cmd *cmd)
+t_env	*build_env_list(char **envp)
 {
 	int		i;
 	char	**tab;
 	t_env	*head;
+	t_env	*rtr;
 
 	i = 1;
 	head = (t_env *) malloc(sizeof(t_env));
 	if (!head)
-		return ;
-	cmd->head = head;
+		return (head);
+	rtr = head;
 	head->export = 1;
 	head->next = NULL;
 	tab = ft_split(envp[0], '=');
@@ -73,4 +74,5 @@ void	build_env_list(char **envp, t_cmd *cmd)
 		i++;
 		ft_free_array(tab);
 	}
+	return (rtr);
 }

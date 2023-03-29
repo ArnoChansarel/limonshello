@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:28:41 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/29 11:07:29 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/03/29 16:47:17 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "structs.h"
 
 # ifndef PATH_MAX
-#  define PATH_MAX 1024
+#	define PATH_MAX 1024
 # endif
 
 #include <stdlib.h>
@@ -32,14 +32,14 @@
 
 // PARSER FUNCTIONS
 t_lexlst 	*lexer(char *cmd_line);
-int			parser(char *cmd_line, t_cmd **lstp, int *pipes);
+int			parser(char *cmd_line, t_cmd **lstp, int *pipes, t_env *env);
 int			expander(t_lexlst **lex, t_env **env);
 
 // PARSER UTILS
 int 		count_pipes(t_lexlst *lex);
 void    	goto_next(t_lexlst **lex);
 int			is_builtin(char *str);
-int			elem_parser_init(t_cmd **ele, int c);
+int			elem_parser_init(t_cmd **ele, int c, int index);
 int 		count_word_lex(t_lexlst  **lex);
 int			add_rdrctn(t_cmd *p, t_lexlst *lex);
 
@@ -78,15 +78,16 @@ void		lexlst_clear(t_lexlst **lst);
 
 //LST PARSER FUNCTIONS
 int			parserlst_size(t_cmd *lst);
-t_cmd	*parserlst_last(t_cmd *lst, int stop);
+t_cmd		*parserlst_last(t_cmd *lst, int stop);
 void		parserlst_addback(t_cmd **lst, t_cmd *new);
-t_cmd	*parser_new(char **cmd, int (*builtin)(struct s_cmd *),
+t_cmd		*parser_new(char **cmd, int (*builtin)(struct s_cmd *),
 			t_lexlst *rdrctn);
 
 // DISPLAY
 void    	ft_printlist(t_lexlst *head_a);
 void    	ft_printparse(t_cmd *head);
 int			error_msg(char *str);
+void	print_head(void);
 
 // SIGNAL
 void		sig_handler(int status);
@@ -104,7 +105,7 @@ int	ft_unset(t_cmd *cmd);
 // BUILTINS LINKED LIST
 void	delete_node(t_env *head);
 void	push(t_env *head, int export, char *key, char *value);
-void	build_env_list(char **envp, t_cmd *cmd);
+t_env	*build_env_list(char **envp);
 char	*list_return_value_from_key(t_cmd *cmd, char *str1);
 void	printlist(t_cmd *cmd);
 
@@ -116,7 +117,7 @@ void	cd_go_to_directory(char *directory, char *pwd, t_cmd *cmd);
 void	cd_slash(t_cmd *cmd, char *pwd);
 t_env	*is_pwd_set(t_cmd *cmd);
 int		update_old_pwd(t_cmd *cmd, char *str);
-// int		get_cmd(char *str);
+int		get_cmd_id(char *str);
 void 	buitins_exec(int i, t_cmd *cmd);
 void	ft_free_array(char **tobefreed);
 int		ft_print_in_order(t_cmd *cmd);

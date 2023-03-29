@@ -6,7 +6,7 @@
 #    By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/06 14:37:56 by achansar          #+#    #+#              #
-#    Updated: 2023/03/29 11:44:50 by ade-bast         ###   ########.fr        #
+#    Updated: 2023/03/29 16:53:08 by ade-bast         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,8 @@ NAME = minishell
 
 #ARGUMENTS
 CC = gcc
-FLAGS = -Wall -Werror -Wextra 
-#SEG = -fsanitize=address -g
+FLAGS = -Wall -Werror -Wextra
+SEG = -fsanitize=address -g
 READLINE = -lreadline
 LDFLAGS		= -L$(HOME)/.brew/opt/readline/lib
 CPPFLAGS	= -I$(HOME)/.brew/opt/readline/include
@@ -54,7 +54,8 @@ P_SRC = 	lexer \
 			parser \
 			parser_utils \
 			expander \
-			expander_utils
+			expander_utils \
+			get_builtin
 P_C_FILES = $(addprefix $(P_SRC_PATH), $(P_SRC:=.c))
 P_OBJ = $(addprefix $(P_SRC_PATH), $(P_SRC:=.o))
 
@@ -62,7 +63,8 @@ P_OBJ = $(addprefix $(P_SRC_PATH), $(P_SRC:=.o))
 E_SRC_PATH = ./srcs/executor/
 E_SRC = 	executor \
 			executor_utils \
-			get_command
+			get_command \
+			processes
 E_C_FILES = $(addprefix $(E_SRC_PATH), $(E_SRC:=.c))
 E_OBJ = $(addprefix $(E_SRC_PATH), $(E_SRC:=.o))
 

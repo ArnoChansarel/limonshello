@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arnalove <arnalove@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:12:18 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/26 18:13:38 by achansar         ###   ########.fr       */
+/*   Updated: 2023/03/06 18:26:20 by arnalove         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,6 @@ char	*get_cmd(t_process *process, char **cmd)
 	free_array(cmd_paths);
 	if (!cmd_rtr)
 		return (NULL);
-	printf("path found : %s\n", cmd_rtr);
+	// printf("path found : %s\n", cmd_rtr);
 	return (cmd_rtr);
 }

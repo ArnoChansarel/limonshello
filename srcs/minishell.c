@@ -6,19 +6,20 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:50:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/29 16:24:58 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/03/29 16:45:24 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 /*
-probleme 1  : syntax error near unexpected token `|'
-                quand token mal place
-probleme 2	: check double pipe ou faux chevrons des le debut
+probleme 1  : here_doc
+probleme 2	: SHLVL +999 + letters = 1
 probleme 3  : si builtin, checker arguments suivant (unset vide, pwd + arg doit renvoyer erreur...)
               a checker juste apres la lexlist
-probleme 4  : 
+probleme 4  : expander : si $? comment on fait
+probleme 5  : AWK
+probleme 6  : encore probleme d'espace.. (echo hello' '> outfile)
 */
 
 int	error_msg(char *str)
@@ -32,6 +33,7 @@ int init_process(t_process *pro)
 {
     pro->cmd_paths = NULL;
     pro->env_path = NULL;
+    pro->pipes_array = NULL;
     pro->fd1 = -1;
     pro->fd2 = -1;
     pro->here_doc = 0;
@@ -39,43 +41,53 @@ int init_process(t_process *pro)
     return (0);
 }
 
-int main(int argc, char **argv, char **env)
+int ft_unlink(t_cmd **cmd)
+{
+    char    *name;
+    t_cmd   *head;
+
+    head = *cmd;
+    while (head)
+    {
+        name = ft_strjoin("here_doc", ft_itoa(head->index));
+        unlink(name);
+        free(name);
+        head = head->next;
+    }
+    return (0);
+}
+
+int main(int argc, char **argv, char **envp)
 {
     t_process     process;
     t_cmd       *lst;
     char        *line;
-	t_cmd		cmd;
     int         pipes;
+    t_env       *env;
 
 	(void) argc;
 	(void) argv;
     pipes = 0;
-    /*
-    Minishell loop {
-        line = readline
-        parser()
-        executor()
-        free()
-    }
-    */
-   
-   build_env_list(env, &cmd);
-   while (1)
-   {
-        line = readline("minishell$>");
-		
-        // printf("line = %s.", line);
-        if (parser(line, &lst, &pipes))
-            return (1);
-        ft_printparse(lst);
-        // process = malloc(sizeof(t_process *)); pourquoi ne pas malloc ?
-        init_process(&process);
-        executor(&process, &lst, pipes, env);
-        // executor(&lst);
-		
+
+    env = build_env_list(envp);// free apres protection
+    if (!env)
+        return (1);
+    print_head();
+    while (1)
+    {
+        line = readline("minishell$> ");
+        if (*line)
+        {
+            if (parser(line, &lst, &pipes, env))
+                return (1);
+            ft_printparse(lst);
+            init_process(&process);
+            executor(&process, lst, pipes, envp);
+            // ft_unlink(&lst);
+        }
         free(line);
-   }
-   return (0);
+    }
+    return (0);
 }
 
 // int	main(int argc, char ** argv, char **envp)

@@ -6,71 +6,147 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:25:59 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/28 14:06:59 by achansar         ###   ########.fr       */
+/*   Updated: 2023/03/29 15:32:22 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int open_redirections(t_process *process, t_cmd *ele)// Implique de remettre fd a 0 apres les avoir ferme
+int open_redirections(t_process *process, t_cmd *ele)
 {
-    // printf("in =  | out = %s", ele->rd_out);
-    if (ele->rd_in)
-    {
-        // if (ft_strncmp(ele->rd_in, "<<", 2) == 0)
-        //     get_here_doc(process, ele->rd_in + 2);
-        if (open_infile(process, ele))
-            return (1);//                             exit ?
-        //close pipe before
-    }
-    if (ele->rd_out)
-    {
-        if (open_outfile(process, ele))
-        {
-            if (process->fd1)
-                close(process->fd1);
-            return (1);//                             exit ?
-        }
-        // close pipe ?
-    }
-    printf("fd1 = %d | fd2 = %d\n", process->fd1, process->fd2);
-    return (0);
-}
-
-int	child(t_process *process, t_cmd *ele, char **env)
-{
-	char	*cmd;//                       check before if cmd IN ?
-
-    (void)env;
-    if (ele->rd_in || ele->rd_out)
-        open_redirections(process, ele);
-    // // if (bultin)
-    // //else 
-	cmd = get_cmd(process, ele->cmd);
-	if (!cmd)
+	if (ele->rd_in)
 	{
-		// cmd_not_found(process, ele->cmd[0]);
-		exit(127);
+		if (open_infile(process, ele))
+			return (1);//                             exit ?
 	}
-	// close(process->pipe[0]);
-	// dup2(process->fd1, STDIN_FILENO);
-	// close(process->fd1);
-	// dup2(process->pipe[1], STDOUT_FILENO);
-	// close(process->pipe[1]);
-	if (execve(cmd, ele->cmd, env) == -1)
-		perror("execve ");
+	if (ele->rd_out)
+	{
+		if (open_outfile(process, ele))
+		{
+			if (process->fd1)
+				close(process->fd1);
+			return (1);//                             exit ?
+		}
+	}
+	printf("fd1 = %d | fd2 = %d\n", process->fd1, process->fd2);
 	return (0);
 }
 
-int executor(t_process *process, t_cmd **cmd_lst, int pipes, char **env)
+int	child(t_process *process, t_cmd *ele, char **env, int pi)
 {
-    /*
-    Create pipes
-    launch processes (fork if needed)
-    
-    */
-    (void)pipes;
-    // pipe(process->pipe);
-    child(process, *cmd_lst, env);
-    return (0);
+	if (ele->rd_in || ele->rd_out)
+		open_redirections(process, ele);
+	if (process->pipes_array)
+	{
+		if (pi == 0)
+			first_process(process, pi);
+		else if (process->pipes_array[pi] < 0)
+			last_process(process, pi);
+		else
+			next_process(process, pi);
+	}
+	else
+	{
+		if (process->fd1 >= 0)
+			dup2(process->fd1, STDIN_FILENO);
+		if (process->fd2 >= 0)
+			dup2(process->fd2, STDOUT_FILENO);
+	}
+	if (process->pipes_array)
+		close_pipes(process->pipes_array);
+	execute_process(ele, process, env);
+	return (0);
+}
+
+int	father_waits(int pipes)
+{
+	int	i;
+	
+	i = 0;
+	while (i <= pipes)
+	{
+		waitpid(-1, NULL, 0);//         EXIT : check si erreur = 255 alors exit aussi
+		i++;
+	}
+	//                          RECUPERER SIGNAUX WIF
+	return (0);
+}
+
+int	fork_n_wait(t_process *process, t_cmd *cmd_lst, int pipes, char **env)
+{
+	int i;
+	int j = 0;
+	int	fork_id;
+	t_cmd	*head;
+	
+	i = 0;
+	head = cmd_lst;
+	while (i++ <= pipes)
+	{
+		fork_id = fork();
+		if (fork_id < 0)
+		{
+			perror("fork ");
+			exit(EXIT_FAILURE);
+		}
+		if (!fork_id)
+			child(process, head, env, j);
+		// close(process->pipes_array[j + 1]);
+		if (j > 0)
+			close(process->pipes_array[j - 2]);
+		j += 2;
+		head = head->next;
+	}
+	if (process->pipes_array)
+	{
+		close_pipes(process->pipes_array);
+		free(process->pipes_array);
+	}
+	father_waits(pipes);
+	return (0);
+}
+
+int	single_cmd(t_process *process, t_cmd *cmd)
+{
+	int	saved_fd1;
+	int	saved_fd2;
+
+	saved_fd1 = -1;
+	saved_fd2 = -1;
+	if (cmd->rd_in || cmd->rd_out)
+		open_redirections(process, cmd);
+	if (process->fd1 >= 0)
+	{
+		saved_fd1 = dup(STDIN_FILENO);
+		dup2(process->fd1, STDIN_FILENO);
+	}
+	if (process->fd2 >= 0)
+	{
+		saved_fd2 = dup(STDOUT_FILENO);
+		dup2(process->fd2, STDOUT_FILENO);
+	}
+	cmd->builtin(cmd);
+	dup2(saved_fd1, STDIN_FILENO);
+	close(saved_fd1);
+	dup2(saved_fd2, STDOUT_FILENO);
+	close(saved_fd2);
+	return (0);
+}
+
+int executor(t_process *process, t_cmd *cmd_lst, int pipes, char **env)
+{
+	create_here_doc(process, &cmd_lst);
+	if (pipes)
+	{
+		create_pipes(process, pipes);
+		fork_n_wait(process, cmd_lst, pipes, env);
+	}
+	else
+	{
+		if (cmd_lst->builtin)
+			single_cmd(process, cmd_lst);
+		else
+			fork_n_wait(process, cmd_lst, 0, env);
+	}
+	return (0);
 }
