@@ -6,36 +6,53 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:56:47 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/02/27 15:07:29 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/02/28 16:05:52 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+static int	check_new_line(t_cmd *cmd)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	while (cmd->cmd[++i])
+	{
+		j = 0;
+		if (cmd->cmd[i][j++] == '-')
+		{
+			while (cmd->cmd[i][j] == 'n')
+				j++;
+			if (cmd->cmd[i][j] && cmd->cmd[i][j] != 'n')
+				return (i);
+		}
+		else
+			return (i);
+	}
+	return (i);
+}
+
 int	ft_echo(t_cmd *cmd)
 {
 	int	i;
-	int	j;
-	int	flag;
-	int	fd;
+	int	new_line;
 
-	fd = 1;
 	i = 1;
-	flag = 0;
-	j = 0;
-	while (cmd->cmd[i] && cmd->cmd[i][0] == '-' && cmd->cmd[i][1] == 'n')
-	{
-		i++;
-		flag++;
-	}
+	new_line = 1;
+	i = check_new_line(cmd);
+	if (i > 1)
+		new_line = 0;
 	while (cmd->cmd[i])
 	{
-		ft_putstr_fd(cmd->cmd[i], fd);
-		if (i++)
-			ft_putchar_fd(' ', fd);
+		ft_putstr_fd(cmd->cmd[i], 1);
+		i++;
+		if (cmd->cmd[i])
+			ft_putstr_fd(" ", 1);
 	}
-	if (flag == 0)
-		ft_putchar_fd('\n', fd);
+	if (new_line == 1)
+		ft_putstr_fd("\n", 1);
 	cmd->exit_status = 0;
 	return (0);
 }

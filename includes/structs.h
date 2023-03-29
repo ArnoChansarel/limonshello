@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 13:38:30 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/28 13:35:15 by achansar         ###   ########.fr       */
+/*   Updated: 2023/03/27 15:54:28 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,17 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <unistd.h>
+#include <signal.h>
+
+enum {
+	ECHO,
+	CD,
+	PWD,
+	EXPORT,
+	UNSET,
+	ENV,
+	EXIT
+};
 
 typedef struct s_process {
 	pid_t	pid;
@@ -30,7 +41,7 @@ typedef struct s_process {
 }	t_process;
 
 typedef struct s_env {
-	int			exp;
+	int			export;
 	char		*key;
 	char		*value;
 	struct s_env *next;
@@ -48,6 +59,7 @@ typedef struct s_cmd {
 	char			*rd_out;
 	t_env			*head;
 	struct s_cmd 	*next;
+	int				exit_status;
 }	t_cmd;
 
 #endif

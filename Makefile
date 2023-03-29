@@ -6,7 +6,7 @@
 #    By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/06 14:37:56 by achansar          #+#    #+#              #
-#    Updated: 2023/02/28 14:36:12 by ade-bast         ###   ########.fr        #
+#    Updated: 2023/03/29 11:44:50 by ade-bast         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,11 +19,14 @@ CC = gcc
 FLAGS = -Wall -Werror -Wextra 
 #SEG = -fsanitize=address -g
 READLINE = -lreadline
+LDFLAGS		= -L$(HOME)/.brew/opt/readline/lib
+CPPFLAGS	= -I$(HOME)/.brew/opt/readline/include
 
 # MAIN FILE
 MAIN_PATH = ./srcs/
 MAIN_SRC = 	minishell \
-			display
+			display \
+			signal
 MAIN_CFILE = $(addprefix $(MAIN_PATH), $(MAIN_SRC:=.c))
 MAIN_OBJ = $(addprefix $(MAIN_PATH), $(MAIN_SRC:=.o))
 
@@ -39,7 +42,8 @@ B_SRC = builtins_linked_list \
 		ft_env \
 		ft_exit \
 		ft_export \
-		ft_unset 
+		ft_unset \
+		ft_export_utils_linked_list
 B_C_FILES = $(addprefix $(B_SRC_PATH), $(B_SRC:=.c))
 B_OBJ = $(addprefix $(B_SRC_PATH), $(B_SRC:=.o))
 
@@ -81,7 +85,10 @@ LBFT = 	ft_split \
 		ft_putstr_fd \
 		ft_isalpha \
 		ft_strchr \
-		ft_atoi
+		ft_atoi \
+		ft_strdup \
+		ft_memcpy
+		
 LBFT_FILES = $(addprefix $(LBFT_PATH), $(LBFT:=.c))
 LBFT_OBJ = $(addprefix $(LBFT_PATH), $(LBFT:=.o))
 
@@ -89,10 +96,10 @@ LBFT_OBJ = $(addprefix $(LBFT_PATH), $(LBFT:=.o))
 all: $(NAME)
 
 $(NAME): $(MAIN_OBJ) $(P_OBJ) $(B_OBJ) $(LBFT_OBJ) $(E_OBJ)
-	@ $(CC) $(FLAGS) $(READLINE) $(MAIN_OBJ) $(P_OBJ) $(B_OBJ) $(E_OBJ) $(LBFT_OBJ) -o $(NAME) -fsanitize=address -g
+	@ $(CC) $(FLAGS) $(LDFLAGS) $(CPPFLAGS) $(READLINE) $(MAIN_OBJ) $(P_OBJ) $(B_OBJ) $(E_OBJ) $(LBFT_OBJ) -o $(NAME) -fsanitize=address -g
 
 .c.o:
-	@ $(CC) $(FLAGS) -c $< -o $@ -fsanitize=address -g
+	@ $(CC) $(FLAGS) $(CPPFLAGS) -c $< -o $@ -fsanitize=address -g
 
 clean:
 	@rm -f $(MAIN_OBJ) $(P_OBJ) $(B_OBJ) $(E_OBJ) $(LBFT_OBJ)

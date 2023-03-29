@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 09:38:51 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/02/23 14:33:01 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/03/03 15:42:19 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*list_return_value_from_key(t_cmd *cmd, char *str1)
 	tmp = cmd->head;
 	while (tmp != 0)
 	{
-		if (!strcmp(str1, tmp->key))
+		if (!ft_strncmp(str1, tmp->key, ft_strlen(tmp->key)))
 			return (tmp->value);
 		tmp = tmp->next;
 	}
@@ -33,7 +33,7 @@ t_env	*is_pwd_set(t_cmd *cmd)
 	tmp = cmd->head;
 	while (tmp != 0)
 	{
-		if (!strcmp(tmp->key, "OLDPWD"))
+		if (!ft_strncmp(tmp->key, "OLDPWD", ft_strlen(tmp->key)))
 			return (tmp);	
 		tmp = tmp->next;
 	}
@@ -47,10 +47,12 @@ int	update_old_pwd(t_cmd *cmd, char *str)
 	tmp = cmd->head;
 	while (tmp != 0)
 	{
-		if (!strcmp(tmp->key, "OLDPWD"))
+		if (!ft_strncmp(tmp->key, "OLDPWD", ft_strlen(tmp->key)))
 		{
-			tmp->value = 0;
-			tmp->value = str;
+			free(tmp->value);
+			tmp->value = ft_strdup(str);
+			if (!tmp->value)
+				exit(EXIT_FAILURE); //!Exit proprement
 			return (1);
 		}
 		tmp = tmp->next;

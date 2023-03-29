@@ -1,26 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug.c                                            :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/21 09:36:46 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/03/09 11:41:23 by ade-bast         ###   ########.fr       */
+/*   Created: 2023/03/03 15:38:18 by ade-bast          #+#    #+#             */
+/*   Updated: 2023/03/03 15:38:32 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/minishell.h"
 
-void	printlist(t_cmd *cmd)
+char	*ft_strdup(const char *s1)
 {
-	t_env	*tmp;
+	char	*str;
+	size_t	i;
+	size_t	len;
 
-	tmp = cmd->head;
-	while (tmp != 0)
+	i = 0;
+	len = ft_strlen(s1);
+	if (!s1)
+		return (NULL);
+	str = malloc(sizeof(*s1) * (len + 1));
+	if (!str)
+		return (NULL);
+	while (s1[i])
 	{
-		printf("%s=%s\n", tmp->key, tmp->value);
-		tmp = tmp->next;
+		str[i] = s1[i];
+		i++;
 	}
-	return ;
+	str[i] = '\0';
+	return (str);
 }

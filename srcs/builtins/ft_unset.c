@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:59:12 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/02/23 14:44:03 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/03/27 11:37:25 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,26 @@
 int	ft_unset(t_cmd *cmd)
 {
 	t_env	*tmp;
+	int		i;
 
+	i = 1;
 	if (!cmd->cmd || !cmd->cmd[1])
 		return (0);
 	tmp = cmd->head;
-	while (tmp->next != 0)
+	while (cmd->cmd[i])
 	{
-		if (strcmp(cmd->cmd[1],tmp->next->key) == 0)
+		while (tmp->next != 0)
 		{
-			delete_node(tmp);
-			break ;
+			if (ft_strncmp(cmd->cmd[i], tmp->next->key,
+					ft_strlen(tmp->next->key)) == 0)
+			{
+				delete_node(tmp);
+				break ;
+			}
+			tmp = tmp->next;
 		}
-		tmp = tmp->next;
+		i++;
 	}
 	tmp = cmd->head;
 	return (0);
-}
+} 

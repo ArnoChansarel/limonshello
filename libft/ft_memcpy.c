@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug.c                                            :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/21 09:36:46 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/03/09 11:41:23 by ade-bast         ###   ########.fr       */
+/*   Created: 2023/03/03 15:52:21 by ade-bast          #+#    #+#             */
+/*   Updated: 2023/03/03 15:53:41 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/minishell.h"
 
-void	printlist(t_cmd *cmd)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	t_env	*tmp;
+	size_t			i;
+	unsigned char	*dest;
+	unsigned char	*source;
 
-	tmp = cmd->head;
-	while (tmp != 0)
+	dest = (unsigned char *)dst;
+	source = (unsigned char *)src;
+	i = 0;
+	if (!dst && !src && n)
+		return (0);
+	while (i < n)
 	{
-		printf("%s=%s\n", tmp->key, tmp->value);
-		tmp = tmp->next;
+		dest[i] = source[i];
+		i++;
 	}
-	return ;
+	return (dest);
 }

@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 09:43:51 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/02/23 14:23:51 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/03/03 15:42:59 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 
 void	cd_home(char *home, char *pwd, t_cmd *cmd)
 {
-	if (!opendir(home))
+	DIR	*dir;
+
+	dir = opendir(home);
+	if (!dir)
 		ft_putstr_fd("minishell: cd: No such file or directory\n", 2);
 	else
 	{
@@ -24,6 +27,7 @@ void	cd_home(char *home, char *pwd, t_cmd *cmd)
 		else
 			update_old_pwd(cmd, pwd);
 	}
+	closedir(dir);
 }
 
 void	cd_point(t_cmd *cmd, char *pwd)
@@ -34,8 +38,10 @@ void	cd_point(t_cmd *cmd, char *pwd)
 		update_old_pwd(cmd, pwd);
 }
 
-void	cd_minus(t_cmd *cmd, t_env *tmp)
+void	cd_minus(t_cmd *cmd)
 {
+	t_env	*tmp;
+
 	tmp = is_pwd_set(cmd);
 	if (tmp)
 	{
@@ -48,10 +54,15 @@ void	cd_minus(t_cmd *cmd, t_env *tmp)
 
 void	cd_go_to_directory(char *directory, char *pwd, t_cmd *cmd)
 {
-	strcpy(directory, ft_strjoin(pwd, ft_strjoin("/", cmd->cmd[1])));
-	// ft_memcpy(directory, ft_strjoin(pwd, ft_strjoin("/", cmd->cmd[1])),
-	// ft_strlen(ft_strjoin(pwd, ft_strjoin("/", cmd->cmd[1]))));
-	if (!opendir(directory))
+	char	*tmp_join;
+	char	*tmp_join_bis;
+	DIR		*dir;
+
+	tmp_join = ft_strjoin("/", cmd->cmd[1]);
+	tmp_join_bis = ft_strjoin(pwd, tmp_join);
+	ft_memcpy(directory, tmp_join_bis, ft_strlen(tmp_join_bis) + 1);
+	dir = opendir(directory);
+	if (!dir)
 		ft_putstr_fd("No such file or directory\n", 2);
 	else
 	{
@@ -59,16 +70,23 @@ void	cd_go_to_directory(char *directory, char *pwd, t_cmd *cmd)
 		if (!update_old_pwd(cmd, pwd))
 			push(cmd->head, 1, "OLDPWD", pwd);	
 	}
+	closedir(dir);
+	free(tmp_join);
+	free(tmp_join_bis);
 }
 
 void	cd_slash(t_cmd *cmd, char *pwd)
 {
-	if ((!opendir(cmd->cmd[1])))
+	DIR	*dir;
+
+	dir = opendir(cmd->cmd[1]);
+	if ((!dir))
 		ft_putstr_fd("no such file or directory\n", 2);
 	else
 	{
 		chdir(cmd->cmd[1]);
 		if (!update_old_pwd(cmd, pwd))
 			push(cmd->head, 1, "OLDPWD", pwd);
-	}			
+	}
+	closedir(dir);
 }
