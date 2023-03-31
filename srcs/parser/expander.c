@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:24:39 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/01 16:34:36 by achansar         ###   ########.fr       */
+/*   Updated: 2023/03/31 18:11:12 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,17 @@ char    *replace_var(char *str, char *env, int size)
 	char	*temp;
    	int 	i;
 
-   	i = 0;
 	temp = str;
    	// printf("str = %s\nenv = %s\nsize = %d\n", str, env, size);
-   	rtr = malloc(sizeof(char *) * (ft_strlen(str) - size - 1 + ft_strlen(env)));
+	// printf("len str = %zu | size = %d - 1 + len env = %zu\n", ft_strlen(str), size, ft_strlen(env));
+	// printf("Result = %zu\n", (ft_strlen(str) - size - 1 + ft_strlen(env)));
+	i = ft_strlen(str) - size - 1 + ft_strlen(env);
+	if (i == -1)
+		i = 1;
+   	rtr = malloc(sizeof(char *) * i);
 	if (!rtr)
 		return (rtr);
+	i = 0;
    	while (*str && *str != '$')
 		rtr[i++] = *str++;
 	while (*env)
@@ -49,21 +54,19 @@ char    *replace_var(char *str, char *env, int size)
 	return (rtr);
 }
 
-int lookfor_var(t_lexlst *lex, t_env **env, int i)
+int lookfor_var(t_lexlst *lex, t_env **env, int i, int size)
 {
-	int     size;
 	t_env  *head;
 
-	size = 0;
 	head = *env;
 	while(lex->word[i])
 	{
-		if(lex->word[i] == '$')
+		if (lex->word[i] == '$')
 		{
 			while (head)
 			{
 				size = get_var_size(&lex->word[i]);
-				if(ft_strncmp(&lex->word[i + 1], head->key, size - 1) == 0)
+				if (ft_strncmp(&lex->word[i + 1], head->key, size - 1) == 0)
 				{
 					lex->word = replace_var(lex->word, head->value, size);
 					break ;
@@ -71,7 +74,10 @@ int lookfor_var(t_lexlst *lex, t_env **env, int i)
 				head = head->next;
 			}
 			if (!head)
+			{
 				lex->word = replace_var(lex->word, "", size);
+				continue ;
+			}
 		}
 		i++;
 	}
@@ -86,7 +92,7 @@ static int expand_quotes(t_lexlst *lex, t_env **env)
 
 	i = 0;
 	if (lex->word[0] == '\"')
-	    lookfor_var(lex, env, 0);
+	    lookfor_var(lex, env, 0, 0);
 	len = ft_strlen(lex->word);
 	str = malloc(sizeof(char *) * len - 2);
 	while (i <= len - 3)
@@ -110,8 +116,15 @@ int expander(t_lexlst **lex, t_env **env)
 		if (head->word[0] == '\'' || head->word[0] == '\"')
 			expand_quotes(head, env);
 		else
-			lookfor_var(head, env, 0);
+			lookfor_var(head, env, 0, 0);
+		// printf("word = %sispace\n", head->word);
 		head = head->next;
 	}
 	return (0);
 }
+
+/*
+si $VAR do not exist, trim
+check in our env. in get_cmd();
+
+*/

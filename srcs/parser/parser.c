@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 12:55:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/28 13:43:24 by achansar         ###   ########.fr       */
+/*   Updated: 2023/03/31 18:07:15 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int get_cmd_list(t_lexlst **lex, t_cmd **parser_lst, int p, t_env *env)
 	*parser_lst = NULL;
 	while (i <= p)
 	{
-		temp = get_cmd_elem(lex, env, i);		
+		temp = get_cmd_elem(lex, env, i);	
 		if (!temp)
 			return (1);//                            => return error
 		parserlst_addback(parser_lst, temp);
@@ -66,6 +66,9 @@ int parser(char *cmd_line, t_cmd **lstp, int *pipes, t_env *env)
 {
 	t_lexlst *lexer_lst;
 
+	lexer_lst = NULL;
+	if (checker_quotes(cmd_line, 0, 0))
+		return (1);
 	if (check_token(cmd_line))
 		return (1);
 	lexer_lst = lexer(cmd_line);

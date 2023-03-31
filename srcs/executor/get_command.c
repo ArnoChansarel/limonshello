@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arnalove <arnalove@student.42.fr>          +#+  +:+       +#+        */
+/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:12:18 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/06 18:26:20 by arnalove         ###   ########.fr       */
+/*   Updated: 2023/03/31 13:34:33 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*get_cmd(t_process *process, char **cmd)
 	cmd_rtr = NULL;
 	if (access(cmd[0], F_OK) == 0)
 		return (cmd[0]);
-    process->env_path = getenv("PATH");	
+    process->env_path = getenv("PATH");//               go to our env
 	cmd_paths = ft_split(process->env_path, ':');//     same problem
 	if (!cmd_paths)
 	{

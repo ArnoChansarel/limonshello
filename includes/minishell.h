@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
+/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:28:41 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/29 16:47:17 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/03/31 18:25:50 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,5 +121,6 @@ int		get_cmd_id(char *str);
 void 	buitins_exec(int i, t_cmd *cmd);
 void	ft_free_array(char **tobefreed);
 int		ft_print_in_order(t_cmd *cmd);
+void    get_builtin_function(char *str, int (**builtin)(struct s_cmd *));
 
 #endif
