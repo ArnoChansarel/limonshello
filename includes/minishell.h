@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:28:41 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/29 15:47:44 by achansar         ###   ########.fr       */
+/*   Updated: 2023/03/29 17:00:07 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,6 @@ t_env	*is_pwd_set(t_cmd *cmd);
 int		update_old_pwd(t_cmd *cmd, char *str);
 int		get_cmd_id(char *str);
 void 	buitins_exec(int i, t_cmd *cmd);
-void    	get_builtin_function(char *str, int (**builtin)(struct s_cmd *));
+void    get_builtin_function(char *str, int (**builtin)(struct s_cmd *));
 
 #endif

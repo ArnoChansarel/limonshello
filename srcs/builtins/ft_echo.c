@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
+/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:56:47 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/02/27 15:07:29 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/03/31 15:49:28 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,9 @@ int	ft_echo(t_cmd *cmd)
 	while (cmd->cmd[i])
 	{
 		ft_putstr_fd(cmd->cmd[i], fd);
-		if (i++)
+		if (i && cmd->cmd[i + 1])
 			ft_putchar_fd(' ', fd);
+		i++;
 	}
 	if (flag == 0)
 		ft_putchar_fd('\n', fd);

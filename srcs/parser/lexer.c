@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:49:11 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/04 11:03:13 by achansar         ###   ########.fr       */
+/*   Updated: 2023/03/31 14:34:08 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ t_lexlst	*lexer(char *cmd_line)//                        => envoyer double point
 {//															=> plutot que simple
 	t_lexlst	*lexer_lst = NULL;
 
-	if(checker_quotes(cmd_line, 0, 0))
-		return (lexer_lst);
 	lexer_lst = ft_split_lexer(cmd_line, lexer_lst);
 	return (lexer_lst);
 }
