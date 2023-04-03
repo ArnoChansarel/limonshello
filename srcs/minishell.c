@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:50:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/03 09:15:36 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/03 09:56:20 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,11 @@ int main(int argc, char **argv, char **envp)
         if (*line)
         {
             if (parser(line, &lst, &pipes, env))
-                return (1);
+                continue ;
             ft_printparse(lst);
             init_process(&process);
             executor(&process, lst, pipes, envp);
-            // ft_unlink(&lst);
+            ft_unlink(&lst);
         }
 		add_history(line);
         free(line);
