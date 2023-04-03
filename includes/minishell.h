@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
+/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:28:41 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/03 09:55:40 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/03 16:35:07 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int			ft_isalpha(int c);
 char		*ft_strdup(const char *s1);
 void		*ft_memcpy(void *dst, const void *src, size_t n);
 char		*ft_itoa(int n);
+int			ft_isalnum(int c);
+
 //LST LEX FUNCTIONS
 t_lexlst	*lexlst_new(void *content);
 void		ft_lstadd_front(t_lexlst **lst, t_lexlst *new);

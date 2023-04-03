@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:25:31 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/15 11:53:51 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/03 17:37:18 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int execute_process(t_cmd *ele, t_process *process, char **env)
 	}
 	else
 	{
-		cmd = get_cmd(process, ele->cmd);
+		cmd = get_cmd(process, ele->cmd, ele->head);
 		dprintf(2, "command found = %s\n", cmd);
 		if (!cmd)
 		{

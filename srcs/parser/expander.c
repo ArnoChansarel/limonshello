@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:24:39 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/31 18:11:12 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/03 17:42:34 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ char    *replace_var(char *str, char *env, int size)
 	char	*temp;
    	int 	i;
 
+	// printf("IN REPLACE VAR\n");
+	// printf("size = %d\n", size);
 	temp = str;
    	// printf("str = %s\nenv = %s\nsize = %d\n", str, env, size);
 	// printf("len str = %zu | size = %d - 1 + len env = %zu\n", ft_strlen(str), size, ft_strlen(env));
@@ -42,7 +44,7 @@ char    *replace_var(char *str, char *env, int size)
 	if (!rtr)
 		return (rtr);
 	i = 0;
-   	while (*str && *str != '$')
+   	while (*str && *str != '$')//         problem ici, refaire en envoyant i
 		rtr[i++] = *str++;
 	while (*env)
 		rtr[i++] = *env++;
@@ -54,19 +56,79 @@ char    *replace_var(char *str, char *env, int size)
 	return (rtr);
 }
 
+
+
+
+
+
+
+static int	ft_strncmp2(const char *s1, const char *s2, size_t n)
+{
+	size_t			i;
+
+	if (n == 0)
+		return (0);
+	i = 0;
+	while ((s1[i] == s2[i]) && s1[i] && i < n - 1)
+	{
+		// printf("char compared = %c to %c\n", s1[i], s2[i]);
+		// if (!s1[i] || !s2[i])
+		// 	return (1);
+		i++;
+	}
+	if ((s1[i] == '\"' || s1[i] == ' ' || !s1[i]) && !s2[i])
+		return (0);
+	// printf(" before return %c - %c = %d\n", s1[i], s2[i], (unsigned char)s1[i] - (unsigned char)s2[i]);
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 int lookfor_var(t_lexlst *lex, t_env **env, int i, int size)
 {
 	t_env  *head;
 
-	head = *env;
 	while(lex->word[i])
 	{
 		if (lex->word[i] == '$')
 		{
+			if (lex->word[i + 1] == '?')
+			{
+				//replace by value
+				//lex->word = replace_var(lex->word, "?", size);
+				//continue
+				
+				//un truc comme ca...
+			}
+			// printf("char = %c value = %d\n", lex->word[i + 1], lex->word[i + 1]);
+			if (ft_isalnum(lex->word[i + 1]) == 0)
+			{
+				i++;
+				continue ;
+			}
+			head = *env;
 			while (head)
 			{
 				size = get_var_size(&lex->word[i]);
-				if (ft_strncmp(&lex->word[i + 1], head->key, size - 1) == 0)
+				// printf("word = %s | key = %s | size = %d - 1\n", lex->word, head->key, size);
+				// printf("BEFORE STRCMP, char = %c%c\n", lex->word[i], lex->word[i+1]);
+				// printf("and str = %s\n", lex->word);
+				if (ft_strncmp2(&lex->word[i + 1], head->key, size) == 0)
 				{
 					lex->word = replace_var(lex->word, head->value, size);
 					break ;
@@ -75,6 +137,7 @@ int lookfor_var(t_lexlst *lex, t_env **env, int i, int size)
 			}
 			if (!head)
 			{
+				// printf("EMPTY\n");
 				lex->word = replace_var(lex->word, "", size);
 				continue ;
 			}
@@ -83,6 +146,16 @@ int lookfor_var(t_lexlst *lex, t_env **env, int i, int size)
 	}
 	return (0);
 }
+
+
+
+
+
+
+
+
+
+
 
 static int expand_quotes(t_lexlst *lex, t_env **env)
 {

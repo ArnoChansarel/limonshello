@@ -3,34 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
+/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:52:21 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/03/29 16:48:02 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/03 10:34:46 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void buitins_exec(int i, t_cmd *cmd)
-{
-	if (i == ECHO)
-		ft_echo(cmd);
-	if (i == CD)
-		ft_cd(cmd);
-	if (i == PWD)
-		ft_pwd(cmd);
-	if (i == EXPORT)
-		ft_export(cmd);
-	if (i == UNSET)
-		ft_unset(cmd);
-	if (i == ENV)
-		ft_env(cmd);
-	if (i == EXIT)
-		ft_exit(cmd);
-	else
-		return ;
-}
 
 void	ft_free_array(char **tobefreed)
 {

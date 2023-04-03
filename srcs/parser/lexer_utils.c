@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 16:25:34 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/31 18:07:03 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/03 15:50:01 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,6 @@ int	check_token(char *line)
 		return (1);
 	while (*line)
 	{
-		if	(*line == '\'' || *line == '\"')
-			line += size_quotes(line);
 		if (is_token(line) && *line == '|')
 		{
 			line += is_token(line);
