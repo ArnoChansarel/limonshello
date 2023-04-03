@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:28:41 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/29 16:47:17 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/03/29 17:00:01 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ void		ft_putchar_fd(char c, int fd);
 char		*ft_strchr(const char *s, int c);
 int			ft_isalpha(int c);
 char		*ft_strdup(const char *s1);
-void	*ft_memcpy(void *dst, const void *src, size_t n);
-
+void		*ft_memcpy(void *dst, const void *src, size_t n);
+char		*ft_itoa(int n);
 //LST LEX FUNCTIONS
 t_lexlst	*lexlst_new(void *content);
 void		ft_lstadd_front(t_lexlst **lst, t_lexlst *new);
@@ -121,5 +121,6 @@ int		get_cmd_id(char *str);
 void 	buitins_exec(int i, t_cmd *cmd);
 void	ft_free_array(char **tobefreed);
 int		ft_print_in_order(t_cmd *cmd);
+void    get_builtin_function(char *str, int (**builtin)(struct s_cmd *));
 
 #endif

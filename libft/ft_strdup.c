@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 15:38:18 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/03/03 15:38:32 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/03/31 17:09:54 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_strdup(const char *s1)
 	len = ft_strlen(s1);
 	if (!s1)
 		return (NULL);
-	str = malloc(sizeof(*s1) * (len + 1));
+	str = malloc(sizeof(char) * (len + 1));
 	if (!str)
 		return (NULL);
 	while (s1[i])

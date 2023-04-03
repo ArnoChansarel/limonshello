@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 10:50:28 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/03/29 11:36:35 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/03/31 14:52:18 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,50 +16,47 @@ static void	restore_prompt(int sig)
 {
 	(void) sig;
 	write(1, "\n", 1);
-	rl_on_new_line(); //  Tell the update routines that we have moved onto a new (empty) line, usually after ouputting a newline. 
+	rl_on_new_line(); // Tell the update routines that we have moved onto a new (empty) line, usually after ouputting a newline.
 	rl_replace_line("", 0);
-	rl_redisplay(); // Change what's displayed on the screen to reflect the current contents of rl_line_buffer. 
+	rl_redisplay(); // Change what's displayed on the screen to reflect the current contents of rl_line_buffer.
 }
 
-static void	prompt_nl(int sig)
+static void	readline_new_line(int sig)
 {
 	(void) sig;
 	write(1, "\n", 1);
 	rl_on_new_line();
 }
 
-static void	ctrl_c(int sig)
+static void	user_input_ctrl_c(int sig)
 {
 	(void) sig;
 	exit(130);
 }
 
-static void	backslash(int sig)
+static void	user_input_backslash(int sig)
 {
 	(void) sig;
 	exit(131);
 }
 
-void	sig_handler(int status)
+void	sig_handler(int input)
 {
 	signal(SIGQUIT, SIG_IGN);
-	if (status == 0)
-	{
+	if (input == 0)
 		signal(SIGINT, &restore_prompt);
-		signal(SIGINT, SIG_IGN);
-	}
-	else if (status == 1)
+	else if (input == 1)
 	{
-		signal(SIGINT, &prompt_nl);
-		signal(SIGQUIT, &prompt_nl);
+		signal(SIGINT, &readline_new_line);
+		signal(SIGQUIT, &readline_new_line);
 	}
-	else if (status == 2)
+	else if (input == 2)
 	{
-		signal(SIGINT, &ctrl_c);
-		signal(SIGQUIT, &backslash);
+		signal(SIGINT, &user_input_ctrl_c);
+		signal(SIGQUIT, &user_input_backslash);
 	}
-	else if (status == 3)
-		signal(SIGINT, &ctrl_c);
+	else if (input == 3)
+		signal(SIGINT, &user_input_ctrl_c);
 	else
-		signal(SIGINT, &prompt_nl);
+		signal(SIGINT, &readline_new_line);
 }

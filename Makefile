@@ -6,7 +6,7 @@
 #    By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/06 14:37:56 by achansar          #+#    #+#              #
-#    Updated: 2023/03/29 16:53:08 by ade-bast         ###   ########.fr        #
+#    Updated: 2023/03/29 17:01:17 by ade-bast         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,8 +89,8 @@ LBFT = 	ft_split \
 		ft_strchr \
 		ft_atoi \
 		ft_strdup \
-		ft_memcpy
-		
+		ft_memcpy \
+		ft_itoa
 LBFT_FILES = $(addprefix $(LBFT_PATH), $(LBFT:=.c))
 LBFT_OBJ = $(addprefix $(LBFT_PATH), $(LBFT:=.o))
 

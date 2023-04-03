@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:50:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/29 16:45:24 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/03 09:15:36 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@ probleme 4  : expander : si $? comment on fait
 probleme 5  : AWK
 probleme 6  : encore probleme d'espace.. (echo hello' '> outfile)
 */
+
+int	exit_value = 0;
+
+// exit_value = 0;
 
 int	error_msg(char *str)
 {
@@ -67,15 +71,18 @@ int main(int argc, char **argv, char **envp)
 
 	(void) argc;
 	(void) argv;
+	
     pipes = 0;
-
+	sig_handler(0);
     env = build_env_list(envp);// free apres protection
     if (!env)
         return (1);
     print_head();
     while (1)
     {
-        line = readline("minishell$> ");
+        line = readline("LimonShello $> ");
+		if (!line)
+			exit(exit_value); // to update avec la globale
         if (*line)
         {
             if (parser(line, &lst, &pipes, env))
@@ -85,6 +92,7 @@ int main(int argc, char **argv, char **envp)
             executor(&process, lst, pipes, envp);
             // ft_unlink(&lst);
         }
+		add_history(line);
         free(line);
     }
     return (0);
@@ -127,7 +135,7 @@ int main(int argc, char **argv, char **envp)
 // 			ft_print_in_order(&cmd);
 // 		ft_free_array(cmd.cmd);
 // 			if (ft_strlen(str) != 0)
-// 		add_history(str);
+
 // 		free(str);
 // 	}
 // 	return (0);

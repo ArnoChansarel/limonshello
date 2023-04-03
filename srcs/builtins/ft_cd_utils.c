@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 09:43:51 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/03/03 15:42:59 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/03/31 15:19:25 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,12 @@ void	cd_home(char *home, char *pwd, t_cmd *cmd)
 
 	dir = opendir(home);
 	if (!dir)
-		ft_putstr_fd("minishell: cd: No such file or directory\n", 2);
+		{
+			ft_putstr_fd("LimonShello: cd: ", 2);
+			ft_putstr_fd(home, 2);
+			ft_putstr_fd(": No such file or directory\n", 2);
+			return ;
+		}
 	else
 	{
 		chdir(home);
@@ -63,7 +68,12 @@ void	cd_go_to_directory(char *directory, char *pwd, t_cmd *cmd)
 	ft_memcpy(directory, tmp_join_bis, ft_strlen(tmp_join_bis) + 1);
 	dir = opendir(directory);
 	if (!dir)
-		ft_putstr_fd("No such file or directory\n", 2);
+	{
+		ft_putstr_fd("LimonShello: cd: ", 2);
+		ft_putstr_fd(cmd->cmd[1], 2);
+		ft_putstr_fd(": Not a directory\n", 2);
+		return ;
+	}
 	else
 	{
 		chdir(directory);
@@ -81,7 +91,12 @@ void	cd_slash(t_cmd *cmd, char *pwd)
 
 	dir = opendir(cmd->cmd[1]);
 	if ((!dir))
-		ft_putstr_fd("no such file or directory\n", 2);
+	{
+		ft_putstr_fd("LimonShello: cd: ", 2);
+		ft_putstr_fd(cmd->cmd[1], 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
+		return ;
+	}
 	else
 	{
 		chdir(cmd->cmd[1]);
