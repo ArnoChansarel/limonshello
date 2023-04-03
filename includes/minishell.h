@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:28:41 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/31 18:25:50 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/03 09:47:37 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ void		ft_putchar_fd(char c, int fd);
 char		*ft_strchr(const char *s, int c);
 int			ft_isalpha(int c);
 char		*ft_strdup(const char *s1);
-void	*ft_memcpy(void *dst, const void *src, size_t n);
+void		*ft_memcpy(void *dst, const void *src, size_t n);
+char		*ft_itoa(int n);
 
 //LST LEX FUNCTIONS
 t_lexlst	*lexlst_new(void *content);

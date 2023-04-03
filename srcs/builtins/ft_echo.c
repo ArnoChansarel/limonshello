@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/17 10:56:47 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/03/31 18:25:24 by achansar         ###   ########.fr       */
+/*   Created: 2023/04/03 09:30:07 by achansar          #+#    #+#             */
+/*   Updated: 2023/04/03 09:35:34 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ int	ft_echo(t_cmd *cmd)
 		new_line = 0;
 	while (cmd->cmd[i])
 	{
-		ft_putstr_fd(cmd->cmd[i], fd);
+		ft_putstr_fd(cmd->cmd[i], 1);
 		if (i && cmd->cmd[i + 1])
-			ft_putchar_fd(' ', fd);
+			ft_putchar_fd(' ', 1);
 		i++;
 	}
 	if (new_line == 1)
