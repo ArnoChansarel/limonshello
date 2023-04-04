@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 09:43:51 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/03/31 15:19:25 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/04 10:24:14 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ void	cd_home(char *home, char *pwd, t_cmd *cmd)
 
 	dir = opendir(home);
 	if (!dir)
-		{
-			ft_putstr_fd("LimonShello: cd: ", 2);
-			ft_putstr_fd(home, 2);
-			ft_putstr_fd(": No such file or directory\n", 2);
-			return ;
-		}
+	{
+		ft_putstr_fd("LimonShello: cd: ", 2);
+		ft_putstr_fd(home, 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
+		return ;
+	}
 	else
 	{
 		chdir(home);

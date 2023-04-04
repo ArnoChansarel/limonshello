@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:50:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/03 09:56:20 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/03 11:49:03 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,6 @@ probleme 4  : expander : si $? comment on fait
 probleme 5  : AWK
 probleme 6  : encore probleme d'espace.. (echo hello' '> outfile)
 */
-
-int	exit_value = 0;
-
-// exit_value = 0;
 
 int	error_msg(char *str)
 {
@@ -72,6 +68,7 @@ int main(int argc, char **argv, char **envp)
 	(void) argc;
 	(void) argv;
 	
+	g_exit_value = 0;
     pipes = 0;
 	sig_handler(0);
     env = build_env_list(envp);// free apres protection
@@ -82,7 +79,7 @@ int main(int argc, char **argv, char **envp)
     {
         line = readline("LimonShello $> ");
 		if (!line)
-			exit(exit_value); // to update avec la globale
+			exit(g_exit_value);
         if (*line)
         {
             if (parser(line, &lst, &pipes, env))
@@ -97,46 +94,3 @@ int main(int argc, char **argv, char **envp)
     }
     return (0);
 }
-
-// int	main(int argc, char ** argv, char **envp)
-// {
-// 	argc = 0;
-// 	argv = 0;
-// 	t_cmd	cmd;
-// 	char	*str;
-// 	char	*prompt = ">$";
-
-// 	build_env_list(envp, &cmd);
-// 	while (1)
-// 	{
-// 		sig_handler(0);
-// 		cmd.cmd = NULL;
-// 		str = readline(prompt);
-// 		if (!str)
-// 		ft_exit(NULL);
-// 		cmd.cmd = ft_split(str, ' ');
-// 		if (strcmp(cmd.cmd[0], "echo") == 0)
-// 			ft_echo(&cmd);
-// 		if (strcmp(cmd.cmd[0], "pwd") == 0)
-// 			ft_pwd(&cmd);
-// 		if (strcmp(cmd.cmd[0], "export") == 0)
-// 			ft_export(&cmd);		
-// 		if (strcmp(cmd.cmd[0], "unset") == 0)
-// 			ft_unset(&cmd);
-// 		if (strcmp(cmd.cmd[0], "cd") == 0)
-// 			ft_cd(&cmd);
-// 		if (strcmp(cmd.cmd[0], "env") == 0)
-// 			ft_env(&cmd);
-// 		if (strcmp(cmd.cmd[0], "exit") == 0)
-// 			ft_exit(&cmd);
-// 		if (strcmp(cmd.cmd[0], "env2") == 0)
-// 			ft_print_in_order(&cmd);
-// 		if (strcmp(cmd.cmd[0], "env3") == 0)
-// 			ft_print_in_order(&cmd);
-// 		ft_free_array(cmd.cmd);
-// 			if (ft_strlen(str) != 0)
-
-// 		free(str);
-// 	}
-// 	return (0);
-// }

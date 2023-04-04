@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 09:30:07 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/03 09:35:34 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/03 15:35:21 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,6 @@ int	ft_echo(t_cmd *cmd)
 	}
 	if (new_line == 1)
 		ft_putstr_fd("\n", 1);
-	cmd->exit_status = 0;
+	g_exit_value = 0;
 	return (0);
 }

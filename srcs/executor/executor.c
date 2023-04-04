@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:25:59 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/29 15:32:22 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/03 15:23:37 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,17 @@ int	child(t_process *process, t_cmd *ele, char **env, int pi)
 int	father_waits(int pipes)
 {
 	int	i;
+	// int	status;
 	
+	// waitpid(-1, &status, 0);
+	// if (WIFEXITED(status))
+	// 		g_exit_value = WEXITSTATUS(status);
+
 	i = 0;
+	sig_handler(1);
 	while (i <= pipes)
 	{
-		waitpid(-1, NULL, 0);//         EXIT : check si erreur = 255 alors exit aussi
+		waitpid(-1, NULL, 0);
 		i++;
 	}
 	//                          RECUPERER SIGNAUX WIF
@@ -78,7 +84,7 @@ int	fork_n_wait(t_process *process, t_cmd *cmd_lst, int pipes, char **env)
 	int j = 0;
 	int	fork_id;
 	t_cmd	*head;
-	
+   
 	i = 0;
 	head = cmd_lst;
 	while (i++ <= pipes)
