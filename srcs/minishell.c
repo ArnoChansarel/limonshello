@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:50:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/03 11:01:18 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/04 12:34:10 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ probleme 5  : AWK
 probleme 6  : encore probleme d'espace.. (echo hello' '> outfile)
 */
 
-int	exit_value = 0;
+int	g_exit_value = 0;
 
 int	error_msg(char *str)
 {
@@ -80,7 +80,7 @@ int main(int argc, char **argv, char **envp)
     {
         line = readline("LimonShello $> ");
 		if (!line)
-			exit(exit_value); // to update avec la globale
+			exit(g_exit_value); // to update avec la globale
         if (*line)
         {
             if (parser(line, &lst, &pipes, env))

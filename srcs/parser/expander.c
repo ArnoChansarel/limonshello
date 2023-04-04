@@ -6,26 +6,15 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:24:39 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/03 17:42:34 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/04 12:56:17 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	get_var_size(char *str)
-{
-	int	size;
-	
-	size = 0;
-	while (*str && *str != ' ' && *str != '\"')
-	{
-		str++;
-		size++;
-	}
-	return (size);
-}
 
-char    *replace_var(char *str, char *env, int size)
+
+char    *replace_var(char *str, char *env, int size, int j)
 {
    	char 	*rtr;
 	char	*temp;
@@ -40,11 +29,11 @@ char    *replace_var(char *str, char *env, int size)
 	i = ft_strlen(str) - size - 1 + ft_strlen(env);
 	if (i == -1)
 		i = 1;
-   	rtr = malloc(sizeof(char *) * i);
+   	rtr = malloc(sizeof(char *) * i + 1);
 	if (!rtr)
 		return (rtr);
 	i = 0;
-   	while (*str && *str != '$')//         problem ici, refaire en envoyant i
+   	while (*str && i < j)
 		rtr[i++] = *str++;
 	while (*env)
 		rtr[i++] = *env++;
@@ -55,33 +44,6 @@ char    *replace_var(char *str, char *env, int size)
 	free(temp);
 	return (rtr);
 }
-
-
-
-
-
-
-
-static int	ft_strncmp2(const char *s1, const char *s2, size_t n)
-{
-	size_t			i;
-
-	if (n == 0)
-		return (0);
-	i = 0;
-	while ((s1[i] == s2[i]) && s1[i] && i < n - 1)
-	{
-		// printf("char compared = %c to %c\n", s1[i], s2[i]);
-		// if (!s1[i] || !s2[i])
-		// 	return (1);
-		i++;
-	}
-	if ((s1[i] == '\"' || s1[i] == ' ' || !s1[i]) && !s2[i])
-		return (0);
-	// printf(" before return %c - %c = %d\n", s1[i], s2[i], (unsigned char)s1[i] - (unsigned char)s2[i]);
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-}
-
 
 
 
@@ -109,11 +71,9 @@ int lookfor_var(t_lexlst *lex, t_env **env, int i, int size)
 		{
 			if (lex->word[i + 1] == '?')
 			{
-				//replace by value
-				//lex->word = replace_var(lex->word, "?", size);
-				//continue
-				
-				//un truc comme ca...
+				size = get_var_size(&lex->word[i]);
+				lex->word = replace_var(lex->word, ft_itoa(g_exit_value), size, i);
+				continue ;
 			}
 			// printf("char = %c value = %d\n", lex->word[i + 1], lex->word[i + 1]);
 			if (ft_isalnum(lex->word[i + 1]) == 0)
@@ -130,7 +90,7 @@ int lookfor_var(t_lexlst *lex, t_env **env, int i, int size)
 				// printf("and str = %s\n", lex->word);
 				if (ft_strncmp2(&lex->word[i + 1], head->key, size) == 0)
 				{
-					lex->word = replace_var(lex->word, head->value, size);
+					lex->word = replace_var(lex->word, head->value, size, i);
 					break ;
 				}
 				head = head->next;
@@ -138,44 +98,12 @@ int lookfor_var(t_lexlst *lex, t_env **env, int i, int size)
 			if (!head)
 			{
 				// printf("EMPTY\n");
-				lex->word = replace_var(lex->word, "", size);
+				lex->word = replace_var(lex->word, "", size, i);
 				continue ;
 			}
 		}
 		i++;
 	}
-	return (0);
-}
-
-
-
-
-
-
-
-
-
-
-
-static int expand_quotes(t_lexlst *lex, t_env **env)
-{
-	int i;
-	char *str;
-	int len;
-
-	i = 0;
-	if (lex->word[0] == '\"')
-	    lookfor_var(lex, env, 0, 0);
-	len = ft_strlen(lex->word);
-	str = malloc(sizeof(char *) * len - 2);
-	while (i <= len - 3)
-	{
-		str[i] = lex->word[i + 1];
-		i++;
-	}
-	str[i] = '\0';
-	free(lex->word);
-	lex->word = str;
 	return (0);
 }
 
@@ -195,9 +123,3 @@ int expander(t_lexlst **lex, t_env **env)
 	}
 	return (0);
 }
-
-/*
-si $VAR do not exist, trim
-check in our env. in get_cmd();
-
-*/
