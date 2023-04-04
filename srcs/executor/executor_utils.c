@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:53:00 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/31 16:53:19 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/04 14:45:30 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@ static int	get_here_doc(t_process *process, char *eof, int index)
 	if (process->fd1 < 0)
 		return (1);
 	line = readline("> ");
+	if (!line)
+	{
+		free(name);
+		close(process->fd1);
+		return (0);
+	}
 	if (ft_strncmp(line, eof, ft_strlen(eof) + 1) == 0)//        /!\ warning check +1
 		return (0);
 	while (line)
@@ -32,6 +38,12 @@ static int	get_here_doc(t_process *process, char *eof, int index)
 		if (line)
 			free(line);
 		line = readline("> ");
+		if (!line)
+		{
+			free(name);
+			close(process->fd1);
+			return (0);
+		}
 		if (ft_strncmp(line, eof, ft_strlen(eof) + 1) == 0)//        /!\ warning check +1
 			break ;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 16:25:34 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/31 18:07:03 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/04 10:37:48 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ int	check_token(char *line)
 		return (1);
 	while (*line)
 	{
-		if	(*line == '\'' || *line == '\"')
-			line += size_quotes(line);
+		// if	(*line == '\'' || *line == '\"')
+		// 	line += size_quotes(line);
 		if (is_token(line) && *line == '|')
 		{
 			line += is_token(line);

@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 09:43:51 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/04 10:24:14 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/04 14:22:01 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@ void	cd_home(char *home, char *pwd, t_cmd *cmd)
 {
 	DIR	*dir;
 
+	if (!home[0])
+	{
+		ft_putstr_fd("LimonShello: cd: HOME not set\n", 2);
+		return ;
+	}
 	dir = opendir(home);
 	if (!dir)
 	{
