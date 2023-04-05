@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:28:41 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/04 10:11:08 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/05 14:31:45 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,15 @@ int	g_exit_value;
 // PARSER FUNCTIONS
 t_lexlst 	*lexer(char *cmd_line);
 int			parser(char *cmd_line, t_cmd **lstp, int *pipes, t_env *env);
+
+// EXPANDER FUNCTIONS
 int			expander(t_lexlst **lex, t_env **env);
+int lookfor_var(t_lexlst *lex, t_env **env, int i, int size);
+
+// EXPANDER UTILS
+int	get_var_size(char *str);
+int	ft_strncmp2(const char *s1, const char *s2, size_t n);
+int expand_quotes(t_lexlst *lex, t_env **env);
 
 // PARSER UTILS
 int 		count_pipes(t_lexlst *lex);
@@ -70,6 +78,8 @@ int			ft_isalpha(int c);
 char		*ft_strdup(const char *s1);
 void		*ft_memcpy(void *dst, const void *src, size_t n);
 char		*ft_itoa(int n);
+int			ft_isalnum(int c);
+
 //LST LEX FUNCTIONS
 t_lexlst	*lexlst_new(void *content);
 void		ft_lstadd_front(t_lexlst **lst, t_lexlst *new);

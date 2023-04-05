@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 16:25:34 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/04 10:37:48 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/05 14:31:28 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,10 @@ int	check_token(char *line)
 {
 	if (check_token_ends(line))
 		return (1);
+	// if (*line == '\"' || *line == '\'')
+	// {
+	// 	while ()
+	// }
 	while (*line)
 	{
 		// if	(*line == '\'' || *line == '\"')

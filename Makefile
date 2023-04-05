@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+         #
+#    By: achansar <achansar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/06 14:37:56 by achansar          #+#    #+#              #
-#    Updated: 2023/03/29 17:01:17 by ade-bast         ###   ########.fr        #
+#    Updated: 2023/04/03 16:34:53 by achansar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,7 +90,8 @@ LBFT = 	ft_split \
 		ft_atoi \
 		ft_strdup \
 		ft_memcpy \
-		ft_itoa
+		ft_itoa \
+		ft_isalnum
 LBFT_FILES = $(addprefix $(LBFT_PATH), $(LBFT:=.c))
 LBFT_OBJ = $(addprefix $(LBFT_PATH), $(LBFT:=.o))
 

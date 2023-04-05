@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:00:50 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/29 15:29:31 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/03 17:45:42 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int     next_process(t_process *process, int pi);
 int     last_process(t_process *process, int pi);
 
 // EXECUTOR UTILS
-char	*get_cmd(t_process *process, char **cmd);
+char	*get_cmd(t_process *process, char **cmd, t_env *ev);
 int		open_infile(t_process *process, t_cmd *ele);
 int		open_outfile(t_process *process, t_cmd *ele);
 int	    create_pipes(t_process *process, int pipes);

@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:12:18 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/31 13:34:33 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/04 11:14:26 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,21 @@ static char	*check_cmd(t_process *process, char **cmd, char **cmd_paths)
 	return (NULL);
 }
 
-char	*get_cmd(t_process *process, char **cmd)
+char	*getourenv(char *key, t_env *list)
+{
+	t_env *head;
+
+	head = list;
+	while (head)
+	{
+		if (ft_strncmp(key, head->key, 4) == 0)
+			return (head->value);
+		head = head->next;
+	}
+	return (NULL);
+}
+
+char	*get_cmd(t_process *process, char **cmd, t_env *ev)
 {
 	char	*cmd_rtr;
 	char	**cmd_paths;
@@ -59,7 +73,9 @@ char	*get_cmd(t_process *process, char **cmd)
 	cmd_rtr = NULL;
 	if (access(cmd[0], F_OK) == 0)
 		return (cmd[0]);
-    process->env_path = getenv("PATH");//               go to our env
+    process->env_path = getourenv("PATH", ev);//               go to our env
+	if (!process->env_path)
+		return (NULL);
 	cmd_paths = ft_split(process->env_path, ':');//     same problem
 	if (!cmd_paths)
 	{
