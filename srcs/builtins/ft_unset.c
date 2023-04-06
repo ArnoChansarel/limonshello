@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:59:12 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/03 13:25:51 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/06 13:24:30 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	ft_unset(t_cmd *cmd)
 					ft_strlen(tmp->next->key)) == 0)
 			{
 				delete_node(tmp);
+				tmp = cmd->head;
 				break ;
 			}
 			tmp = tmp->next;
