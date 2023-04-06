@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:24:39 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/06 15:16:41 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/06 18:08:19 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,11 +100,10 @@ int lookfor_var(t_cmd *cmd, t_env **env, int idx, int size)
 
 
 
-
-
-
-
-
+/*
+LANCER EXPANDER SEULEMENT AU MOMENT D'OPEN !!!!!
+SINON SI file = "<<" -> enorme probleme
+*/
 
 
 

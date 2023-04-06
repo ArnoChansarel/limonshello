@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:49:11 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/06 16:12:41 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/06 17:42:35 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	check_token(char *line)
 				line++;
 			if (is_token(line))
 				return (error_msg("Unexpected Token.\n"));
+			continue ;
 		}
 		line++;
 	}

@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:25:59 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/06 15:58:27 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/06 17:17:32 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int open_redirections(t_process *process, t_cmd *ele)
 	if (ele->rd_in)
 	{
 		if (open_infile(process, ele))
-			return (1);//                             exit ?
+			return (1);
 	}
 	if (ele->rd_out)
 	{
@@ -25,7 +25,7 @@ int open_redirections(t_process *process, t_cmd *ele)
 		{
 			if (process->fd1)
 				close(process->fd1);
-			return (1);//                             exit ?
+			return (1);
 		}
 	}
 	printf("fd1 = %d | fd2 = %d\n", process->fd1, process->fd2);
@@ -49,9 +49,15 @@ int	child(t_process *process, t_cmd *ele, char **env, int pi)
 	else
 	{
 		if (process->fd1 >= 0)
+		{
 			dup2(process->fd1, STDIN_FILENO);
+			close(process->fd1);
+		}
 		if (process->fd2 >= 0)
+		{
 			dup2(process->fd2, STDOUT_FILENO);
+			close(process->fd2);
+		}
 	}
 	if (process->pipes_array)
 		close_pipes(process->pipes_array);
@@ -92,7 +98,6 @@ int	fork_n_wait(t_process *process, t_cmd *cmd_lst, int pipes, char **env)
 		}
 		if (!fork_id)
 			child(process, head, env, j);
-		// close(process->pipes_array[j + 1]);
 		if (j > 0)
 			close(process->pipes_array[j - 2]);
 		j += 2;
@@ -121,11 +126,13 @@ int	single_cmd(t_process *process, t_cmd *cmd)
 	{
 		saved_fd1 = dup(STDIN_FILENO);
 		dup2(process->fd1, STDIN_FILENO);
+		close(process->fd1);
 	}
 	if (process->fd2 >= 0)
 	{
 		saved_fd2 = dup(STDOUT_FILENO);
 		dup2(process->fd2, STDOUT_FILENO);
+		close(process->fd2);
 	}
 	cmd->builtin(cmd);
 	dup2(saved_fd1, STDIN_FILENO);
