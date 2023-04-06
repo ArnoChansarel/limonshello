@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:28:41 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/04 12:55:18 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/06 16:12:42 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ t_lexlst 	*lexer(char *cmd_line);
 int			parser(char *cmd_line, t_cmd **lstp, int *pipes, t_env *env);
 
 // EXPANDER FUNCTIONS
-int			expander(t_lexlst **lex, t_env **env);
-int lookfor_var(t_lexlst *lex, t_env **env, int i, int size);
+int			expander(t_cmd **cmd_lst, t_env **env);
+int 		lookfor_var(t_cmd *cmd, t_env **env, int idx, int size);
 
 // EXPANDER UTILS
-int	get_var_size(char *str);
-int	ft_strncmp2(const char *s1, const char *s2, size_t n);
-int expand_quotes(t_lexlst *lex, t_env **env);
+int			get_var_size(char *str);
+int			ft_strncmp2(const char *s1, const char *s2, size_t n);
+int			expand_quotes(t_cmd *cmd, t_env **env, int idx);
 
 // PARSER UTILS
 int 		count_pipes(t_lexlst *lex);
@@ -58,6 +58,8 @@ int			checker_quotes(char *line, int s, int d);
 int			size_quotes(const char *str);
 int			is_token(char *str);
 int			check_token(char *line);
+int			check_token_ends(char *line);
+int			skip_quotes(char *line);
 
 // LIBFT FUNCTIONS
 char		**ft_split(char const *s, char c);

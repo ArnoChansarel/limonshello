@@ -6,11 +6,39 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:49:11 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/31 14:34:08 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/06 16:12:41 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	check_token(char *line)
+{
+	if (check_token_ends(line))
+		return (1);
+	while (*line)
+	{
+		line += skip_quotes(line);
+		if (is_token(line) && *line == '|')
+		{
+			line += is_token(line);
+			while (*line == ' ')
+				line++;
+			if (is_token(line) && *line == '|')
+				return (error_msg("Unexpected Token.\n"));
+		}
+		else if (is_token(line) && (*line == '<' || *line == '>')) 
+		{
+			line += is_token(line);
+			while (*line == ' ')
+				line++;
+			if (is_token(line))
+				return (error_msg("Unexpected Token.\n"));
+		}
+		line++;
+	}
+	return (0);
+}
 
 static int get_new_i(int i, char *cmd_line)
 {
@@ -67,8 +95,8 @@ t_lexlst	*ft_split_lexer(char *cmd_line, t_lexlst *lexer_lst)
 	return (lexer_lst);
 }
 
-t_lexlst	*lexer(char *cmd_line)//                        => envoyer double pointeur
-{//															=> plutot que simple
+t_lexlst	*lexer(char *cmd_line)
+{
 	t_lexlst	*lexer_lst = NULL;
 
 	lexer_lst = ft_split_lexer(cmd_line, lexer_lst);

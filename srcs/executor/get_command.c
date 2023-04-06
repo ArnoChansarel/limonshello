@@ -6,14 +6,11 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:12:18 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/04 11:14:26 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/06 16:02:51 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-// /!\ CHECK AWK /!
-// USE GETENV() !!
 
 int	free_array(char **array)
 {
@@ -73,10 +70,10 @@ char	*get_cmd(t_process *process, char **cmd, t_env *ev)
 	cmd_rtr = NULL;
 	if (access(cmd[0], F_OK) == 0)
 		return (cmd[0]);
-    process->env_path = getourenv("PATH", ev);//               go to our env
+    process->env_path = getourenv("PATH", ev);
 	if (!process->env_path)
 		return (NULL);
-	cmd_paths = ft_split(process->env_path, ':');//     same problem
+	cmd_paths = ft_split(process->env_path, ':');
 	if (!cmd_paths)
 	{
 		free_array(cmd_paths);

@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 12:55:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/31 18:07:15 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/06 15:18:38 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,9 @@ int parser(char *cmd_line, t_cmd **lstp, int *pipes, t_env *env)
 	if (!lexer_lst)
 		return (1);
 	ft_printlist(lexer_lst);
-	expander(&lexer_lst, &env);
 	*pipes = count_pipes(lexer_lst);
 	get_cmd_list(&lexer_lst, lstp, *pipes, env);
 	lexlst_clear(&lexer_lst);
+	expander(lstp, &env);
 	return (0);
 }

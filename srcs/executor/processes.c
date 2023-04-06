@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:25:31 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/04 11:25:15 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/06 16:07:57 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,14 @@
 
 static void	cmd_not_found(char *cmd)
 {
-	char *rtr;
+	char *rtr1;
+	char *rtr2;
 
-	rtr = ft_strjoin("Limonshello: ", cmd);
-	perror(rtr);
+	rtr1 = ft_strjoin("Limonshello: ", cmd);
+	rtr2 = ft_strjoin(rtr1, ": command not found\n");
+	write(2, rtr2, ft_strlen(rtr2));
+	free(rtr1);
+	free(rtr2);
 	exit (127);
 }
 

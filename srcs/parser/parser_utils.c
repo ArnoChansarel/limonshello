@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:59:43 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/15 12:30:11 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/06 11:18:39 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int count_word_lex(t_lexlst  **lex)
 	
 	head = *lex;
 	c = 0;
+	// printf("word = %s\n", head->word);
 	while (head && ft_strncmp(head->word, "|", 2) != 0)
 	{
 		if(ft_strncmp(head->word, "|", 2) != 0

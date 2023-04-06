@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:24:39 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/04 14:36:29 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/06 15:16:41 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,45 +38,49 @@ char    *replace_var(char *str, char *env, int size, int j)
 	return (rtr);
 }
 
-int	find_var_and_replace(t_lexlst *lex, t_env **env, int i)
+int	find_var_and_replace(t_cmd *cmd, t_env **env, int idx, int i)
 {
 	int		size;
 	t_env  *head;
-	
+
 	size = 0;
 	head = *env;
+	size = get_var_size(&cmd->cmd[idx][i]);
 	while (head)
 	{
-		size = get_var_size(&lex->word[i]);
-		if (ft_strncmp2(&lex->word[i + 1], head->key, size) == 0)
+		if (ft_strncmp2(&cmd->cmd[idx][i + 1], head->key, size) == 0)
 		{
-			lex->word = replace_var(lex->word, head->value, size, i);
+			cmd->cmd[idx] = replace_var(cmd->cmd[idx], head->value, size, i);
 			return (1);
 		}
 		head = head->next;
 	}
-	lex->word = replace_var(lex->word, "", size, i);
+	cmd->cmd[idx] = replace_var(cmd->cmd[idx], "", size, i);
 	return (0);
 }
 
-int lookfor_var(t_lexlst *lex, t_env **env, int i, int size)
+int lookfor_var(t_cmd *cmd, t_env **env, int idx, int size)
 {
-	while(lex->word[i])
+	int i;
+
+	(void)size;
+	i = 0;
+	while(cmd->cmd[idx][i])
 	{
-		if (lex->word[i] == '$')
+		if (cmd->cmd[idx][i] == '$')
 		{
-			if (lex->word[i + 1] == '?')
+			if (cmd->cmd[idx][i + 1] == '?')
 			{
-				size = get_var_size(&lex->word[i]);
-				lex->word = replace_var(lex->word, ft_itoa(g_exit_value), size + 1, i);
+				size = get_var_size(&cmd->cmd[idx][i]);
+				cmd->cmd[idx] = replace_var(cmd->cmd[idx], ft_itoa(g_exit_value), size + 1, i);
 				continue ;
 			}
-			if (ft_isalnum(lex->word[i + 1]) == 0)
+			if (ft_isalnum(cmd->cmd[idx][i + 1]) == 0)
 			{
 				i++;
 				continue ;
 			}
-			if (find_var_and_replace(lex, env, i) == 0)
+			if (find_var_and_replace(cmd, env, idx, i) == 0)
 				continue ;
 		}
 		i++;
@@ -84,17 +88,68 @@ int lookfor_var(t_lexlst *lex, t_env **env, int i, int size)
 	return (0);
 }
 
-int expander(t_lexlst **lex, t_env **env)
-{
-	t_lexlst *head;
 
-	head = *lex;
+
+
+// char *quotes_rd(char *rd)
+// {
+// 	char *rd;
+	
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+// char	*expand_redirection(char *rd)
+// {
+// 	int i;
+// 	char *rtr;
+
+// 	i = 0;
+// 	while(rd[i])
+// 	{
+// 		if (rd[i] == '\"' || rd[i] == '\'')
+// 		{
+// 			rtr = quotes_rd();
+// 			free(rd);
+// 			break ;
+// 		}
+// 		i++;
+// 	}
+// 	return (rd);
+// }
+
+int expander(t_cmd **cmd_lst, t_env **env)
+{
+	int		i;
+	t_cmd 	*head;
+
+	head = *cmd_lst;
 	while (head)
 	{
-		if (head->word[0] == '\'' || head->word[0] == '\"')
-			expand_quotes(head, env);
-		else
-			lookfor_var(head, env, 0, 0);
+		i = 0;
+		while (head->cmd[i])
+		{			
+			if (head->cmd[i][0] == '\'' || head->cmd[i][0] == '\"')
+				expand_quotes(head, env, i);
+			else
+				lookfor_var(head, env, i, 0);
+			i++;
+		}
+		// if (head->rd_in)
+		// {
+		// 	i = is_token(head->rd_in);
+		// 	if (head->rd_in[i] == '\"' || head->rd_in[i] == '\'')
+				
+		// }
 		head = head->next;
 	}
 	return (0);

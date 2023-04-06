@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:25:59 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/29 15:32:22 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/06 15:58:27 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int open_redirections(t_process *process, t_cmd *ele)
 int	child(t_process *process, t_cmd *ele, char **env, int pi)
 {
 	if (ele->rd_in || ele->rd_out)
-		open_redirections(process, ele);
+		if (open_redirections(process, ele))
+			exit(1);
 	if (process->pipes_array)
 	{
 		if (pi == 0)
@@ -114,7 +115,8 @@ int	single_cmd(t_process *process, t_cmd *cmd)
 	saved_fd1 = -1;
 	saved_fd2 = -1;
 	if (cmd->rd_in || cmd->rd_out)
-		open_redirections(process, cmd);
+		if (open_redirections(process, cmd))
+			return (1);
 	if (process->fd1 >= 0)
 	{
 		saved_fd1 = dup(STDIN_FILENO);
