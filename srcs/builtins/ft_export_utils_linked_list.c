@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 14:34:47 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/03/09 11:07:50 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/04 10:22:53 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ t_env	*copylist(t_env *head)
 		return (NULL);
 	else
 	{
-        newnode = (t_env *)malloc(sizeof(t_env));
-        newnode->key = ft_strdup(head->key);
+		newnode = (t_env *)malloc(sizeof(t_env));
+		newnode->key = ft_strdup(head->key);
 		newnode->export = head->export;
 		newnode->value = ft_strdup(head->value);
 		newnode->next = 0;

@@ -6,13 +6,11 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:48:54 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/03/29 16:47:30 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/04 09:52:32 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-//! boucle delete_node => free quand le prog quitte
 
 void	delete_node(t_env *head)
 {
@@ -30,11 +28,18 @@ void	delete_node(t_env *head)
 void	push(t_env *head, int export, char *key, char *value)
 {
 	t_env	*current;
+	int		tmp;
 
+	tmp = 0;
 	current = head;
 	while (current->next != NULL) 
 	{
 		current = current->next;
+	}
+	if ((ft_strncmp("SHLVL", key, 5)) == 0)
+	{
+		tmp = ft_atoi(value) + 1;
+		value = ft_itoa(tmp);
 	}
 	current->next = (t_env *) malloc(sizeof(t_env));
 	if (!current->next)

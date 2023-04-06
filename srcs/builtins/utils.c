@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:52:21 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/03 10:34:46 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/05 14:28:23 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,11 @@ void	ft_free_array(char **tobefreed)
 	}
 	free(tobefreed);
 }
-// int	get_cmd(char *str)
-// {
-//     if (ft_strncmp(str, "echo", ft_strlen(str) + 1) == 0)
-//         return(ECHO);
-//     else if (ft_strncmp(str, "cd", ft_strlen(str) + 1) == 0)
-//         return(CD);
-//     else if (ft_strncmp(str, "pwd", ft_strlen(str) + 1) == 0)
-//         return(PWD);
-//     else if (ft_strncmp(str, "export", ft_strlen(str) + 1) == 0)
-//         return(EXPORT);
-//     else if (ft_strncmp(str, "unset", ft_strlen(str) + 1) == 0)
-//         return(UNSET);
-//     else if (ft_strncmp(str, "env", ft_strlen(str) + 1) == 0)
-//         return(ENV);
-//     else if (ft_strncmp(str, "exit", ft_strlen(str) + 1) == 0)
-//         return (EXIT);
-//     return 0;
-// }
+
+void	err_(char *str)
+{
+	ft_putstr_fd("exit\n", 1);
+	ft_putstr_fd("minishell: exit: ", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd(": numeric argment required\n", 2);
+}
