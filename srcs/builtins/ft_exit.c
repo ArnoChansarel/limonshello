@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:56:55 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/04 10:23:55 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/05 14:37:10 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,10 @@ int	static	check_arg(t_cmd *cmd)
 
 void	static	exit_no_args(t_cmd *cmd)
 {
-	if (!cmd->cmd[0])
-		exit(EXIT_FAILURE);
 	if (!cmd->cmd[1])
 	{
 		ft_putstr_fd("exit\n", 1);
-		exit(EXIT_SUCCESS);
+		exit(g_exit_value);
 	}
 }
 

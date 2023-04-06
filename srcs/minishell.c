@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:50:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/05 14:30:13 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/05 15:21:20 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,13 @@ int main(int argc, char **argv, char **envp)
         {
             if (parser(line, &lst, &pipes, env))
                 continue ;
-            ft_printparse(lst);
+            // ft_printparse(lst);
             init_process(&process);
             executor(&process, lst, pipes, envp);
             ft_unlink(&lst);
         }
-		add_history(line);
+		if (ft_strlen(line) != 0)
+			add_history(line);
         free(line);
     }
     return (0);

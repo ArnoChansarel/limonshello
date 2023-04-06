@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:25:59 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/03 15:23:37 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/05 14:40:10 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,18 @@ int	child(t_process *process, t_cmd *ele, char **env, int pi)
 int	father_waits(int pipes)
 {
 	int	i;
-	// int	status;
+	int	status;
 	
-	// waitpid(-1, &status, 0);
-	// if (WIFEXITED(status))
-	// 		g_exit_value = WEXITSTATUS(status);
+	
+
 
 	i = 0;
 	sig_handler(1);
 	while (i <= pipes)
 	{
-		waitpid(-1, NULL, 0);
+		waitpid(-1, &status, 0);
+		if (WIFEXITED(status))
+			g_exit_value = WEXITSTATUS(status);
 		i++;
 	}
 	//                          RECUPERER SIGNAUX WIF

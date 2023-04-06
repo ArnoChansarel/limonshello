@@ -1,0 +1,12 @@
+<3
+Makefile
+f
+f1
+f2
+file
+file1
+includes
+libft
+minishell
+salut
+srcs

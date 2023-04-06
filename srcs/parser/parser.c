@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 12:55:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/31 18:07:15 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/05 15:21:35 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int parser(char *cmd_line, t_cmd **lstp, int *pipes, t_env *env)
 	lexer_lst = lexer(cmd_line);
 	if (!lexer_lst)
 		return (1);
-	ft_printlist(lexer_lst);
+	// ft_printlist(lexer_lst);
 	expander(&lexer_lst, &env);
 	*pipes = count_pipes(lexer_lst);
 	get_cmd_list(&lexer_lst, lstp, *pipes, env);
