@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:59:43 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/06 11:18:39 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/06 16:41:21 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int count_pipes(t_lexlst *lex)
 			c++;
 		lex = lex->next;
 	}
-	printf("On compte %d pipes.\n\n", c);
+	// printf("On compte %d pipes.\n\n", c);
 	return (c);
 }
 

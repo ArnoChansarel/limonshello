@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 09:38:51 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/03/03 15:42:19 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/04 13:59:40 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_env	*is_pwd_set(t_cmd *cmd)
 	while (tmp != 0)
 	{
 		if (!ft_strncmp(tmp->key, "OLDPWD", ft_strlen(tmp->key)))
-			return (tmp);	
+			return (tmp);
 		tmp = tmp->next;
 	}
 	return (NULL);
@@ -52,7 +52,7 @@ int	update_old_pwd(t_cmd *cmd, char *str)
 			free(tmp->value);
 			tmp->value = ft_strdup(str);
 			if (!tmp->value)
-				exit(EXIT_FAILURE); //!Exit proprement
+				exit(EXIT_FAILURE);
 			return (1);
 		}
 		tmp = tmp->next;
