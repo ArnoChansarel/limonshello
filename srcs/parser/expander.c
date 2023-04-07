@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:24:39 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/07 13:12:21 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/07 17:39:20 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,31 @@ int lookfor_var(char **cmd, t_env **env, int size)
 }
 
 int expander(char **cmd, t_env **env)
-{		
+{	
+	int i;
+
+	i = 0;
+	// while ()	
 	if (cmd[0][0] == '\'' || cmd[0][0] == '\"')
 		expand_quotes(cmd, env);
 	else
 		lookfor_var(cmd, env, 0);
+	return (0);
+}
+
+int	expand_redirections(char **rd, t_env **env)
+{
+	int i;
+	char **rtr;
+
+	rtr = ft_split(*rd, ' ');
+	expander(&rtr[1], env);
+	free(*rd);
+	*rd = ft_strjoin(rtr[0], rtr[1]);
+	i = 0;
+	while (rtr[i])
+		free(rtr[i++]);
+	free(rtr);
 	return (0);
 }
 
@@ -108,9 +128,10 @@ int send_to_expander(t_cmd **cmd_lst)
 		i = 0;
 		while (head->cmd[i])
 			expander(&head->cmd[i++], &head->head);
-		/*
-		redirections
-		*/
+		if (head->rd_in)
+			expand_redirections(&head->rd_in, &head->head);
+		if (head->rd_out)
+			expand_redirections(&head->rd_out, &head->head);
 		head = head->next;
 	}
 	return (0);
