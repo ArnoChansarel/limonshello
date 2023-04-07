@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:36:18 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/06 14:47:19 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/07 13:11:58 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,25 +36,25 @@ int	ft_strncmp2(const char *s1, const char *s2, size_t n)
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
-int expand_quotes(t_cmd *cmd, t_env **env, int idx)
+int expand_quotes(char **cmd, t_env **env)
 {
 	int i;
 	char *str;
 	int len;
 
 	i = 0;
-	if (cmd->cmd[idx][0] == '\"')
-	    lookfor_var(cmd, env, idx, 0);
-	len = ft_strlen(cmd->cmd[idx]);
+	if (cmd[0][0] == '\"')
+	    lookfor_var(cmd, env, 0);
+	len = ft_strlen(*cmd);
 	str = malloc(sizeof(char *) * len - 2);
 	while (i <= len - 3)
 	{
-		str[i] = cmd->cmd[idx][i + 1];
+		str[i] = cmd[0][i + 1];
 		i++;
 	}
 	str[i] = '\0';
-	free(cmd->cmd[idx]);
-	cmd->cmd[idx] = str;
+	free(*cmd);
+	*cmd = str;
 	return (0);
 }
 

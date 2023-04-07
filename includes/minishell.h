@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:28:41 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/06 16:12:42 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/07 13:13:29 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,14 @@ t_lexlst 	*lexer(char *cmd_line);
 int			parser(char *cmd_line, t_cmd **lstp, int *pipes, t_env *env);
 
 // EXPANDER FUNCTIONS
-int			expander(t_cmd **cmd_lst, t_env **env);
-int 		lookfor_var(t_cmd *cmd, t_env **env, int idx, int size);
+int			expander(char **cmd, t_env **env);
+int 		send_to_expander(t_cmd **cmd_lst);
+int 		lookfor_var(char **cmd, t_env **env, int size);
 
 // EXPANDER UTILS
 int			get_var_size(char *str);
 int			ft_strncmp2(const char *s1, const char *s2, size_t n);
-int			expand_quotes(t_cmd *cmd, t_env **env, int idx);
+int			expand_quotes(char **cmd, t_env **env);
 
 // PARSER UTILS
 int 		count_pipes(t_lexlst *lex);
