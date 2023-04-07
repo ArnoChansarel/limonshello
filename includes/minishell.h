@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:28:41 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/07 17:27:13 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/07 18:00:33 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int			parser(char *cmd_line, t_cmd **lstp, int *pipes, t_env *env);
 
 // EXPANDER FUNCTIONS
 int			expander(char **cmd, t_env **env);
+int			expand_redirections(char **rd, t_env **env);
 int 		send_to_expander(t_cmd **cmd_lst);
 int 		lookfor_var(char **cmd, t_env **env, int size);
 
@@ -136,6 +137,6 @@ int		get_cmd_id(char *str);
 void 	buitins_exec(int i, t_cmd *cmd);
 void	ft_free_array(char **tobefreed);
 int		ft_print_in_order(t_cmd *cmd);
-void    get_builtin_function(char *str, int (**builtin)(struct s_cmd *));
+void    get_builtin_function(char *str, t_env *env, int (**builtin)(struct s_cmd *));
 
 #endif

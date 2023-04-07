@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 12:55:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/07 12:58:53 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/07 18:35:00 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ t_cmd    *get_cmd_elem(t_lexlst **lex, t_env *env, int index)
 	if(elem_parser_init(&ele, c, index))
 		return (ele);
 	ele->head = env;
-	get_builtin_function(head->word, &ele->builtin);
 	while (head && ft_strncmp(head->word, "|", 2) != 0)
 	{
 		if (is_token(head->word))
@@ -52,7 +51,8 @@ int get_cmd_list(t_lexlst **lex, t_cmd **parser_lst, int p, t_env *env)
 	*parser_lst = NULL;
 	while (i <= p)
 	{
-		temp = get_cmd_elem(lex, env, i);	
+		temp = get_cmd_elem(lex, env, i);
+		get_builtin_function(temp->cmd[0], env, &temp->builtin);
 		if (!temp)
 			return (1);//                            => return error
 		parserlst_addback(parser_lst, temp);
@@ -62,13 +62,29 @@ int get_cmd_list(t_lexlst **lex, t_cmd **parser_lst, int p, t_env *env)
 	return (0);
 }
 
-/*
-int	send_to_expander()
+int send_to_expander(t_cmd **cmd_lst)
 {
+	int i;
+	t_cmd *head;
 
+	head = *cmd_lst;
+	while (head)
+	{
+		i = 0;
+		expander(&head->cmd[i], &head->head);
+		if (ft_strncmp(head->cmd[i++], "export", 6))
+		{
+			while (head->cmd[i])
+				expander(&head->cmd[i++], &head->head);
+		}
+		if (head->rd_in)
+			expand_redirections(&head->rd_in, &head->head);
+		if (head->rd_out)
+			expand_redirections(&head->rd_out, &head->head);
+		head = head->next;
+	}
 	return (0);
 }
-*/
 
 int parser(char *cmd_line, t_cmd **lstp, int *pipes, t_env *env)
 {
