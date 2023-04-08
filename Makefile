@@ -6,7 +6,7 @@
 #    By: achansar <achansar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/06 14:37:56 by achansar          #+#    #+#              #
-#    Updated: 2023/04/03 16:34:53 by achansar         ###   ########.fr        #
+#    Updated: 2023/04/08 18:06:21 by achansar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,10 @@ CPPFLAGS	= -I$(HOME)/.brew/opt/readline/include
 # MAIN FILE
 MAIN_PATH = ./srcs/
 MAIN_SRC = 	minishell \
+			minishell_utils \
 			display \
-			signal
+			signal \
+			free
 MAIN_CFILE = $(addprefix $(MAIN_PATH), $(MAIN_SRC:=.c))
 MAIN_OBJ = $(addprefix $(MAIN_PATH), $(MAIN_SRC:=.o))
 

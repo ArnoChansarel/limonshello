@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:28:41 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/08 16:50:52 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/08 18:20:49 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,13 @@
 # include "executor.h"
 
 int	g_exit_value;
+
+// MAIN FUNCTIONS
+int         init_data(t_data *data, char **envp);
+int         init_process(t_data *data);
+void        free_cmd_lst(t_cmd **lst);
+int         ft_unlink(t_cmd **cmd);
+int         ft_free_all(t_data *data);
 
 // DISPLAY
 void    	ft_printlist(t_lexlst *head_a);
