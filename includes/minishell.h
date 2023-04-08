@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:28:41 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/07 18:00:33 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/08 15:23:07 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ int			parser(char *cmd_line, t_cmd **lstp, int *pipes, t_env *env);
 int			expander(char **cmd, t_env **env);
 int			expand_redirections(char **rd, t_env **env);
 int 		send_to_expander(t_cmd **cmd_lst);
-int 		lookfor_var(char **cmd, t_env **env, int size);
+int 		lookfor_var(char **cmd, t_env **env, int size, int dq);
 
 // EXPANDER UTILS
 int			get_var_size(char *str);
 int			ft_strncmp2(const char *s1, const char *s2, size_t n);
-int			expand_quotes(char **cmd, t_env **env);
+int			expand_quotes(char **cmd);
 
 // PARSER UTILS
 int 		count_pipes(t_lexlst *lex);
@@ -61,7 +61,7 @@ int			size_quotes(const char *str);
 int			is_token(char *str);
 int			check_token(char *line);
 int			check_token_ends(char *line);
-int			skip_quotes(char *line);
+int			skip_quotes(char *line, int *dq);
 
 // LIBFT FUNCTIONS
 char		**ft_split(char const *s, char c);

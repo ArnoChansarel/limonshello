@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:49:11 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/07 18:47:33 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/08 14:00:49 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	check_token(char *line)
 		return (1);
 	while (*line)
 	{
-		line += skip_quotes(line);
+		line += size_quotes(line) - 1;
 		if (is_token(line) && *line == '|')
 		{
 			line += is_token(line);
@@ -50,17 +50,22 @@ static int get_new_i(int i, char *cmd_line)
 			i += is_token(&cmd_line[i]);
 			break ;
 		}
-		else if (cmd_line[i] == '\'' || cmd_line[i] == '\"')
-		{
-			i += size_quotes(&cmd_line[i]);
-			break ;
-		}
+		// else if (cmd_line[i] == '\'' || cmd_line[i] == '\"')
+		// {
+		// 	i += size_quotes(&cmd_line[i]);
+		// 	break ;
+		// }
 		else
 		{
 			while (cmd_line[i] && cmd_line[i] != ' '
-				&& is_token(&cmd_line[i]) == 0
-				&& cmd_line[i] != '\'' && cmd_line[i] != '\"')
-				i++;
+				&& is_token(&cmd_line[i]) == 0)
+				// && cmd_line[i] != '\'' && cmd_line[i] != '\"')
+			{
+				if (cmd_line[i] == '\'' || cmd_line[i] == '\"')
+					i += size_quotes(&cmd_line[i]);
+				else
+					i++;
+			}
 			break ;
 		}
 	}

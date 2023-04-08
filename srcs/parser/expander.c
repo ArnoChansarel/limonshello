@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:24:39 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/07 17:47:30 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/08 15:26:16 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,14 @@ int	find_var_and_replace(char **cmd, t_env **env, int i)
 	return (0);
 }
 
-int lookfor_var(char **cmd, t_env **env, int size)
+int lookfor_var(char **cmd, t_env **env, int size, int dq)
 {
 	int i;
 
-	(void)size;
 	i = 0;
 	while(cmd[0][i])
 	{
+		i += skip_quotes(&cmd[0][i], &dq);
 		if (cmd[0][i] == '$')
 		{
 			if (cmd[0][i + 1] == '?')
@@ -90,10 +90,19 @@ int lookfor_var(char **cmd, t_env **env, int size)
 
 int expander(char **cmd, t_env **env)
 {
-	if (cmd[0][0] == '\'' || cmd[0][0] == '\"')
-		expand_quotes(cmd, env);
-	else
-		lookfor_var(cmd, env, 0);
+	int i;
+
+	i = 0;
+	lookfor_var(cmd, env, 0, -1);
+	while(cmd[0][i])
+	{
+		if (cmd[0][i] == '\"' || cmd[0][i] == '\'')
+		{
+			expand_quotes(cmd);
+			break ;
+		}
+		i++;
+	}
 	return (0);
 }
 

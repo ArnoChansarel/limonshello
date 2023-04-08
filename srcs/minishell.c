@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:50:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/04 12:34:10 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/08 16:29:48 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ probleme 3  : si builtin, checker arguments suivant (unset vide, pwd + arg doit 
 probleme 4  : expander : si $? comment on fait
 probleme 5  : AWK
 probleme 6  : encore probleme d'espace.. (echo hello' '> outfile)
+*/
+
+/*
+FT_EXIT_FAILURE(char *str_for_perror);
 */
 
 int	g_exit_value = 0;
@@ -75,7 +79,7 @@ int main(int argc, char **argv, char **envp)
     env = build_env_list(envp);// free apres protection
     if (!env)
         return (1);
-    print_head();
+    // print_head();
     while (1)
     {
         line = readline("LimonShello $> ");
@@ -85,10 +89,11 @@ int main(int argc, char **argv, char **envp)
         {
             if (parser(line, &lst, &pipes, env))
                 continue ;
-            ft_printparse(lst);
+            // ft_printparse(lst);
             init_process(&process);
             executor(&process, lst, pipes, envp);
             ft_unlink(&lst);
+            // free_cmd_lst(lst);
         }
 		add_history(line);
         free(line);

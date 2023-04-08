@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 16:25:34 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/07 18:47:38 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/08 14:26:35 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,22 +83,21 @@ int	check_token_ends(char *line)
 	return (0);
 }
 
-int	skip_quotes(char *line)
+int	skip_quotes(char *line, int *dq)
 {
 	int	i;
-
+	
 	i = 0;
-	if (line[i] == '\'')
+	if (line[i] == '\"')
+		*dq = -*dq;
+	if (*dq == -1)
 	{
-		i++;
-		while (line[i] != '\'')
+		if (line[i] == '\'')
+		{
 			i++;
-	}
-	else if (line[i] == '\"')
-	{
-		i++;
-		while (line[i] != '\"')
-			i++;
+			while (line[i] != '\'')
+				i++;
+		}
 	}
 	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:25:59 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/06 17:17:32 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/08 13:19:10 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int open_redirections(t_process *process, t_cmd *ele)
 			return (1);
 		}
 	}
-	printf("fd1 = %d | fd2 = %d\n", process->fd1, process->fd2);
+	// printf("fd1 = %d | fd2 = %d\n", process->fd1, process->fd2);
 	return (0);
 }
 

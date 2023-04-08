@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:59:43 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/07 17:30:29 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/08 13:17:45 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int count_pipes(t_lexlst *lex)
 			c++;
 		lex = lex->next;
 	}
-	printf("On compte %d pipes.\n\n", c);
+	// printf("On compte %d pipes.\n\n", c);
 	return (c);
 }
 

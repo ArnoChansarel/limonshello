@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
+/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:56:58 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/03/31 17:41:17 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/08 13:23:20 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ int	ft_export(t_cmd *cmd)
 	}
 	if (ft_strchr(cmd->cmd[1], '=') != 0)
 	{
-		printf("cdm = %sispace\n", cmd->cmd[1]);
+		// printf("cdm = %sispace\n", cmd->cmd[1]);
 		res = ft_split(cmd->cmd[1], '=');
-		printf("el1 = %sispace - el2 = %sispace\n", res[0], res[1]);
+		// printf("el1 = %sispace - el2 = %sispace\n", res[0], res[1]);
 		if (!res[0] || !res[1])
 			return (0);
 		if (!list_cmp_key(cmd, res[0], res[1]))
