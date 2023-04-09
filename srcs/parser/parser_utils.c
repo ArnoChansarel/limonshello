@@ -6,15 +6,15 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:59:43 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/09 13:20:43 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/09 17:29:13 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int count_pipes(t_lexlst *lex)
+int	count_pipes(t_lexlst *lex)
 {
-	int c;
+	int	c;
 
 	c = 0;
 	while (lex)
@@ -27,9 +27,9 @@ int count_pipes(t_lexlst *lex)
 	return (c);
 }
 
-void    goto_next(t_lexlst **lex)
+void	goto_next(t_lexlst **lex)
 {
-	t_lexlst    *head;
+	t_lexlst	*head;
 
 	head = *lex;
 	while (head)
@@ -57,23 +57,22 @@ int	elem_parser_init(t_cmd **ele, int c, int index)
 	temp->rd_in = NULL;
 	temp->rd_out = NULL;
 	temp->cmd = malloc(sizeof(char *) * (c + 1));
-	if(!temp->cmd)
+	if (!temp->cmd)
 		ft_exit_failure("malloc");
 	*ele = temp;
 	return (0);
 }
 
-int count_word_lex(t_lexlst  **lex)
+int	count_word_lex(t_lexlst **lex)
 {
-	int         c;
-	t_lexlst    *head;
-	
+	int			c;
+	t_lexlst	*head;
+
 	head = *lex;
 	c = 0;
-	// printf("word = %s\n", head->word);
 	while (head && ft_strncmp(head->word, "|", 2) != 0)
 	{
-		if(ft_strncmp(head->word, "|", 2) != 0
+		if (ft_strncmp(head->word, "|", 2) != 0
 			&& is_token(head->word))
 			head = head->next->next;
 		else
@@ -82,13 +81,12 @@ int count_word_lex(t_lexlst  **lex)
 			head = head->next;
 		}
 	}
-	// printf("on compte %d mots\n", c);
 	return (c);
 }
 
-int add_rdrctn(t_cmd *p, t_lexlst *lex)
+int	add_rdrctn(t_cmd *p, t_lexlst *lex)
 {
-	char *temp;
+	char	*temp;
 
 	temp = NULL;
 	if (lex->word[0] == '<')

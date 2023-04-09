@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:49:11 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/09 13:16:58 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/09 17:34:14 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	check_token(char *line)
 			if (is_token(line) && *line == '|')
 				return (error_msg("Unexpected Token.\n"));
 		}
-		else if (is_token(line) && (*line == '<' || *line == '>')) 
+		else if (is_token(line) && (*line == '<' || *line == '>'))
 		{
 			line += is_token(line);
 			while (*line == ' ')
@@ -41,7 +41,7 @@ int	check_token(char *line)
 	return (0);
 }
 
-static int get_new_i(int i, char *cmd_line)
+static int	get_new_i(int i, char *cmd_line)
 {
 	while (cmd_line[i] && cmd_line[i] != ' ')
 	{
@@ -50,16 +50,10 @@ static int get_new_i(int i, char *cmd_line)
 			i += is_token(&cmd_line[i]);
 			break ;
 		}
-		// else if (cmd_line[i] == '\'' || cmd_line[i] == '\"')
-		// {
-		// 	i += size_quotes(&cmd_line[i]);
-		// 	break ;
-		// }
 		else
 		{
 			while (cmd_line[i] && cmd_line[i] != ' '
 				&& is_token(&cmd_line[i]) == 0)
-				// && cmd_line[i] != '\'' && cmd_line[i] != '\"')
 			{
 				if (cmd_line[i] == '\'' || cmd_line[i] == '\"')
 					i += size_quotes(&cmd_line[i]);
@@ -74,13 +68,13 @@ static int get_new_i(int i, char *cmd_line)
 
 t_lexlst	*ft_split_lexer(char *cmd_line, t_lexlst *lexer_lst)
 {
-	int 	i;
-	int 	old_i;
+	int		i;
+	int		old_i;
 	char	*buff;
 
 	i = 0;
 	old_i = 0;
-	while(cmd_line[i])
+	while (cmd_line[i])
 	{
 		while (cmd_line[i])
 		{
@@ -101,8 +95,9 @@ t_lexlst	*ft_split_lexer(char *cmd_line, t_lexlst *lexer_lst)
 
 t_lexlst	*lexer(char *cmd_line)
 {
-	t_lexlst	*lexer_lst = NULL;
+	t_lexlst	*lexer_lst;
 
+	lexer_lst = NULL;
 	lexer_lst = ft_split_lexer(cmd_line, lexer_lst);
 	return (lexer_lst);
 }

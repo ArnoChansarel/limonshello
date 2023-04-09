@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:36:18 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/09 13:20:15 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/09 17:38:22 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	get_var_size(char *str)
 {
 	int	s;
-	
+
 	s = 0;
 	while (str[s] && ft_isalnum(str[s + 1]) && str[s] != '\"')
 		s++;
@@ -39,7 +39,7 @@ int	ft_strncmp2(const char *s1, const char *s2, size_t n)
 int	get_full_size(char *str)
 {
 	int	i;
-	int size;
+	int	size;
 
 	i = 0;
 	size = 0;
@@ -56,7 +56,7 @@ int	get_full_size(char *str)
 			size = i - 2;
 		}
 	}
-	return (size);	
+	return (size);
 }
 
 int	copy_clean(char **cmd, char **str, int i, int j)
@@ -84,10 +84,10 @@ int	copy_clean(char **cmd, char **str, int i, int j)
 	return (0);
 }
 
-int expand_quotes(char **cmd)
+int	expand_quotes(char **cmd)
 {
-	char *str;
-	int len;
+	char	*str;
+	int		len;
 
 	len = get_full_size(*cmd);
 	str = malloc(sizeof(char) * len + 1);

@@ -6,13 +6,13 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 16:25:34 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/08 14:26:35 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/09 17:32:45 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int checker_quotes(char *line, int s, int d)
+int	checker_quotes(char *line, int s, int d)
 {
 	while (*line)
 	{
@@ -33,13 +33,13 @@ int checker_quotes(char *line, int s, int d)
 
 int	size_quotes(const char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (str[i] == '\'')
 	{
 		i++;
-		while(str[i] != '\'')
+		while (str[i] != '\'')
 			i++;
 	}
 	else if (str[i] == '\"')
@@ -51,7 +51,7 @@ int	size_quotes(const char *str)
 	return (i + 1);
 }
 
-int is_token(char *str)
+int	is_token(char *str)
 {
 	if (*str == '|')
 		return (1);
@@ -86,7 +86,7 @@ int	check_token_ends(char *line)
 int	skip_quotes(char *line, int *dq)
 {
 	int	i;
-	
+
 	i = 0;
 	if (line[i] == '\"')
 		*dq = -*dq;

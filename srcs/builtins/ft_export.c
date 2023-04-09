@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:56:58 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/08 13:23:20 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/09 14:27:19 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ int	list_cmp_key(t_cmd *cmd, char *str1, char *str2)
 		// printf("yo\n\n\n");
 		if (ft_strncmp(str1, tmp->key, ft_strlen(tmp->key)) == 0)
 		{
-			printf("Attention\n\n\n");
+			// printf("Attention\n\n\n");
 			free(tmp->value);
-			printf("el1 = %sispace - el2 = %sispace\n", str1, str2);
+			// printf("el1 = %sispace - el2 = %sispace\n", str1, str2);
 			tmp->value = ft_strdup(str2);
-			printf("DIN\n\n\n");//" "; //
+			// printf("DIN\n\n\n");//" "; //
 			tmp = cmd->head;
 			return (1);
 		}

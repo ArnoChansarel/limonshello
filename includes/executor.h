@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:00:50 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/09 14:00:30 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/09 18:02:55 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,24 @@
 # define EXECUTOR_H
 # include "structs.h"
 
-
 // EXECUTOR FUNCTIONS
 int		executor(t_process *process, t_cmd *cmd_lst, int pipes, char **env);
-int     execute_process(t_cmd *ele, t_process *process, char **env);
-int     first_process(t_process *process, int pi);
-int     next_process(t_process *process, int pi);
-int     last_process(t_process *process, int pi);
+int		execute_process(t_cmd *ele, t_process *process, char **env);
+int		first_process(t_process *process, int pi);
+int		next_process(t_process *process, int pi);
+int		last_process(t_process *process, int pi);
 
 // EXECUTOR UTILS
 char	*get_cmd(t_process *process, char **cmd, t_env *ev);
 int		open_infile(t_process *process, t_cmd *ele);
 int		open_outfile(t_process *process, t_cmd *ele);
-int	    create_here_doc(t_process *process, t_cmd **cmd_lst);
+int		create_here_doc(t_process *process, t_cmd **cmd_lst);
 
 // EXECUTOR UTILS 2
-int	    create_pipes(t_process *process, int pipes);
-int	    close_pipes(int *array);
-void    closepipes_and_freeprocess(t_process *process);
-void    dup_single_process(t_process *process);
+int		create_pipes(t_process *process, int pipes);
+int		close_pipes(int *array);
+void	closepipes_and_freeprocess(t_process *process);
+void	dup_single_process(t_process *process);
+int		father_waits(int pipes);
 
 #endif

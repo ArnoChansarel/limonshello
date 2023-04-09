@@ -6,13 +6,13 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:25:59 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/09 14:00:49 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/09 17:49:16 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int open_redirections(t_process *process, t_cmd *ele)
+int	open_redirections(t_process *process, t_cmd *ele)
 {
 	if (ele->rd_in)
 	{
@@ -54,24 +54,11 @@ int	child(t_process *process, t_cmd *ele, char **env, int pi)
 	return (0);
 }
 
-int	father_waits(int pipes)
-{
-	int	i;
-	
-	i = 0;
-	while (i <= pipes)
-	{
-		waitpid(-1, NULL, 0);
-		i++;
-	}
-	return (0);
-}
-
 int	fork_n_wait(t_process *process, t_cmd *cmd_lst, int pipes, char **env)
 {
-	int i;
-	int j;
-	int	fork_id;
+	int		i;
+	int		j;
+	int		fork_id;
 	t_cmd	*head;
 
 	i = 0;
@@ -119,7 +106,7 @@ int	single_cmd(t_process *process, t_cmd *cmd, int saved_fd1, int saved_fd2)
 	return (0);
 }
 
-int executor(t_process *process, t_cmd *cmd_lst, int pipes, char **env)
+int	executor(t_process *process, t_cmd *cmd_lst, int pipes, char **env)
 {
 	create_here_doc(process, &cmd_lst);
 	if (pipes)

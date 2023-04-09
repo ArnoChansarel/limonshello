@@ -6,12 +6,11 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 10:30:28 by arnalove          #+#    #+#             */
-/*   Updated: 2023/04/09 13:18:24 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/09 17:59:13 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
 
 static int	word_count(const char *s, char c)
 {

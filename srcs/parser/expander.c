@@ -6,27 +6,27 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:24:39 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/09 13:20:21 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/09 17:41:16 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char    *replace_var(char *str, char *env, int size, int j)
+char	*replace_var(char *str, char *env, int size, int j)
 {
-   	char 	*rtr;
+	char	*rtr;
 	char	*temp;
-   	int 	i;
+	int		i;
 
 	temp = str;
 	i = ft_strlen(str) - size - 1 + ft_strlen(env);
 	if (i <= 0)
 		i = 1;
-   	rtr = malloc(sizeof(char *) * i + 1);
+	rtr = malloc(sizeof(char *) * i + 1);
 	if (!rtr)
 		ft_exit_failure("malloc");
 	i = 0;
-   	while (*str && i < j)
+	while (*str && i < j)
 		rtr[i++] = *str++;
 	while (*env)
 		rtr[i++] = *env++;
@@ -41,7 +41,7 @@ char    *replace_var(char *str, char *env, int size, int j)
 int	find_var_and_replace(char **cmd, t_env **env, int i)
 {
 	int		size;
-	t_env  *head;
+	t_env	*head;
 
 	size = 0;
 	head = *env;
@@ -59,12 +59,12 @@ int	find_var_and_replace(char **cmd, t_env **env, int i)
 	return (0);
 }
 
-int lookfor_var(char **cmd, t_env **env, int size, int dq)
+int	lookfor_var(char **cmd, t_env **env, int size, int dq)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(cmd[0][i])
+	while (cmd[0][i])
 	{
 		i += skip_quotes(&cmd[0][i], &dq);
 		if (cmd[0][i] == '$')
@@ -88,31 +88,35 @@ int lookfor_var(char **cmd, t_env **env, int size, int dq)
 	return (0);
 }
 
-int expander(char **cmd, t_env **env)
+int	expander(char **cmd, t_env **env)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	lookfor_var(cmd, env, 0, -1);
-	while(cmd[0][i])
+	if (*cmd)
 	{
-		if (cmd[0][i] == '\"' || cmd[0][i] == '\'')
+		lookfor_var(cmd, env, 0, -1);
+		while (cmd[0][i])
 		{
-			expand_quotes(cmd);
-			break ;
+			if (cmd[0][i] == '\"' || cmd[0][i] == '\'')
+			{
+				expand_quotes(cmd);
+				break ;
+			}
+			i++;
 		}
-		i++;
 	}
 	return (0);
 }
 
 int	expand_redirections(char **rd, t_env **env)
 {
-	int i;
-	char **rtr;
+	int		i;
+	char	**rtr;
 
 	rtr = ft_split(*rd, ' ');
-	expander(&rtr[1], env);
+	if (ft_strncmp(*rd, "<<", 2))
+		expander(&rtr[1], env);
 	free(*rd);
 	*rd = ft_strjoin(rtr[0], rtr[1]);
 	i = 0;
