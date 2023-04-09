@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:25:59 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/08 13:19:10 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/09 14:00:49 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,7 @@ int	child(t_process *process, t_cmd *ele, char **env, int pi)
 			next_process(process, pi);
 	}
 	else
-	{
-		if (process->fd1 >= 0)
-		{
-			dup2(process->fd1, STDIN_FILENO);
-			close(process->fd1);
-		}
-		if (process->fd2 >= 0)
-		{
-			dup2(process->fd2, STDOUT_FILENO);
-			close(process->fd2);
-		}
-	}
+		dup_single_process(process);
 	if (process->pipes_array)
 		close_pipes(process->pipes_array);
 	execute_process(ele, process, env);
@@ -72,30 +61,27 @@ int	father_waits(int pipes)
 	i = 0;
 	while (i <= pipes)
 	{
-		waitpid(-1, NULL, 0);//         EXIT : check si erreur = 255 alors exit aussi
+		waitpid(-1, NULL, 0);
 		i++;
 	}
-	//                          RECUPERER SIGNAUX WIF
 	return (0);
 }
 
 int	fork_n_wait(t_process *process, t_cmd *cmd_lst, int pipes, char **env)
 {
 	int i;
-	int j = 0;
+	int j;
 	int	fork_id;
 	t_cmd	*head;
-	
+
 	i = 0;
+	j = 0;
 	head = cmd_lst;
 	while (i++ <= pipes)
 	{
 		fork_id = fork();
 		if (fork_id < 0)
-		{
-			perror("fork ");
-			exit(EXIT_FAILURE);
-		}
+			ft_exit_failure("fork");
 		if (!fork_id)
 			child(process, head, env, j);
 		if (j > 0)
@@ -103,22 +89,13 @@ int	fork_n_wait(t_process *process, t_cmd *cmd_lst, int pipes, char **env)
 		j += 2;
 		head = head->next;
 	}
-	if (process->pipes_array)
-	{
-		close_pipes(process->pipes_array);
-		free(process->pipes_array);
-	}
+	closepipes_and_freeprocess(process);
 	father_waits(pipes);
 	return (0);
 }
 
-int	single_cmd(t_process *process, t_cmd *cmd)
+int	single_cmd(t_process *process, t_cmd *cmd, int saved_fd1, int saved_fd2)
 {
-	int	saved_fd1;
-	int	saved_fd2;
-
-	saved_fd1 = -1;
-	saved_fd2 = -1;
 	if (cmd->rd_in || cmd->rd_out)
 		if (open_redirections(process, cmd))
 			return (1);
@@ -153,7 +130,7 @@ int executor(t_process *process, t_cmd *cmd_lst, int pipes, char **env)
 	else
 	{
 		if (cmd_lst->builtin)
-			single_cmd(process, cmd_lst);
+			single_cmd(process, cmd_lst, -1, -1);
 		else
 			fork_n_wait(process, cmd_lst, 0, env);
 	}

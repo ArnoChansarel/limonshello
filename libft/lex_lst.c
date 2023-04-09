@@ -21,7 +21,7 @@ t_lexlst	*lexlst_new(void *content)
 		return (ele);
 	ele = malloc(sizeof(t_lexlst));
 	if (!ele)
-		return (NULL);
+		ft_exit_failure("malloc");
 	ele->word = content;
 	ele->next = NULL;
 	return (ele);

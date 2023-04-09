@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 09:30:07 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/03 09:35:34 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/09 14:22:07 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,12 @@ int	ft_echo(t_cmd *cmd)
 		new_line = 0;
 	while (cmd->cmd[i])
 	{
-		ft_putstr_fd(cmd->cmd[i], 1);
-		if (i && cmd->cmd[i + 1])
-			ft_putchar_fd(' ', 1);
+		if (cmd->cmd[i][0])
+		{
+			ft_putstr_fd(cmd->cmd[i], 1);
+			if (i && cmd->cmd[i + 1])
+				ft_putchar_fd(' ', 1);
+		}
 		i++;
 	}
 	if (new_line == 1)

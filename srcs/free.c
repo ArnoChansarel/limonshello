@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 17:23:49 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/08 18:19:40 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/08 18:43:19 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,10 @@ int ft_free_all(t_data *data)
     free_cmd_lst(&data->lst);
     free(data->line);
     return (0);
+}
+
+int ft_exit_failure(char *str)
+{
+    perror(str);
+    exit(EXIT_FAILURE);
 }

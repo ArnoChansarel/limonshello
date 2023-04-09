@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:59:43 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/08 13:17:45 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/09 13:20:43 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	elem_parser_init(t_cmd **ele, int c, int index)
 
 	temp = malloc(sizeof(t_cmd));
 	if (!temp)
-		return (1);
+		ft_exit_failure("malloc");
 	temp->index = index;
 	temp->builtin = NULL;
 	temp->cmd = NULL;
@@ -58,10 +58,7 @@ int	elem_parser_init(t_cmd **ele, int c, int index)
 	temp->rd_out = NULL;
 	temp->cmd = malloc(sizeof(char *) * (c + 1));
 	if(!temp->cmd)
-	{
-		free(temp);
-		return(1);
-	}
+		ft_exit_failure("malloc");
 	*ele = temp;
 	return (0);
 }

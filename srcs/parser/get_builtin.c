@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 11:11:56 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/08 13:18:07 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/09 13:22:19 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void    get_builtin_function(char *str, t_env *env, int (**builtin)(struct s_cmd
 
 	temp = ft_strdup(str);
 	expander(&temp, &env);
-	// printf("cmd = %s | temp = %s\n", str, temp);
 	if (ft_strncmp(temp, "echo", ft_strlen(temp) + 1) == 0)
 		*builtin = ft_echo;
 	else if (ft_strncmp(temp, "cd", ft_strlen(temp) + 1) == 0)

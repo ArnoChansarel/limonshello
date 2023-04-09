@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:25:31 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/08 13:20:00 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/09 13:40:09 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,19 +68,11 @@ int execute_process(t_cmd *ele, t_process *process, char **env)
 {
     char *cmd;
 
-	if (*ele->builtin)
-	{
-		ele->builtin(ele);
-		exit(EXIT_SUCCESS);//          renvoyer signal ? ou ligne pas necessaire ?
-	}
-	else
-	{
-		cmd = get_cmd(process, ele->cmd, ele->head);
-		// dprintf(2, "command found = %s\n", cmd);
-		if (!cmd)
-			cmd_not_found(ele->cmd[0]);
-		if (execve(cmd, ele->cmd, env) == -1)
-			perror("execve ");
-	}
+	cmd = get_cmd(process, ele->cmd, ele->head);
+	// dprintf(2, "command found = %s\n", cmd);
+	if (!cmd)
+		cmd_not_found(ele->cmd[0]);
+	if (execve(cmd, ele->cmd, env) == -1)
+		perror("execve ");
     return (0);
 }

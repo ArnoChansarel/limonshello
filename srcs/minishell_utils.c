@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 17:40:04 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/08 18:14:25 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/09 13:19:20 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int init_process(t_data *data)
 {
     data->process = malloc(sizeof(t_process));
     if (!data->process)
-        exit(EXIT_FAILURE);
+        ft_exit_failure("malloc");
     data->process->cmd_paths = NULL;
     data->process->env_path = NULL;
     data->process->pipes_array = NULL;
@@ -40,7 +40,7 @@ int init_data(t_data *data, char **envp)
     data->lst = NULL;
     data->line = NULL;
     data->pipes = 0;
-    data->env = build_env_list(envp);// free apres protection
+    data->env = build_env_list(envp);
     if (!data->env)
         exit(EXIT_FAILURE);
     return (0);

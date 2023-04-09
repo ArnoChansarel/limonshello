@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 12:55:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/08 16:16:13 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/09 14:05:33 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ t_cmd    *get_cmd_elem(t_lexlst **lex, t_env *env, int index)
 	i = 0;
 	c = count_word_lex(lex);
 	head = *lex;
-	if(elem_parser_init(&ele, c, index))
-		return (ele);
+	elem_parser_init(&ele, c, index);
 	ele->head = env;
 	while (head && ft_strncmp(head->word, "|", 2) != 0)
 	{
@@ -54,7 +53,7 @@ int get_cmd_list(t_lexlst **lex, t_cmd **parser_lst, int p, t_env *env)
 		temp = get_cmd_elem(lex, env, i);
 		get_builtin_function(temp->cmd[0], env, &temp->builtin);
 		if (!temp)
-			return (1);//                            => return error
+			return (1);
 		parserlst_addback(parser_lst, temp);
 		goto_next(lex);
 		i++;
@@ -98,7 +97,7 @@ int parser(char *cmd_line, t_cmd **lstp, int *pipes, t_env *env)
 	lexer_lst = lexer(cmd_line);
 	if (!lexer_lst)
 		return (1);
-	// ft_printlist(lexer_lst);
+	ft_printlist(lexer_lst);
 	*pipes = count_pipes(lexer_lst);
 	get_cmd_list(&lexer_lst, lstp, *pipes, env);
 	lexlst_clear(&lexer_lst);

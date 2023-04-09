@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 12:34:33 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/15 12:35:14 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/09 13:17:44 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*ft_itoa(int n)
 	size = ft_intlen(nb);
 	tab = malloc((size + 1) * sizeof(char));
 	if (!tab)
-		return (0);
+		ft_exit_failure("malloc");
 	tab[size--] = '\0';
 	if (nb < 0)
 		nb = -nb;

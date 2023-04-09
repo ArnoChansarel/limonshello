@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
+/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 10:30:28 by arnalove          #+#    #+#             */
-/*   Updated: 2023/03/31 17:53:33 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/09 13:18:24 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ char	**ft_split(char const *s, char c)
 	words = word_count(s, c);
 	tab = malloc((words + 1) * sizeof(char *));
 	if (!tab)
-		return (NULL);
+		ft_exit_failure("malloc");
 	tab = ft_intab(tab, s, c, words);
 	return (tab);
 }

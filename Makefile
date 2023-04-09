@@ -6,7 +6,7 @@
 #    By: achansar <achansar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/06 14:37:56 by achansar          #+#    #+#              #
-#    Updated: 2023/04/08 18:06:21 by achansar         ###   ########.fr        #
+#    Updated: 2023/04/09 13:42:34 by achansar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,6 +65,7 @@ P_OBJ = $(addprefix $(P_SRC_PATH), $(P_SRC:=.o))
 E_SRC_PATH = ./srcs/executor/
 E_SRC = 	executor \
 			executor_utils \
+			executor_utils2 \
 			get_command \
 			processes
 E_C_FILES = $(addprefix $(E_SRC_PATH), $(E_SRC:=.c))

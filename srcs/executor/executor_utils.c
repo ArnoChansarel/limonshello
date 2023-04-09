@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:53:00 by achansar          #+#    #+#             */
-/*   Updated: 2023/03/31 16:53:19 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/09 13:42:56 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	get_here_doc(t_process *process, char *eof, int index)
 	if (process->fd1 < 0)
 		return (1);
 	line = readline("> ");
-	if (ft_strncmp(line, eof, ft_strlen(eof) + 1) == 0)//        /!\ warning check +1
+	if (ft_strncmp(line, eof, ft_strlen(eof) + 1) == 0)
 		return (0);
 	while (line)
 	{
@@ -32,7 +32,7 @@ static int	get_here_doc(t_process *process, char *eof, int index)
 		if (line)
 			free(line);
 		line = readline("> ");
-		if (ft_strncmp(line, eof, ft_strlen(eof) + 1) == 0)//        /!\ warning check +1
+		if (ft_strncmp(line, eof, ft_strlen(eof) + 1) == 0)
 			break ;
 	}
 	free(line);
@@ -100,38 +100,5 @@ int	open_infile(t_process *process, t_cmd *ele)
 		perror(ele->rd_in);
 		return (1);
 	}
-	return (0);
-}
-
-int	create_pipes(t_process *process, int pipes)
-{
-	int	i;
-
-	i = 0;
-	process->pipes_array = malloc((pipes * 2 + 1) * sizeof(int *));
-	if (!process->pipes_array)
-		exit(EXIT_FAILURE);
-	while (pipes)
-	{
-		pipe(process->pipes_array + i);
-		i += 2;
-		pipes--;
-	}
-	process->pipes_array[i] = -1;
-	return (0);
-}
-
-int	close_pipes(int *array)
-{
-	int i = 0;
-	while (array[i] != -1)
-	{
-		close(array[i++]);
-	}
-	// printf("Pipes fd : ");
-	// i = 0;
-	// while (array[i] != -1)
-	// 	printf("%d ", array[i++]);
-	// printf("\n");
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:36:18 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/08 16:14:37 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/09 13:20:15 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,7 @@ int expand_quotes(char **cmd)
 	len = get_full_size(*cmd);
 	str = malloc(sizeof(char) * len + 1);
 	if (!str)
-	{
-		perror("malloc");
-		exit(EXIT_FAILURE);
-	}
+		ft_exit_failure("malloc");
 	copy_clean(cmd, &str, 0, 0);
 	free(*cmd);
 	*cmd = str;

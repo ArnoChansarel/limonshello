@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:24:39 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/08 15:26:16 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/09 13:20:21 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char    *replace_var(char *str, char *env, int size, int j)
 		i = 1;
    	rtr = malloc(sizeof(char *) * i + 1);
 	if (!rtr)
-		return (rtr);
+		ft_exit_failure("malloc");
 	i = 0;
    	while (*str && i < j)
 		rtr[i++] = *str++;
