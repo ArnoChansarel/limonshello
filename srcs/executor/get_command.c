@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:12:18 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/09 17:43:58 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/10 14:35:38 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,7 @@ char	*get_cmd(t_process *process, char **cmd, t_env *ev)
 		return (NULL);
 	cmd_paths = ft_split(process->env_path, ':');
 	if (!cmd_paths)
-	{
-		free_array(cmd_paths);
-		// return (ft_close(process));//         a garder
-	}
+		ft_exit_failure("malloc");
 	cmd_rtr = check_cmd(process, cmd, cmd_paths);
 	free_array(cmd_paths);
 	if (!cmd_rtr)

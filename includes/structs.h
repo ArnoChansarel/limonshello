@@ -6,25 +6,25 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 13:38:30 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/08 17:55:15 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/10 15:09:29 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
-#include <stdlib.h>
-#include <stdio.h>
-#include <fcntl.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <unistd.h>
-#include <signal.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <fcntl.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <unistd.h>
+# include <signal.h>
 
 typedef struct s_env {
-	int			export;
-	char		*key;
-	char		*value;
-	struct s_env *next;
+	int				export;
+	char			*key;
+	char			*value;
+	struct s_env	*next;
 }	t_env;
 
 typedef struct s_lexlst {
@@ -38,7 +38,7 @@ typedef struct s_cmd {
 	char			*rd_in;
 	char			*rd_out;
 	t_env			*head;
-	struct s_cmd 	*next;
+	struct s_cmd	*next;
 	int				exit_status;
 	int				*test;//                => c quoi
 	int				index;
@@ -51,11 +51,11 @@ typedef struct s_process {
 	char	**cmd_paths;
 	int		fd1;
 	int		fd2;
-    int     here_doc;
+	int		here_doc;
 }	t_process;
 
 typedef struct s_data {
-	t_process 	*process;
+	t_process	*process;
 	t_cmd		*lst;
 	char		*line;
 	int			pipes;

@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:25:31 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/09 17:43:18 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/10 16:21:55 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static void	cmd_not_found(char *cmd)
 
 int	first_process(t_process *process, int pi)
 {
-	// printf("============\nFirst Process\n============\n");
 	if (process->fd1 >= 0)
 		dup2(process->fd1, STDIN_FILENO);
 	if (process->fd2 >= 0)
@@ -39,7 +38,6 @@ int	first_process(t_process *process, int pi)
 
 int	next_process(t_process *process, int pi)
 {
-	// printf("============\nNext Process\n============\n");
 	if (process->fd1 >= 0)
 		dup2(process->fd1, STDIN_FILENO);
 	else
@@ -53,7 +51,6 @@ int	next_process(t_process *process, int pi)
 
 int	last_process(t_process *process, int pi)
 {
-	// printf("============\nLast Process\n============\n");
 	if (process->fd1 >= 0)
 		dup2(process->fd1, STDIN_FILENO);
 	else
@@ -70,10 +67,14 @@ int	execute_process(t_cmd *ele, t_process *process, char **env)
 	if (!ele->cmd[0])
 		exit(EXIT_SUCCESS);
 	cmd = get_cmd(process, ele->cmd, ele->head);
-	// dprintf(2, "command found = %s\n", cmd);
 	if (!cmd)
 		cmd_not_found(ele->cmd[0]);
+	if (strncmp(ele->cmd[0], "/usr/bin/env", ft_strlen(ele->cmd[0])) == 0)
+	{
+		ft_env(ele);
+		exit(EXIT_SUCCESS);
+	}
 	if (execve(cmd, ele->cmd, env) == -1)
-		perror("execve ");
+		ft_exit_failure("execve ");
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
+/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:50:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/10 14:22:25 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/10 16:18:11 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		data.line = readline("LimonShello $> ");
 		if (!data.line)
-			exit(g_exit_value); // to update avec la globale
+			exit(g_exit_value);
 		if (parser(data.line, &data.lst, &data.pipes, data.env))
 			continue ;
 		ft_printparse(data.lst);

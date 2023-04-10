@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:28:41 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/10 13:51:56 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/10 15:12:24 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINISHELL_H
 
 # ifndef PATH_MAX
-#	define PATH_MAX 1024
+#  define PATH_MAX 1024
 # endif
 
 # include <stdlib.h>
@@ -37,19 +37,17 @@
 int	g_exit_value;
 
 // MAIN FUNCTIONS
-int         init_data(t_data *data, char **envp);
-int         init_process(t_data *data);
-void        free_cmd_lst(t_cmd **lst);
-int         ft_unlink(t_cmd **cmd);
-int         ft_free_all(t_data *data);
-
-char **build_env_array(char **ev);
+int			init_data(t_data *data, char **envp);
+int			init_process(t_data *data);
+void		free_cmd_lst(t_cmd **lst);
+int			ft_unlink(t_cmd **cmd);
+int			ft_free_all(t_data *data);
 
 // DISPLAY
-void    	ft_printlist(t_lexlst *head_a);
-void    	ft_printparse(t_cmd *head);
+void		ft_printlist(t_lexlst *head_a);
+void		ft_printparse(t_cmd *head);
 int			error_msg(char *str);
-int         ft_exit_failure(char *str);
+int			ft_exit_failure(char *str);
 void		print_head(void);
 
 // SIGNAL

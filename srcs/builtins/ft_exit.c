@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
+/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:56:55 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/05 14:37:10 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/10 14:53:09 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int static	exit_part(t_cmd *cmd)
 {
 	if (cmd->cmd[1])
 	{
-		if (check_arg(cmd) == 1)
+		if (check_arg(cmd) == 1 || ft_strlen(cmd->cmd[1]) >= 19)
 		{
 			g_exit_value = 255;
 			err_(cmd->cmd[1]);

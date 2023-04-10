@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 16:45:40 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/10 13:55:11 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/10 17:32:25 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,6 @@ int		ft_print_in_order(t_cmd *cmd);
 void	get_builtin_func(char *str, t_env *env,
 			int (**builtin)(struct s_cmd *));
 void	err_(char *str);
+int		notalphanum(char *str);
 
 #endif

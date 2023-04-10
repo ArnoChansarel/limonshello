@@ -6,23 +6,32 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:53:00 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/10 13:47:40 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/10 15:01:31 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// static int	expand_here_doc(t_process *process, int index)
-// {
-// 	char *name;
-// 	int fd;
-
-// 	name = ft_strjoin("here_doc", ft_itoa(index));
-// 	fd = open(name, O_CREAT | O_RDONLY | O_TRUNC, 0644);
-// 	if (fd < 0)
-// 		ft_exit_failure("open");
-// 	close(fd);
-// }
+static int	write_here_doc(t_process *pro, char **line, char **name, char *eof)
+{
+	while (*line)
+	{
+		write(pro->fd1, *line, ft_strlen(*line));
+		write(pro->fd1, "\n", 1);
+		if (*line)
+			free(*line);
+		*line = readline("> ");
+		if (!*line)
+		{
+			free(*name);
+			close(pro->fd1);
+			return (0);
+		}
+		if (ft_strncmp(*line, eof, ft_strlen(eof) + 1) == 0)
+			break ;
+	}
+	return (0);
+}
 
 static int	get_here_doc(t_process *process, char *eof, int index)
 {
@@ -41,24 +50,9 @@ static int	get_here_doc(t_process *process, char *eof, int index)
 		close(process->fd1);
 		return (0);
 	}
-	if (ft_strncmp(line, eof, ft_strlen(eof) + 1) == 0)//        /!\ warning check +1
+	if (ft_strncmp(line, eof, ft_strlen(eof) + 1) == 0)
 		return (0);
-	while (line)
-	{
-		write(process->fd1, line, ft_strlen(line));
-		write(process->fd1, "\n", 1);
-		if (line)
-			free(line);
-		line = readline("> ");
-		if (!line)
-		{
-			free(name);
-			close(process->fd1);
-			return (0);
-		}
-		if (ft_strncmp(line, eof, ft_strlen(eof) + 1) == 0)//        /!\ warning check +1
-			break ;
-	}
+	write_here_doc(process, &line, &name, eof);
 	free(line);
 	free(name);
 	close(process->fd1);
@@ -68,7 +62,6 @@ static int	get_here_doc(t_process *process, char *eof, int index)
 int	create_here_doc(t_process *process, t_cmd **cmd_lst)
 {
 	t_cmd	*head;
-	// int i;
 
 	head = *cmd_lst;
 	while (head)
@@ -76,12 +69,7 @@ int	create_here_doc(t_process *process, t_cmd **cmd_lst)
 		if (head->rd_in)
 		{
 			if (ft_strncmp(head->rd_in, "<<", 2) == 0)
-			{
 				get_here_doc(process, head->rd_in + 2, head->index);
-				// expand_here_doc();// seuleemnt si eof pas entre quotes
-				// i = 0;
-				// while ()
-			}
 		}
 		head = head->next;
 	}

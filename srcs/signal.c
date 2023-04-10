@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
+/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 10:50:28 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/06 14:55:59 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/10 16:18:18 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 static void	restore_prompt(int sig)
 {
 	(void) sig;
-	g_exit_value = 130; // only way to update exit number as prototype cant be modified
+	g_exit_value = 130;
 	write(1, "\n", 1);
-	rl_on_new_line(); // Tell the update routines that we have moved onto a new (empty) line, usually after ouputting a newline.
+	rl_on_new_line();
 	rl_replace_line("", 0);
-	rl_redisplay(); // Change what's displayed on the screen to reflect the current contents of rl_line_buffer.
+	rl_redisplay();
 }
 
 static void	readline_new_line(int sig)
