@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_linked_list.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:48:54 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/10 13:48:45 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/10 14:19:45 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,8 @@ void	push(t_env *head, int export, char *key, char *value)
 
 	tmp = 0;
 	current = head;
-	while (current->next != NULL) 
-	{
+	while (current->next != NULL)
 		current = current->next;
-	}
-	if ((ft_strncmp("SHLVL", key, 5)) == 0)
-	{
-		tmp = ft_atoi(value) + 1;
-		value = ft_itoa(tmp);
-	}
 	current->next = (t_env *) malloc(sizeof(t_env));
 	if (!current->next)
 		ft_exit_failure("malloc");

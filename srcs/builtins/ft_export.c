@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:56:58 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/10 13:50:29 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/10 14:22:49 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,8 @@ int	notalphanum(char *str)
 	return (1);
 }
 
-int	ft_export(t_cmd *cmd)
+int	export_no_args(t_cmd *cmd)
 {
-	char	**res;
-	t_env	*tmp;
-	int		i;
-	
-	i = 0;
-	tmp = cmd->head;
 	if (!cmd->cmd)
 		return (0);
 	if (!cmd->cmd[1])
@@ -62,30 +56,46 @@ int	ft_export(t_cmd *cmd)
 		ft_print_in_order(cmd);
 		return (0);
 	}
+	return (1);
+}
+
+void	split_on_egal(t_cmd *cmd, int i)
+{
+	char	**res;
+	
+	res = ft_split(cmd->cmd[i], '=');
+	if (!res[0] || !res[1])
+		return ;
+	if (!list_cmp_key(cmd, res[0], res[1]))
+	{
+		if (ft_isalpha(res[0][0]))
+			push(cmd->head, 0, res[0], res[1]);
+		else
+			printf("LimonShello: export: '%s': not a valid identifier\n", res[0]);
+	}
+	ft_free_array(res);
+}
+int	ft_export(t_cmd *cmd)
+{
+	t_env	*tmp;
+	int		i;
+	
+	i = 0;
+	tmp = cmd->head;
+	if (!export_no_args(cmd))
+		return (0);
 	while (cmd->cmd[i])
 	{
-	if (ft_strchr(cmd->cmd[i], '=') != 0)
-	{
-		res = ft_split(cmd->cmd[i], '=');
-		if (!res[0] || !res[1])
-			return (0);
-		if (!list_cmp_key(cmd, res[0], res[1]))
+		if (ft_strchr(cmd->cmd[i], '=') != 0)
+			split_on_egal(cmd, i);
+		else
 		{
-			if (ft_isalpha(res[0][0]))
-				push(cmd->head, 0, res[0], res[1]);
-			else
-				printf("LimonShello: export: '%s': not a valid identifier\n", res[0]);
-		}
-		ft_free_array(res);
-	}
-	else
-	{
-		if (!notalphanum(cmd->cmd[i]))
+			if (!notalphanum(cmd->cmd[i]))
 			{
 				printf("LimonShello: export: '%s': not a valid identifier\n", cmd->cmd[i]);
 				g_exit_value = 1;
 			}
-	}
+		}
 		i++;
 	}
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:50:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/10 13:51:13 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/10 14:22:25 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	main(int argc, char **argv, char **envp)
 	sig_handler(0);
 	init_data(&data, envp);
 	print_head();
+	g_exit_value = 0;
 	while (1)
 	{
 		data.line = readline("LimonShello $> ");
@@ -32,7 +33,8 @@ int	main(int argc, char **argv, char **envp)
 		ft_printparse(data.lst);
 		init_process(&data);
 		executor(data.process, data.lst, data.pipes, envp);
-		add_history(data.line);
+		if (ft_strlen(data.line))
+			add_history(data.line);
 		ft_free_all(&data);
 	}
 	return (0);
