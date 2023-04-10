@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_linked_list.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
+/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:48:54 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/04 09:52:32 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/10 13:48:45 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ void	push(t_env *head, int export, char *key, char *value)
 	}
 	current->next = (t_env *) malloc(sizeof(t_env));
 	if (!current->next)
-		exit(EXIT_FAILURE);
+		ft_exit_failure("malloc");
 	current->next->key = ft_strdup(key);
 	if (!current->next->key)
-		exit(EXIT_FAILURE);
+		ft_exit_failure("malloc");
 	current->next->value = ft_strdup(value);
 	if (!current->next->value)
-		exit(EXIT_FAILURE);
+		ft_exit_failure("malloc");
 	current->next->export = export;
 	current->next->next = NULL;
 }

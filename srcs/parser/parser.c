@@ -3,29 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
+/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 12:55:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/06 16:40:55 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/10 13:48:32 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_cmd    *get_cmd_elem(t_lexlst **lex, t_env *env, int index)
+static t_cmd	*get_cmd_elem(t_lexlst **lex, t_env *env, int index, int i)
 {
-	int         c;
-	int         i;
-	t_lexlst    *head;
-	t_cmd		*ele = NULL;
+	int			c;
+	t_lexlst	*head;
+	t_cmd		*ele;
 
-	i = 0;
+	ele = NULL;
 	c = count_word_lex(lex);
 	head = *lex;
-	if(elem_parser_init(&ele, c, index))
-		return (ele);
+	elem_parser_init(&ele, c, index);
 	ele->head = env;
-	get_builtin_function(head->word, &ele->builtin);
 	while (head && ft_strncmp(head->word, "|", 2) != 0)
 	{
 		if (is_token(head->word))
@@ -43,18 +40,19 @@ t_cmd    *get_cmd_elem(t_lexlst **lex, t_env *env, int index)
 	return (ele);
 }
 
-int get_cmd_list(t_lexlst **lex, t_cmd **parser_lst, int p, t_env *env)
+int	get_cmd_list(t_lexlst **lex, t_cmd **parser_lst, int p, t_env *env)
 {
-	int i;
-	t_cmd    *temp;
+	int		i;
+	t_cmd	*temp;
 
 	i = 0;
 	*parser_lst = NULL;
 	while (i <= p)
 	{
-		temp = get_cmd_elem(lex, env, i);	
+		temp = get_cmd_elem(lex, env, i, 0);
+		get_builtin_func(temp->cmd[0], env, &temp->builtin);
 		if (!temp)
-			return (1);//                            => return error
+			return (1);
 		parserlst_addback(parser_lst, temp);
 		goto_next(lex);
 		i++;
@@ -62,9 +60,33 @@ int get_cmd_list(t_lexlst **lex, t_cmd **parser_lst, int p, t_env *env)
 	return (0);
 }
 
-int parser(char *cmd_line, t_cmd **lstp, int *pipes, t_env *env)
+int	send_to_expander(t_cmd **cmd_lst)
 {
-	t_lexlst *lexer_lst;
+	int		i;
+	t_cmd	*head;
+
+	head = *cmd_lst;
+	while (head)
+	{
+		i = 0;
+		expander(&head->cmd[i], &head->head);
+		if (head->cmd[i] && ft_strncmp(head->cmd[i++], "export", 6))
+		{
+			while (head->cmd[i])
+				expander(&head->cmd[i++], &head->head);
+		}
+		if (head->rd_in)
+			expand_redirections(&head->rd_in, &head->head);
+		if (head->rd_out)
+			expand_redirections(&head->rd_out, &head->head);
+		head = head->next;
+	}
+	return (0);
+}
+
+int	parser(char *cmd_line, t_cmd **lstp, int *pipes, t_env *env)
+{
+	t_lexlst	*lexer_lst;
 
 	lexer_lst = NULL;
 	if (checker_quotes(cmd_line, 0, 0))
@@ -78,6 +100,6 @@ int parser(char *cmd_line, t_cmd **lstp, int *pipes, t_env *env)
 	*pipes = count_pipes(lexer_lst);
 	get_cmd_list(&lexer_lst, lstp, *pipes, env);
 	lexlst_clear(&lexer_lst);
-	expander(lstp, &env);
+	send_to_expander(lstp);
 	return (0);
 }

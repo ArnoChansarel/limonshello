@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:36:18 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/06 14:47:19 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/09 17:38:22 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	get_var_size(char *str)
 {
 	int	s;
-	
+
 	s = 0;
 	while (str[s] && ft_isalnum(str[s + 1]) && str[s] != '\"')
 		s++;
@@ -36,25 +36,65 @@ int	ft_strncmp2(const char *s1, const char *s2, size_t n)
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
-int expand_quotes(t_cmd *cmd, t_env **env, int idx)
+int	get_full_size(char *str)
 {
-	int i;
-	char *str;
-	int len;
+	int	i;
+	int	size;
 
 	i = 0;
-	if (cmd->cmd[idx][0] == '\"')
-	    lookfor_var(cmd, env, idx, 0);
-	len = ft_strlen(cmd->cmd[idx]);
-	str = malloc(sizeof(char *) * len - 2);
-	while (i <= len - 3)
+	size = 0;
+	while (str[i])
 	{
-		str[i] = cmd->cmd[idx][i + 1];
-		i++;
+		while (str[i] && str[i] != '\'' && str[i] != '\"')
+		{
+			size++;
+			i++;
+		}
+		if (str[i] && (str[i] == '\'' || str[i] == '\"'))
+		{
+			i += size_quotes(&str[i]);
+			size = i - 2;
+		}
 	}
-	str[i] = '\0';
-	free(cmd->cmd[idx]);
-	cmd->cmd[idx] = str;
+	return (size);
+}
+
+int	copy_clean(char **cmd, char **str, int i, int j)
+{
+	while (cmd[0][i])
+	{
+		while (cmd[0][i] && cmd[0][i] != '\"' && cmd[0][i] != '\'')
+			str[0][j++] = cmd[0][i++];
+		if (cmd[0][i] && cmd[0][i] == '\"')
+		{
+			i++;
+			while (cmd[0][i] && cmd[0][i] != '\"')
+				str[0][j++] = cmd[0][i++];
+			i++;
+		}
+		if (cmd[0][i] && cmd[0][i] == '\'')
+		{
+			i++;
+			while (cmd[0][i] && cmd[0][i] != '\'')
+				str[0][j++] = cmd[0][i++];
+			i++;
+		}
+	}
+	str[0][j] = '\0';
 	return (0);
 }
 
+int	expand_quotes(char **cmd)
+{
+	char	*str;
+	int		len;
+
+	len = get_full_size(*cmd);
+	str = malloc(sizeof(char) * len + 1);
+	if (!str)
+		ft_exit_failure("malloc");
+	copy_clean(cmd, &str, 0, 0);
+	free(*cmd);
+	*cmd = str;
+	return (0);
+}

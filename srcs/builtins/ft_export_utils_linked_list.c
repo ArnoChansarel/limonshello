@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_utils_linked_list.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
+/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 14:34:47 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/04 10:22:53 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/10 13:49:49 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ t_env	*copylist(t_env *head)
 		return (NULL);
 	else
 	{
-		newnode = (t_env *)malloc(sizeof(t_env));
-		newnode->key = ft_strdup(head->key);
+        newnode = (t_env *)malloc(sizeof(t_env));
+		if (!newnode)
+			ft_exit_failure("malloc");
+        newnode->key = ft_strdup(head->key);
 		newnode->export = head->export;
 		newnode->value = ft_strdup(head->value);
 		newnode->next = 0;

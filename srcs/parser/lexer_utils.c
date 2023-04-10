@@ -6,13 +6,13 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 16:25:34 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/06 16:57:34 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/10 13:48:21 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int checker_quotes(char *line, int s, int d)
+int	checker_quotes(char *line, int s, int d)
 {
 	while (*line)
 	{
@@ -33,13 +33,13 @@ int checker_quotes(char *line, int s, int d)
 
 int	size_quotes(const char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (str[i] == '\'')
 	{
 		i++;
-		while(str[i] != '\'')
+		while (str[i] != '\'')
 			i++;
 	}
 	else if (str[i] == '\"')
@@ -51,7 +51,7 @@ int	size_quotes(const char *str)
 	return (i + 1);
 }
 
-int is_token(char *str)
+int	is_token(char *str)
 {
 	if (*str == '|')
 		return (1);
@@ -83,22 +83,21 @@ int	check_token_ends(char *line)
 	return (0);
 }
 
-int	skip_quotes(char *line)
+int	skip_quotes(char *line, int *dq)
 {
 	int	i;
 
 	i = 0;
-	if (line[i] == '\'')
+	if (line[i] == '\"')
+		*dq = -*dq;
+	if (*dq == -1)
 	{
-		i++;
-		while (line[i] != '\'')
+		if (line[i] == '\'')
+		{
 			i++;
-	}
-	else if (line[i] == '\"')
-	{
-		i++;
-		while (line[i] != '\"')
-			i++;
+			while (line[i] != '\'')
+				i++;
+		}
 	}
 	return (i);
 }

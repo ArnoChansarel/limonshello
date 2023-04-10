@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 10:31:38 by arnalove          #+#    #+#             */
-/*   Updated: 2023/02/15 16:29:33 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/09 13:18:05 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	}
 	substr = malloc((len_check + 1) * sizeof(char));
 	if (!substr)
-		return (NULL);
+		ft_exit_failure("malloc");
 	if (start > len_s)
 		start = len_s - 1 + (len_s == 0);
 	ft_strlcpy(substr, s + start, len_check + 1);

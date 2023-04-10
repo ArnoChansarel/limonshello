@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexlst_new.c                                        :+:      :+:    :+:   */
+/*   lex_lst.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/13 14:56:25 by achansar          #+#    #+#             */
-/*   Updated: 2023/02/16 14:13:36 by achansar         ###   ########.fr       */
+/*   Created: 2023/04/09 17:58:32 by achansar          #+#    #+#             */
+/*   Updated: 2023/04/09 17:58:35 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_lexlst	*lexlst_new(void *content)
 		return (ele);
 	ele = malloc(sizeof(t_lexlst));
 	if (!ele)
-		return (NULL);
+		ft_exit_failure("malloc");
 	ele->word = content;
 	ele->next = NULL;
 	return (ele);
