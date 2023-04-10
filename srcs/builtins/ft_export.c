@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:56:58 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/09 14:27:19 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/10 12:31:19 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,7 @@ int	ft_export(t_cmd *cmd)
 	}
 	if (ft_strchr(cmd->cmd[1], '=') != 0)
 	{
-		// printf("cdm = %sispace\n", cmd->cmd[1]);
 		res = ft_split(cmd->cmd[1], '=');
-		// printf("el1 = %sispace - el2 = %sispace\n", res[0], res[1]);
 		if (!res[0] || !res[1])
 			return (0);
 		if (!list_cmp_key(cmd, res[0], res[1]))

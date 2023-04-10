@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:28:41 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/09 13:12:57 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/10 12:12:33 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int         init_process(t_data *data);
 void        free_cmd_lst(t_cmd **lst);
 int         ft_unlink(t_cmd **cmd);
 int         ft_free_all(t_data *data);
+
+char **build_env_array(char **ev);
 
 // DISPLAY
 void    	ft_printlist(t_lexlst *head_a);

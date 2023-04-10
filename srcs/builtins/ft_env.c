@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
+/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:56:51 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/03/03 17:15:57 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/10 12:27:57 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,3 +25,13 @@ int	ft_env(t_cmd *cmd)
 	return (0);
 }
 
+// void    print_env_array(char **env)
+// {
+//     int i;
+    
+//     i = 0;
+//     while (env[i])
+//     {
+//         printf("%s\n", env[i++]);
+//     }
+// }
