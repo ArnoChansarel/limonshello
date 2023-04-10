@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   processes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:25:31 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/09 17:43:18 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/10 17:31:56 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ int	execute_process(t_cmd *ele, t_process *process, char **env)
 	if (!ele->cmd[0])
 		exit(EXIT_SUCCESS);
 	cmd = get_cmd(process, ele->cmd, ele->head);
-	// dprintf(2, "command found = %s\n", cmd);
 	if (!cmd)
 		cmd_not_found(ele->cmd[0]);
 	if (execve(cmd, ele->cmd, env) == -1)
