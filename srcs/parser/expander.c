@@ -6,88 +6,21 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:24:39 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/11 15:01:19 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/11 15:53:36 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*replace_var(char *str, char *env, int size, int j)
-{
-	char	*rtr;
-	char	*temp;
-	int		i;
-
-	temp = str;
-	i = ft_strlen(str) - size - 1 + ft_strlen(env);
-	if (i <= 0)
-		i = 1;
-	rtr = malloc(sizeof(char *) * i + 1);
-	if (!rtr)
-		ft_exit_failure("malloc");
-	i = 0;
-	while (*str && i < j)
-		rtr[i++] = *str++;
-	while (*env)
-		rtr[i++] = *env++;
-	str += size;
-	while (*str)
-		rtr[i++] = *str++;
-	rtr[i] = '\0';
-	free(temp);
-	return (rtr);
-}
-
-int	find_var_and_replace(char **cmd, t_env **env, int i)
+int	expand_error_var(char **cmd, int i)
 {
 	int		size;
-	t_env	*head;
+	char	*index;
 
-	size = 0;
-	head = *env;
+	index = ft_itoa(g_exit_value);
 	size = get_var_size(&cmd[0][i]);
-	while (head)
-	{
-		if (ft_strncmp2(&cmd[0][i + 1], head->key, size) == 0)
-		{
-			*cmd = replace_var(*cmd, head->value, size, i);
-			return (1);
-		}
-		head = head->next;
-	}
-	*cmd = replace_var(*cmd, "", size, i);
-	return (0);
-}
-
-int	lookfor_var(char **cmd, t_env **env, int size, int dq)
-{
-	int	i;
-	char *index;
-
-	i = 0;
-	while (cmd[0][i])
-	{
-		i += skip_quotes(&cmd[0][i], &dq);
-		if (cmd[0][i] == '$')
-		{
-			if (cmd[0][i + 1] == '?')
-			{
-				index = ft_itoa(g_exit_value);
-				size = get_var_size(&cmd[0][i]);
-				*cmd = replace_var(*cmd, index, size + 1, i);
-				free(index);
-				continue ;
-			}
-			if (ft_isalnum(cmd[0][i + 1]) == 0)
-			{
-				i++;
-				continue ;
-			}
-			if (find_var_and_replace(cmd, env, i) == 0)
-				continue ;
-		}
-		i++;
-	}
+	*cmd = replace_var(*cmd, index, size + 1, i);
+	free(index);
 	return (0);
 }
 
@@ -98,7 +31,7 @@ int	expander(char **cmd, t_env **env)
 	i = 0;
 	if (*cmd)
 	{
-		lookfor_var(cmd, env, 0, -1);
+		lookfor_var(cmd, env, -1);
 		while (cmd[0][i])
 		{
 			if (cmd[0][i] == '\"' || cmd[0][i] == '\'')

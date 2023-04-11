@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:53:00 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/11 15:26:14 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/11 15:47:55 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,14 +82,16 @@ int	open_outfile(t_process *process, t_cmd *ele, int i)
 	if (ft_strncmp(ele->rd_out, ">>", 2) == 0)
 	{
 		i += 2;
-		process->fd2 = open(&ele->rd_out[i], O_CREAT | O_WRONLY | O_APPEND, 0644);
+		process->fd2 = open(&ele->rd_out[i],
+				O_CREAT | O_WRONLY | O_APPEND, 0644);
 		if (process->fd2 < 0)
 			ft_exit_failure("open");
 	}
 	else
 	{
 		i++;
-		process->fd2 = open(&ele->rd_out[i], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		process->fd2 = open(&ele->rd_out[i],
+				O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		if (process->fd2 < 0)
 			ft_exit_failure("open");
 	}

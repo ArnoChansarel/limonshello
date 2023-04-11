@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 12:55:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/11 15:11:00 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/11 15:30:34 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,6 @@ int	send_to_expander(t_cmd **cmd_lst)
 t_lexlst	*parser(char *cmd_line, t_cmd **lstp, int *pipes, t_env *env)
 {
 	t_lexlst	*lexer_lst;
-
-	(void)lstp;
-	(void)pipes;
-	(void)env;
 
 	lexer_lst = NULL;
 	if (checker_quotes(cmd_line, 0, 0))

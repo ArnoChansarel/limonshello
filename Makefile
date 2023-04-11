@@ -6,7 +6,7 @@
 #    By: achansar <achansar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/06 14:37:56 by achansar          #+#    #+#              #
-#    Updated: 2023/04/11 14:34:19 by achansar         ###   ########.fr        #
+#    Updated: 2023/04/11 15:40:15 by achansar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,6 +55,7 @@ P_SRC = 	lexer \
 			parser \
 			parser_utils \
 			expander \
+			expander_var \
 			expander_utils \
 			get_builtin
 P_C_FILES = $(addprefix $(P_SRC_PATH), $(P_SRC:=.c))
