@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 13:38:30 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/11 16:25:15 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/11 16:27:08 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ typedef struct s_data {
 	t_cmd		*lst;
 	char		*line;
 	int			pipes;
-	t_lexlst		*lexer_lst;
+	t_lexlst	*lexer_lst;
 	t_env		*env;
 }	t_data;
 
