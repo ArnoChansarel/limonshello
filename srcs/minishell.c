@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:50:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/10 16:18:11 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/11 15:28:41 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,15 @@ int	main(int argc, char **argv, char **envp)
 		data.line = readline("LimonShello $> ");
 		if (!data.line)
 			exit(g_exit_value);
-		if (parser(data.line, &data.lst, &data.pipes, data.env))
+		data.lexer_lst = parser(data.line, &data.lst, &data.pipes, data.env);
+		if (!data.lexer_lst)
 			continue ;
-		ft_printparse(data.lst);
 		init_process(&data);
 		executor(data.process, data.lst, data.pipes, envp);
 		if (ft_strlen(data.line))
 			add_history(data.line);
 		ft_free_all(&data);
+		// system("leaks minishell");
 	}
 	return (0);
 }

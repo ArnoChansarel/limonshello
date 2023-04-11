@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:12:18 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/10 14:35:38 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/11 15:53:17 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,5 @@ char	*get_cmd(t_process *process, char **cmd, t_env *ev)
 	free_array(cmd_paths);
 	if (!cmd_rtr)
 		return (NULL);
-	// printf("path found : %s\n", cmd_rtr);
 	return (cmd_rtr);
 }

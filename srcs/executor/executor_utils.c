@@ -6,13 +6,13 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:53:00 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/10 17:59:15 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/11 16:18:46 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	write_here_doc(t_process *pro, char **line, char **name, char *eof)
+static int	write_here_doc(t_process *pro, char **line, char *eof)
 {
 	while (*line)
 	{
@@ -23,7 +23,6 @@ static int	write_here_doc(t_process *pro, char **line, char **name, char *eof)
 		*line = readline("> ");
 		if (!*line)
 		{
-			free(*name);
 			close(pro->fd1);
 			return (0);
 		}
@@ -37,24 +36,26 @@ static int	get_here_doc(t_process *process, char *eof, int index)
 {
 	char	*line;
 	char	*name;
+	char	*id;
 
-	name = ft_strjoin("here_doc", ft_itoa(index));
+	id = ft_itoa(index);
+	name = ft_strjoin("here_doc", id);
+	free(id);
 	process->here_doc = 1;
 	process->fd1 = open(name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (process->fd1 < 0)
 		ft_exit_failure("open");
+	free(name);
 	line = readline("> ");
 	if (!line)
 	{
-		free(name);
 		close(process->fd1);
 		return (0);
 	}
 	if (ft_strncmp(line, eof, ft_strlen(eof) + 1) == 0)
 		return (0);
-	write_here_doc(process, &line, &name, eof);
+	write_here_doc(process, &line, eof);
 	free(line);
-	free(name);
 	close(process->fd1);
 	return (0);
 }
@@ -76,38 +77,40 @@ int	create_here_doc(t_process *process, t_cmd **cmd_lst)
 	return (0);
 }
 
-int	open_outfile(t_process *process, t_cmd *ele)
+int	open_outfile(t_process *process, t_cmd *ele, int i)
 {
 	if (ft_strncmp(ele->rd_out, ">>", 2) == 0)
 	{
-		ele->rd_out += 2;
-		process->fd2 = open(ele->rd_out, O_CREAT | O_WRONLY | O_APPEND, 0644);
+		i += 2;
+		process->fd2 = open(&ele->rd_out[i],
+				O_CREAT | O_WRONLY | O_APPEND, 0644);
 		if (process->fd2 < 0)
 			ft_exit_failure("open");
 	}
 	else
 	{
-		ele->rd_out++;
-		process->fd2 = open(ele->rd_out, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		i++;
+		process->fd2 = open(&ele->rd_out[i],
+				O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		if (process->fd2 < 0)
 			ft_exit_failure("open");
 	}
 	if (process->fd2 < 0)
-	{
-		perror(ele->rd_out);
-		return (1);
-	}
+		ft_exit_failure(&ele->rd_out[i]);
 	return (0);
 }
 
-int	open_infile(t_process *process, t_cmd *ele)
+int	open_infile(t_process *process, t_cmd *ele, int i)
 {
 	char	*name;
+	char	*index;
 
 	name = NULL;
 	if (process->here_doc)
 	{
-		name = ft_strjoin("here_doc", ft_itoa(ele->index));
+		index = ft_itoa(ele->index);
+		name = ft_strjoin("here_doc", index);
+		free(index);
 		process->fd1 = open(name, O_CREAT, O_RDONLY);
 		if (process->fd1 < 0)
 			ft_exit_failure("open");
@@ -115,16 +118,13 @@ int	open_infile(t_process *process, t_cmd *ele)
 	}
 	else
 	{
-		while (*ele->rd_in && *ele->rd_in == '<')
-			ele->rd_in++;
-		process->fd1 = open(ele->rd_in, O_RDONLY);
+		while (ele->rd_in[i] && ele->rd_in[i] == '<')
+			i++;
+		process->fd1 = open(&ele->rd_in[i], O_RDONLY);
 		if (process->fd1 < 0)
 			ft_exit_failure("open");
 	}
 	if (process->fd1 < 0)
-	{
-		perror(ele->rd_in);
-		return (1);
-	}
+		ft_exit_failure(&ele->rd_in[i]);
 	return (0);
 }

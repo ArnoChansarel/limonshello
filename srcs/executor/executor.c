@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:25:59 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/10 13:48:13 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/11 15:48:10 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,18 @@ int	open_redirections(t_process *process, t_cmd *ele)
 {
 	if (ele->rd_in)
 	{
-		if (open_infile(process, ele))
+		if (open_infile(process, ele, 0))
 			return (1);
 	}
 	if (ele->rd_out)
 	{
-		if (open_outfile(process, ele))
+		if (open_outfile(process, ele, 0))
 		{
-			if (process->fd1)
+			if (process->fd1 && process->fd1 >= 0)
 				close(process->fd1);
 			return (1);
 		}
 	}
-	// printf("fd1 = %d | fd2 = %d\n", process->fd1, process->fd2);
 	return (0);
 }
 
@@ -100,9 +99,11 @@ int	single_cmd(t_process *process, t_cmd *cmd, int saved_fd1, int saved_fd2)
 	}
 	cmd->builtin(cmd);
 	dup2(saved_fd1, STDIN_FILENO);
-	close(saved_fd1);
+	if (saved_fd1 >= 0)
+		close(saved_fd1);
 	dup2(saved_fd2, STDOUT_FILENO);
-	close(saved_fd2);
+	if (saved_fd2 >= 0)
+		close(saved_fd2);
 	return (0);
 }
 

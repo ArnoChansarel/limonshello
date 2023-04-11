@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 13:38:30 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/10 15:09:29 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/11 11:12:19 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ typedef struct s_cmd {
 	t_env			*head;
 	struct s_cmd	*next;
 	int				exit_status;
-	int				*test;//                => c quoi
 	int				index;
 }	t_cmd;
 
@@ -59,6 +58,7 @@ typedef struct s_data {
 	t_cmd		*lst;
 	char		*line;
 	int			pipes;
+	t_lexlst		*lexer_lst;
 	t_env		*env;
 }	t_data;
 

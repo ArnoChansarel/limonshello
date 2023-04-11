@@ -6,44 +6,48 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 17:23:49 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/09 17:56:19 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/11 15:10:48 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	free_cmd_lst(t_cmd **lst)
+void	free_cmd_lst(t_cmd *lst)
 {
 	int		i;
 	t_cmd	*head;
 
 	head = NULL;
-	while (*lst)
+	while (lst)
 	{
 		i = 0;
-		head = *lst;
+		head = lst;
 		while (head->cmd[i])
 			free(head->cmd[i++]);
+		free(head->cmd);
 		if (head->rd_in)
 			free(head->rd_in);
 		if (head->rd_out)
 			free(head->rd_out);
-		*lst = (*lst)->next;
+		lst = lst->next;
 		free(head);
 	}
 }
 
 int	ft_unlink(t_cmd **cmd)
 {
+	char	*index;
 	char	*name;
 	t_cmd	*head;
 
 	head = *cmd;
 	while (head)
 	{
-		name = ft_strjoin("here_doc", ft_itoa(head->index));
+		index = ft_itoa(head->index);
+		name = ft_strjoin("here_doc", index);
 		unlink(name);
 		free(name);
+		free(index);
 		head = head->next;
 	}
 	return (0);
@@ -52,7 +56,9 @@ int	ft_unlink(t_cmd **cmd)
 int	ft_free_all(t_data *data)
 {
 	ft_unlink(&data->lst);
-	free_cmd_lst(&data->lst);
+	free_cmd_lst(data->lst);
+	lexlst_clear(&data->lexer_lst);
+	free(data->process);
 	free(data->line);
 	return (0);
 }

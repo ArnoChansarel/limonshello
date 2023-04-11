@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 12:55:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/10 13:48:32 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/11 15:30:34 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static t_cmd	*get_cmd_elem(t_lexlst **lex, t_env *env, int index, int i)
 		}
 		else
 		{
-			ele->cmd[i++] = head->word;
+			ele->cmd[i++] = ft_strdup(head->word);
 			head = head->next;
 		}
 	}
@@ -42,19 +42,21 @@ static t_cmd	*get_cmd_elem(t_lexlst **lex, t_env *env, int index, int i)
 
 int	get_cmd_list(t_lexlst **lex, t_cmd **parser_lst, int p, t_env *env)
 {
-	int		i;
-	t_cmd	*temp;
+	int			i;
+	t_cmd		*temp;
+	t_lexlst	*head;
 
 	i = 0;
 	*parser_lst = NULL;
+	head = *lex;
 	while (i <= p)
 	{
-		temp = get_cmd_elem(lex, env, i, 0);
+		temp = get_cmd_elem(&head, env, i, 0);
 		get_builtin_func(temp->cmd[0], env, &temp->builtin);
 		if (!temp)
 			return (1);
 		parserlst_addback(parser_lst, temp);
-		goto_next(lex);
+		goto_next(&head);
 		i++;
 	}
 	return (0);
@@ -84,22 +86,20 @@ int	send_to_expander(t_cmd **cmd_lst)
 	return (0);
 }
 
-int	parser(char *cmd_line, t_cmd **lstp, int *pipes, t_env *env)
+t_lexlst	*parser(char *cmd_line, t_cmd **lstp, int *pipes, t_env *env)
 {
 	t_lexlst	*lexer_lst;
 
 	lexer_lst = NULL;
 	if (checker_quotes(cmd_line, 0, 0))
-		return (1);
+		return (lexer_lst);
 	if (check_token(cmd_line))
-		return (1);
+		return (lexer_lst);
 	lexer_lst = lexer(cmd_line);
 	if (!lexer_lst)
-		return (1);
-	ft_printlist(lexer_lst);
+		exit(EXIT_FAILURE);
 	*pipes = count_pipes(lexer_lst);
 	get_cmd_list(&lexer_lst, lstp, *pipes, env);
-	lexlst_clear(&lexer_lst);
 	send_to_expander(lstp);
-	return (0);
+	return (lexer_lst);
 }
