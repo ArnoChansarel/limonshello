@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:28:41 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/10 15:12:24 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/11 15:37:08 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void		ft_printparse(t_cmd *head);
 int			error_msg(char *str);
 int			ft_exit_failure(char *str);
 void		print_head(void);
+void		print_error(char **res);
 
 // SIGNAL
 void		sig_handler(int status);

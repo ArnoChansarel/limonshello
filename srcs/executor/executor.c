@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:25:59 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/10 13:48:13 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/10 18:15:24 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	open_redirections(t_process *process, t_cmd *ele)
 			return (1);
 		}
 	}
-	// printf("fd1 = %d | fd2 = %d\n", process->fd1, process->fd2);
 	return (0);
 }
 
