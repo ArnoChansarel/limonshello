@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 16:45:40 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/10 17:32:25 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/11 14:41:09 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,13 @@ void	push(t_env *head, int export, char *key, char *value);
 t_env	*build_env_list(char **envp);
 char	*list_return_value_from_key(t_cmd *cmd, char *str1);
 void	printlist(t_cmd *cmd);
+int		ft_lstsize2(t_cmd *cmd);
+void	delete_list(t_env *tmp2, t_env *tmp);
+void	array_creator(char **array, t_env *tmp);
+int		ft_isalnum_(int c);
+int		ft_isalnum_plus(int c);
+int		notalphanum_(char *str);
+int		ft_isalpha_(int c);
 
 // BUILTINS UTILS
 void	cd_home(char *home, char *pwd, t_cmd *cmd);

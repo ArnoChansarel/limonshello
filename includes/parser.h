@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 16:38:28 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/11 11:13:31 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/11 16:25:17 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int			is_builtin(char *str);
 int			elem_parser_init(t_cmd **ele, int c, int index);
 int			count_word_lex(t_lexlst **lex);
 int			add_rdrctn(t_cmd *p, t_lexlst *lex);
+char		**check_env(char **envp);
 
 //LST PARSER FUNCTIONS
 int			parserlst_size(t_cmd *lst);

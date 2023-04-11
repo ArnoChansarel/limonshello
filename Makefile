@@ -6,7 +6,7 @@
 #    By: achansar <achansar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/06 14:37:56 by achansar          #+#    #+#              #
-#    Updated: 2023/04/11 15:40:15 by achansar         ###   ########.fr        #
+#    Updated: 2023/04/11 16:25:11 by achansar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -102,10 +102,10 @@ LBFT_OBJ = $(addprefix $(LBFT_PATH), $(LBFT:=.o))
 all: $(NAME)
 
 $(NAME): $(MAIN_OBJ) $(P_OBJ) $(B_OBJ) $(LBFT_OBJ) $(E_OBJ)
-	@ $(CC) $(FLAGS) $(LDFLAGS) $(CPPFLAGS) $(READLINE) $(MAIN_OBJ) $(P_OBJ) $(B_OBJ) $(E_OBJ) $(LBFT_OBJ) -o $(NAME)
+	@ $(CC) $(FLAGS) $(LDFLAGS) $(CPPFLAGS) $(READLINE) $(MAIN_OBJ) $(P_OBJ) $(B_OBJ) $(E_OBJ) $(LBFT_OBJ) -o $(NAME) $(SEG)
 
 .c.o:
-	@ $(CC) $(FLAGS) $(CPPFLAGS) -c $< -o $@
+	@ $(CC) $(FLAGS) $(CPPFLAGS) -c $< -o $@ $(SEG)
 
 clean:
 	@rm -f $(MAIN_OBJ) $(P_OBJ) $(B_OBJ) $(E_OBJ) $(LBFT_OBJ)

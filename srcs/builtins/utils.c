@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:52:21 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/10 17:32:10 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/11 13:43:37 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,37 @@ int	notalphanum(char *str)
 		i++;
 	}
 	return (1);
+}
+
+void	delete_list(t_env *tmp2, t_env *tmp)
+{
+	while (tmp)
+	{
+		free(tmp->key);
+		free(tmp->value);
+		tmp2 = tmp->next;
+		free(tmp);
+		tmp = tmp2;
+	}
+}
+
+void	array_creator(char **array, t_env *tmp)
+{
+	int		i;
+	char	*tmp_join;
+
+	i = 0;
+	while (tmp)
+	{
+		tmp_join = ft_strjoin(tmp->key, "=");
+		if (!tmp_join)
+			exit(EXIT_FAILURE);
+		array[i] = ft_strjoin(tmp_join, tmp->value);
+		free(tmp_join);
+		if (!array[i])
+			exit(EXIT_FAILURE);
+		tmp = tmp->next;
+		i++;
+	}
+	array[i] = NULL;
 }

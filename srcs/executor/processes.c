@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:25:31 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/11 16:18:55 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/11 16:24:24 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,18 +63,21 @@ int	last_process(t_process *process, int pi)
 int	execute_process(t_cmd *ele, t_process *process, char **env)
 {
 	char	*cmd;
+	char	**array;
+	t_env	*tmp;
 
+	(void) env;
+	array = malloc(sizeof(char *) * (ft_lstsize2(ele) + 1));
+	if (!array)
+		return (0);
 	if (!ele->cmd[0])
 		exit(EXIT_SUCCESS);
 	cmd = get_cmd(process, ele->cmd, ele->head);
 	if (!cmd)
 		cmd_not_found(ele->cmd[0]);
-	if (strncmp(ele->cmd[0], "/usr/bin/env", ft_strlen(ele->cmd[0])) == 0)
-	{
-		ft_env(ele);
-		exit(EXIT_SUCCESS);
-	}
-	if (execve(cmd, ele->cmd, env) == -1)
+	tmp = ele->head;
+	array_creator(array, tmp);
+	if (execve(cmd, ele->cmd, array) == -1)
 		ft_exit_failure("execve ");
 	return (0);
 }

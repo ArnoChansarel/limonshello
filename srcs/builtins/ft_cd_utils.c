@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 09:43:51 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/04 14:22:01 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/10 18:13:19 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	cd_go_to_directory(char *directory, char *pwd, t_cmd *cmd)
 	{
 		chdir(directory);
 		if (!update_old_pwd(cmd, pwd))
-			push(cmd->head, 1, "OLDPWD", pwd);	
+			push(cmd->head, 1, "OLDPWD", pwd);
 	}
 	closedir(dir);
 	free(tmp_join);
