@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_utils_linked_list.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 14:34:47 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/10 13:49:49 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/11 13:34:07 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ t_env	*copylist(t_env *head)
 		return (NULL);
 	else
 	{
-        newnode = (t_env *)malloc(sizeof(t_env));
+		newnode = (t_env *)malloc(sizeof(t_env));
 		if (!newnode)
 			ft_exit_failure("malloc");
-        newnode->key = ft_strdup(head->key);
+		newnode->key = ft_strdup(head->key);
 		newnode->export = head->export;
 		newnode->value = ft_strdup(head->value);
 		newnode->next = 0;
@@ -86,7 +86,7 @@ int	ft_print_in_order(t_cmd *cmd)
 	while (tmp)
 	{
 		push(head2, tmp->export, tmp->key, tmp->value);
-		tmp = tmp->next;		
+		tmp = tmp->next;
 	}
 	tmp = head2;
 	while (tmp)
@@ -96,5 +96,7 @@ int	ft_print_in_order(t_cmd *cmd)
 		printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
 		tmp = tmp->next;
 	}
+	tmp = head2;
+	delete_list(tmp2, tmp);
 	return (0);
 }

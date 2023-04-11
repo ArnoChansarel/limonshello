@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 17:40:04 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/09 17:56:49 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/11 11:50:53 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,5 @@ int	init_data(t_data *data, char **envp)
 	data->line = NULL;
 	data->pipes = 0;
 	data->env = build_env_list(envp);
-	if (!data->env)
-		exit(EXIT_FAILURE);
 	return (0);
 }

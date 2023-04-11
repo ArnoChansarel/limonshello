@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 16:38:28 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/10 15:10:41 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/10 18:29:23 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int			is_builtin(char *str);
 int			elem_parser_init(t_cmd **ele, int c, int index);
 int			count_word_lex(t_lexlst **lex);
 int			add_rdrctn(t_cmd *p, t_lexlst *lex);
+char		**check_env(char **envp);
 
 //LST PARSER FUNCTIONS
 int			parserlst_size(t_cmd *lst);

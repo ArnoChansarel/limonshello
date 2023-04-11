@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:48:54 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/10 14:19:45 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/11 15:32:10 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,20 @@ void	push(t_env *head, int export, char *key, char *value)
 	current->next->next = NULL;
 }
 
+void	push_list(char **envp, char **tab, t_env *head)
+{
+	int	i;
+
+	i = 1;
+	while (envp[i])
+	{
+		tab = ft_split(envp[i], '=');
+		push(head, 1, tab[0], tab[1]);
+		i++;
+		ft_free_array(tab);
+	}
+}
+
 t_env	*build_env_list(char **envp)
 {
 	int		i;
@@ -54,6 +68,8 @@ t_env	*build_env_list(char **envp)
 	t_env	*head;
 	t_env	*rtr;
 
+	if (!envp || !envp[0])
+		return (0);
 	i = 1;
 	head = (t_env *) malloc(sizeof(t_env));
 	if (!head)
@@ -65,12 +81,6 @@ t_env	*build_env_list(char **envp)
 	head->key = tab[0];
 	head->value = tab[1];
 	free(tab);
-	while (envp[i])
-	{
-		tab = ft_split(envp[i], '=');
-		push(head, 1, tab[0], tab[1]);
-		i++;
-		ft_free_array(tab);
-	}
+	push_list(envp, tab, head);
 	return (rtr);
 }

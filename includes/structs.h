@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 13:38:30 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/10 15:09:29 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/10 18:11:36 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ typedef struct s_cmd {
 	t_env			*head;
 	struct s_cmd	*next;
 	int				exit_status;
-	int				*test;//                => c quoi
 	int				index;
 }	t_cmd;
 
