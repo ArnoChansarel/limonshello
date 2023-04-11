@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:25:31 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/11 16:43:55 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/11 17:31:13 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	execute_process(t_cmd *ele, t_process *process, char **env)
 		cmd_not_found(ele->cmd[0]);
 	tmp = ele->head;
 	array_creator(array, tmp);
-	if (execve(cmd, ele->cmd, array) == -1)
+	if (execve(cmd, ele->cmd, env) == -1)
 		ft_exit_failure("execve ");
 	return (0);
 }
