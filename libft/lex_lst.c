@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 17:58:32 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/09 17:58:35 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/11 15:09:21 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,12 @@ void	lexlst_clear(t_lexlst **lst)
 {
 	t_lexlst	*tmp;
 
-	if (!lst)
-		return ;
 	tmp = NULL;
 	while (*lst)
 	{
 		tmp = *lst;
 		*lst = (*lst)->next;
+		free(tmp->word);
 		free(tmp);
 	}
 }

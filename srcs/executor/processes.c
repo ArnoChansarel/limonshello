@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:25:31 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/10 16:21:55 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/11 10:33:29 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int	execute_process(t_cmd *ele, t_process *process, char **env)
 		ft_env(ele);
 		exit(EXIT_SUCCESS);
 	}
+	
 	if (execve(cmd, ele->cmd, env) == -1)
 		ft_exit_failure("execve ");
 	return (0);

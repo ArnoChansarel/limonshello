@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
+/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 15:24:39 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/10 14:19:06 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/11 15:01:19 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	find_var_and_replace(char **cmd, t_env **env, int i)
 int	lookfor_var(char **cmd, t_env **env, int size, int dq)
 {
 	int	i;
+	char *index;
 
 	i = 0;
 	while (cmd[0][i])
@@ -71,8 +72,10 @@ int	lookfor_var(char **cmd, t_env **env, int size, int dq)
 		{
 			if (cmd[0][i + 1] == '?')
 			{
+				index = ft_itoa(g_exit_value);
 				size = get_var_size(&cmd[0][i]);
-				*cmd = replace_var(*cmd, ft_itoa(g_exit_value), size + 1, i);
+				*cmd = replace_var(*cmd, index, size + 1, i);
+				free(index);
 				continue ;
 			}
 			if (ft_isalnum(cmd[0][i + 1]) == 0)

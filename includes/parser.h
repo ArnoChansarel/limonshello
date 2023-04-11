@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 16:38:28 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/10 15:10:41 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/11 11:13:31 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # include "structs.h"
 
 // PARSER FUNCTION
-int			parser(char *cmd_line, t_cmd **lstp, int *pipes, t_env *env);
+t_lexlst		*parser(char *cmd_line, t_cmd **lstp, int *pipes, t_env *env);
 
 // PARSER UTILS
 int			count_pipes(t_lexlst *lex);

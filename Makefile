@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+         #
+#    By: achansar <achansar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/06 14:37:56 by achansar          #+#    #+#              #
-#    Updated: 2023/04/10 14:18:24 by ade-bast         ###   ########.fr        #
+#    Updated: 2023/04/11 14:34:19 by achansar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME = minishell
 #ARGUMENTS
 CC = gcc
 FLAGS = -Wall -Werror -Wextra
-SEG = -fsanitize=address -g
+SEG = #-fsanitize=address -g
 READLINE = -lreadline
 LDFLAGS		= -L$(HOME)/.brew/opt/readline/lib
 CPPFLAGS	= -I$(HOME)/.brew/opt/readline/include

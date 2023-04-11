@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:00:50 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/09 18:02:55 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/11 13:50:20 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int		last_process(t_process *process, int pi);
 
 // EXECUTOR UTILS
 char	*get_cmd(t_process *process, char **cmd, t_env *ev);
-int		open_infile(t_process *process, t_cmd *ele);
-int		open_outfile(t_process *process, t_cmd *ele);
+int		open_infile(t_process *process, t_cmd *ele, int i);
+int		open_outfile(t_process *process, t_cmd *ele, int i);
 int		create_here_doc(t_process *process, t_cmd **cmd_lst);
 
 // EXECUTOR UTILS 2
