@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:56:58 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/11 15:38:03 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/11 16:11:16 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	list_cmp_key(t_cmd *cmd, char *str1, char *str2)
 		}
 		tmp = tmp->next;
 	}
-		tmp = cmd->head;
+	tmp = cmd->head;
 	return (0);
 }
 

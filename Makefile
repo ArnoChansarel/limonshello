@@ -6,7 +6,7 @@
 #    By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/06 14:37:56 by achansar          #+#    #+#              #
-#    Updated: 2023/04/11 15:19:24 by ade-bast         ###   ########.fr        #
+#    Updated: 2023/04/21 10:56:05 by ade-bast         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME = minishell
 #ARGUMENTS
 CC = gcc
 FLAGS = -Wall -Werror -Wextra
-SEG = -fsanitize=address -g
+SEG = #-fsanitize=address -g
 READLINE = -lreadline
 LDFLAGS		= -L$(HOME)/.brew/opt/readline/lib
 CPPFLAGS	= -I$(HOME)/.brew/opt/readline/include
