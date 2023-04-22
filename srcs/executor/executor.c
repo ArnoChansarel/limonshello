@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:25:59 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/11 16:24:17 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/22 12:51:16 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int	fork_n_wait(t_process *process, t_cmd *cmd_lst, int pipes, char **env)
 	i = 0;
 	j = 0;
 	head = cmd_lst;
+	sig_handler(2);
 	while (i++ <= pipes)
 	{
 		fork_id = fork();
@@ -77,6 +78,7 @@ int	fork_n_wait(t_process *process, t_cmd *cmd_lst, int pipes, char **env)
 	}
 	closepipes_and_freeprocess(process);
 	father_waits(pipes);
+	sig_handler(0);
 	return (0);
 }
 

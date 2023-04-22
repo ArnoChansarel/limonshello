@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 17:23:49 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/11 15:10:48 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/22 12:50:43 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ int	ft_free_all(t_data *data)
 	free_cmd_lst(data->lst);
 	lexlst_clear(&data->lexer_lst);
 	free(data->process);
-	free(data->line);
 	return (0);
 }
 

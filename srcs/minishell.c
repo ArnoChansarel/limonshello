@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:50:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/11 16:28:11 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/22 12:47:40 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	main(int argc, char **argv, char **envp)
 		if (!data.line)
 			exit(g_exit_value);
 		data.lexer_lst = parser(data.line, &data.lst, &data.pipes, data.env);
+		free(data.line);
 		if (!data.lexer_lst)
 			continue ;
 		init_process(&data);

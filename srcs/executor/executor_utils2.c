@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 13:41:36 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/11 17:39:30 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/22 12:52:16 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,20 +74,18 @@ int	father_waits(int pipes)
 	i = 0;
 	status = 0;
 	var = 0;
-	pipes = 0;
-	sig_handler(1);
-	while (i <= pipes)//                               de là
+	while (i <= pipes)
 	{
 		waitpid(-1, &status, 0);
 		if (WIFEXITED(status))
 			g_exit_value = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))//                Toute cette partie est
-		{//                                            responsable de bug de prompt
-			var = WTERMSIG(status);//                  et nous crée un leak
+		else if (WIFSIGNALED(status))
+		{
+			var = WTERMSIG(status);
 			if (var == SIGINT)
 				g_exit_value = 130;
 			else if (var == SIGQUIT)
-				g_exit_value = 131;//                   à là
+				g_exit_value = 131;
 		}
 		i++;
 	}
