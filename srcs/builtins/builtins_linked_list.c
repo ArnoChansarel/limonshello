@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:48:54 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/22 15:52:56 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/22 17:57:30 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,21 @@ void	push(t_env *head, int export, char *key, char *value)
 	current->next->next = NULL;
 }
 
+void	shlvl_handler(char **lvl)
+{
+	int	num;
+
+	num = ft_atoi(*lvl);
+	if (num == 999)
+		num = 0;
+	else if (num > 999)
+		num = 1;
+	else
+		num++;
+	free(*lvl);
+	*lvl = ft_itoa(num);
+}
+
 void	push_list(char **envp, char **tab, t_env *head)
 {
 	int	i;
@@ -57,6 +72,8 @@ void	push_list(char **envp, char **tab, t_env *head)
 	while (envp[i])
 	{
 		tab = ft_split(envp[i], '=');
+		if (ft_strncmp(tab[0], "SHLVL", 6) == 0)
+			shlvl_handler(&tab[1]);
 		push(head, 1, tab[0], tab[1]);
 		i++;
 		ft_free_array(tab);
