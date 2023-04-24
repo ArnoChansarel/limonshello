@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 10:30:28 by arnalove          #+#    #+#             */
-/*   Updated: 2023/04/09 17:59:13 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/24 12:23:13 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,15 @@ static char	**ft_free_split(char **tab, int w)
 	return (tab);
 }
 
+static void	check_equal(char *c, unsigned int *i, int j)
+{
+	if (*c == '=' && j == 1)
+	{
+		*c = -1;
+		(*i)++;
+	}
+}
+
 static char	**ft_intab(char **tab, const char *s, char c, int w)
 {
 	int				j;
@@ -61,6 +70,7 @@ static char	**ft_intab(char **tab, const char *s, char c, int w)
 	j = 0;
 	while (w > j)
 	{
+		check_equal(&c, &i, j);
 		while (s[i] != '\0')
 		{
 			if (s[i] != c)

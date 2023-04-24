@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:56:58 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/11 16:11:16 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/24 10:42:10 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	split_on_egal(t_cmd *cmd, int i)
 		if (!ft_isalnum_(res[0][k++]))
 			return (print_error(res));
 	}
-	if (!ft_isalnum_plus(res[0][k]))
+	if (!ft_isalnum_(res[0][k]))
 		return (print_error(res));
 	if (!list_cmp_key(cmd, res[0], res[1]))
 	{
@@ -111,7 +111,7 @@ int	ft_export(t_cmd *cmd)
 		return (0);
 	while (cmd->cmd[i])
 	{
-		if (ft_strchr(cmd->cmd[i], '=') != 0)
+		if ((ft_strchr(cmd->cmd[i], '=') != 0))
 			split_on_egal(cmd, i);
 		else
 		{
