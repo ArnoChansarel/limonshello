@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 15:02:58 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/11 16:24:57 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/22 16:14:27 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,12 @@ void	print_error(char **res)
 		res[0]);
 	g_exit_value = 1;
 	ft_free_array(res);
+}
+
+void	open_error(char *name)
+{
+	char	*str;
+
+	str = ft_strjoin("Limonshello: ", name);
+	ft_exit_failure(str);
 }

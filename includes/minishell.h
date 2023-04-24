@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:28:41 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/11 16:25:20 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/22 16:23:16 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int			error_msg(char *str);
 int			ft_exit_failure(char *str);
 void		print_head(void);
 void		print_error(char **res);
+void		open_error(char *name);
 
 // SIGNAL
 void		sig_handler(int status);
