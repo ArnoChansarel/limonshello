@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:59:12 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/06 13:24:30 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/24 16:34:43 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_unset(t_cmd *cmd)
 	tmp = cmd->head;
 	while (cmd->cmd[i])
 	{
-		while (tmp->next != 0)
+		while (tmp && tmp->next != 0)
 		{
 			if (ft_strncmp(cmd->cmd[i], tmp->next->key,
 					ft_strlen(tmp->next->key)) == 0)
@@ -36,6 +36,5 @@ int	ft_unset(t_cmd *cmd)
 		}
 		i++;
 	}
-	tmp = cmd->head;
 	return (0);
 }
