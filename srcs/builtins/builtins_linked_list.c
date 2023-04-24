@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_linked_list.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:48:54 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/22 17:57:30 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/24 13:48:13 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ void	push(t_env *head, int export, char *key, char *value)
 	current->next->key = ft_strdup(key);
 	if (!current->next->key)
 		ft_exit_failure("malloc");
-	expand_quotes(&current->next->key);//           rajout d'arno
+	expand_quotes(&current->next->key);
 	current->next->value = ft_strdup(value);
 	if (!current->next->value)
 		ft_exit_failure("malloc");
-	expand_quotes(&current->next->value);//          aussi
+	expand_quotes(&current->next->value);
 	current->next->export = export;
 	current->next->next = NULL;
 }
