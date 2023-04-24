@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 16:45:40 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/11 14:41:09 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/24 17:08:49 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		ft_unset(t_cmd *cmd);
 
 // BUILTINS LINKED LIST
 void	delete_node(t_env *head);
-void	push(t_env *head, int export, char *key, char *value);
+void	push(t_env **head, int export, char *key, char *value);
 t_env	*build_env_list(char **envp);
 char	*list_return_value_from_key(t_cmd *cmd, char *str1);
 void	printlist(t_cmd *cmd);

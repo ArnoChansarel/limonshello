@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 14:34:47 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/11 13:34:07 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/24 17:55:59 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,12 @@ int	ft_print_in_order(t_cmd *cmd)
 	t_env	*head2;
 
 	head2 = copylist(cmd->head);
+	if (!cmd->head)
+		return (0);
 	tmp = cmd->head->next;
 	while (tmp)
 	{
-		push(head2, tmp->export, tmp->key, tmp->value);
+		push(&head2, tmp->export, tmp->key, tmp->value);
 		tmp = tmp->next;
 	}
 	tmp = head2;
