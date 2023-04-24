@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:48:54 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/24 13:48:13 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/24 14:53:37 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	shlvl_handler(char **lvl)
 
 	num = ft_atoi(*lvl);
 	if (num == 999)
+		num = 0;
+	if (num < 0)
 		num = 0;
 	else if (num > 999)
 		num = 1;
