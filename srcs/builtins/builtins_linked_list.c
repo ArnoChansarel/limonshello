@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:48:54 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/24 13:48:13 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/24 17:57:36 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,28 +25,33 @@ void	delete_node(t_env *head)
 	free(tmp);
 }
 
-void	push(t_env *head, int export, char *key, char *value)
+void	push(t_env **head, int export, char *key, char *value)
 {
 	t_env	*current;
-	int		tmp;
+	t_env	*new_node;
 
-	tmp = 0;
-	current = head;
-	while (current->next != NULL)
-		current = current->next;
-	current->next = (t_env *) malloc(sizeof(t_env));
-	if (!current->next)
+	new_node = malloc(sizeof(t_env));
+	if (!new_node)
 		ft_exit_failure("malloc");
-	current->next->key = ft_strdup(key);
-	if (!current->next->key)
+	new_node->key = ft_strdup(key);
+	if (!new_node->key)
 		ft_exit_failure("malloc");
-	expand_quotes(&current->next->key);
-	current->next->value = ft_strdup(value);
-	if (!current->next->value)
+	expand_quotes(&new_node->key);
+	new_node->value = ft_strdup(value);
+	if (!new_node->value)
 		ft_exit_failure("malloc");
-	expand_quotes(&current->next->value);
-	current->next->export = export;
-	current->next->next = NULL;
+	expand_quotes(&new_node->value);
+	new_node->export = export;
+	new_node->next = NULL;
+	current = *head;
+	if (!current)
+		*head = new_node;
+	else
+	{
+		while (current->next != NULL)
+			current = current->next;
+		current->next = new_node;
+	}
 }
 
 void	shlvl_handler(char **lvl)
@@ -56,6 +61,8 @@ void	shlvl_handler(char **lvl)
 	num = ft_atoi(*lvl);
 	if (num == 999)
 		num = 0;
+	if (num < 0)
+		num = 0;
 	else if (num > 999)
 		num = 1;
 	else
@@ -64,7 +71,7 @@ void	shlvl_handler(char **lvl)
 	*lvl = ft_itoa(num);
 }
 
-void	push_list(char **envp, char **tab, t_env *head)
+void	push_list(char **envp, char **tab, t_env **head)
 {
 	int	i;
 
@@ -100,6 +107,6 @@ t_env	*build_env_list(char **envp)
 	head->key = tab[0];
 	head->value = tab[1];
 	free(tab);
-	push_list(envp, tab, head);
+	push_list(envp, tab, &head);
 	return (rtr);
 }
