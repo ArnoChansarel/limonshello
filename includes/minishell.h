@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:28:41 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/22 16:23:16 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/27 18:21:10 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int			ft_free_all(t_data *data);
 // DISPLAY
 void		ft_printlist(t_lexlst *head_a);
 void		ft_printparse(t_cmd *head);
-int			error_msg(char *str);
+int			error_msg(char c);
 int			ft_exit_failure(char *str);
 void		print_head(void);
 void		print_error(char **res);

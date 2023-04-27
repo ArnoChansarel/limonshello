@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 17:40:04 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/11 16:25:01 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/27 17:59:32 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,9 @@ int	init_process(t_data *data)
 	return (0);
 }
 
-int	error_msg(char *str)
+int	error_msg(char c)
 {
-	write(2, "Error : ", 8);
-	write(2, str, ft_strlen(str));
+	printf("LimonShello: syntax error near unexpected token `%c'\n", c);
 	return (1);
 }
 
