@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
+/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:56:58 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/24 20:33:26 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/27 13:56:06 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,8 @@ int	ft_export(t_cmd *cmd)
 	int		i;
 
 	i = 0;
+	if (!cmd->head)
+		return (0);
 	if (!export_no_args(cmd))
 		return (0);
 	while (cmd->cmd[i])

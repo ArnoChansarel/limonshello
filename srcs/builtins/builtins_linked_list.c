@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_linked_list.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
+/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:48:54 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/27 13:25:23 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/27 13:48:48 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	shlvl_handler(char **lvl)
 	if (num == 999)
 		num = 0;
 	if (num < 0)
-		num = 1;
+		num = 0;
 	else if (num > 999)
 		num = 1;
 	else
