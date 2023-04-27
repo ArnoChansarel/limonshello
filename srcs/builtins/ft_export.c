@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:56:58 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/27 13:56:06 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/27 14:09:29 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	list_cmp_key(t_cmd *cmd, char *str1, char *str2)
 				return (1);
 			free(tmp->value);
 			tmp->value = ft_strdup(str2);
+			expander(&tmp->value, &cmd->head);
 			tmp = cmd->head;
 			return (1);
 		}
