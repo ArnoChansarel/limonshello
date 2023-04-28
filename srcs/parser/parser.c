@@ -6,13 +6,13 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 12:55:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/11 16:24:40 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/28 16:47:36 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static t_cmd	*get_cmd_elem(t_lexlst **lex, t_env *env, int index, int i)
+static t_cmd	*get_cmd_elem(t_lexlst **lex, t_data *data, int index, int i)
 {
 	int			c;
 	t_lexlst	*head;
@@ -22,7 +22,8 @@ static t_cmd	*get_cmd_elem(t_lexlst **lex, t_env *env, int index, int i)
 	c = count_word_lex(lex);
 	head = *lex;
 	elem_parser_init(&ele, c, index);
-	ele->head = env;
+	ele->head = data->env;
+	ele->cwd = data->cwd;
 	while (head && ft_strncmp(head->word, "|", 2) != 0)
 	{
 		if (is_token(head->word))
@@ -40,7 +41,7 @@ static t_cmd	*get_cmd_elem(t_lexlst **lex, t_env *env, int index, int i)
 	return (ele);
 }
 
-int	get_cmd_list(t_lexlst **lex, t_cmd **parser_lst, int p, t_env *env)
+int	get_cmd_list(t_lexlst **lex, t_cmd **parser_lst, int p, t_data *data)
 {
 	int			i;
 	t_cmd		*temp;
@@ -51,8 +52,8 @@ int	get_cmd_list(t_lexlst **lex, t_cmd **parser_lst, int p, t_env *env)
 	head = *lex;
 	while (i <= p)
 	{
-		temp = get_cmd_elem(&head, env, i, 0);
-		get_builtin_func(temp->cmd[0], env, &temp->builtin);
+		temp = get_cmd_elem(&head, data, i, 0);
+		get_builtin_func(temp->cmd[0], data->env, &temp->builtin);
 		if (!temp)
 			return (1);
 		parserlst_addback(parser_lst, temp);
@@ -86,20 +87,20 @@ int	send_to_expander(t_cmd **cmd_lst)
 	return (0);
 }
 
-t_lexlst	*parser(char *cmd_line, t_cmd **lstp, int *pipes, t_env *env)
+t_lexlst	*parser(t_data *data, int *pipes)
 {
 	t_lexlst	*lexer_lst;
 
 	lexer_lst = NULL;
-	if (checker_quotes(cmd_line, 0, 0))
+	if (checker_quotes(data->line, 0, 0))
 		return (lexer_lst);
-	if (check_token(cmd_line))
+	if (check_token(data->line))
 		return (lexer_lst);
-	lexer_lst = lexer(cmd_line);
+	lexer_lst = lexer(data->line);
 	if (!lexer_lst)
 		exit(EXIT_FAILURE);
 	*pipes = count_pipes(lexer_lst);
-	get_cmd_list(&lexer_lst, lstp, *pipes, env);
-	send_to_expander(lstp);
+	get_cmd_list(&lexer_lst, &data->lst, *pipes, data);
+	send_to_expander(&data->lst);
 	return (lexer_lst);
 }
