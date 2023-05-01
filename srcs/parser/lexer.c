@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:49:11 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/09 17:34:14 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/27 17:59:50 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	check_token(char *line)
 			while (*line == ' ')
 				line++;
 			if (is_token(line) && *line == '|')
-				return (error_msg("Unexpected Token.\n"));
+				return (error_msg(*line));
 		}
 		else if (is_token(line) && (*line == '<' || *line == '>'))
 		{
@@ -33,7 +33,7 @@ int	check_token(char *line)
 			while (*line == ' ')
 				line++;
 			if (is_token(line))
-				return (error_msg("Unexpected Token.\n"));
+				return (error_msg(*line));
 			continue ;
 		}
 		line++;

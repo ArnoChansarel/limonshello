@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
+/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:56:58 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/24 20:33:26 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/05/01 12:02:13 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	join_env_var(t_cmd *cmd, t_env *env, char *str1, char *str2)
 	char	*temp;
 
 	last = ft_strlen(str1) - 1;
-	if (str1[last] == '+')
+	if (str1[last] == '+' && str1[last - 1] != '+')
 	{
 		temp = strdup(env->value);
 		free(env->value);
@@ -41,16 +41,16 @@ int	list_cmp_key(t_cmd *cmd, char *str1, char *str2)
 {
 	t_env	*tmp;
 
-	(void) str2;
 	tmp = cmd->head;
 	while (tmp != 0)
 	{
-		if (ft_strncmp(str1, tmp->key, ft_strlen(tmp->key) + 1) == 0)
+		if (ft_strncmp(str1, tmp->key, ft_strlen(tmp->key)) == 0)
 		{
 			if (join_env_var(cmd, tmp, str1, str2))
 				return (1);
 			free(tmp->value);
 			tmp->value = ft_strdup(str2);
+			expander(&tmp->value, &cmd->head);
 			tmp = cmd->head;
 			return (1);
 		}
@@ -87,8 +87,6 @@ void	split_on_egal(t_cmd *cmd, int i)
 		if (!ft_isalnum_(res[0][k++]))
 			return (print_error(res));
 	}
-	if (!ft_isalnum_(res[0][k]))
-		return (print_error(res));
 	if (!list_cmp_key(cmd, res[0], res[1]))
 	{
 		if (!ft_isalpha_(res[0][0]))
@@ -104,6 +102,8 @@ int	ft_export(t_cmd *cmd)
 	int		i;
 
 	i = 0;
+	if (!cmd->head)
+		return (0);
 	if (!export_no_args(cmd))
 		return (0);
 	while (cmd->cmd[i])
@@ -114,6 +114,7 @@ int	ft_export(t_cmd *cmd)
 		{
 			if (!notalphanum_(cmd->cmd[i]))
 			{
+				printf("numero 2\n");
 				printf("LimonShello: export: '%s': not a valid identifier\n",
 					cmd->cmd[i]);
 				g_exit_value = 1;

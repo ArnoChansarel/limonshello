@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
+/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:56:34 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/10 18:12:56 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/05/01 11:52:22 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ int	ft_cd(t_cmd *cmd)
 {
 	char	home[PATH_MAX + 1];
 	char	directory[PATH_MAX + 1];
-	char	pwd[PATH_MAX + 1];
+	char	*pwd;
 
-	getcwd(pwd, PATH_MAX);
+	pwd = cmd->cwd;
 	ft_memcpy(home, list_return_value_from_key(cmd, "HOME"),
 		ft_strlen(list_return_value_from_key(cmd, "HOME")) + 1);
 	cd_exec(cmd, home, directory, pwd);

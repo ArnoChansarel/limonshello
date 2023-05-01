@@ -6,13 +6,12 @@
 #    By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/06 14:37:56 by achansar          #+#    #+#              #
-#    Updated: 2023/04/27 13:35:20 by ade-bast         ###   ########.fr        #
+#    Updated: 2023/05/01 12:04:24 by ade-bast         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #TARGET
 NAME = minishell
-
 #ARGUMENTS
 CC = gcc
 FLAGS = -Wall -Werror -Wextra

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
+/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:57:01 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/25 13:26:26 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/05/01 11:52:12 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,6 @@
 
 int	ft_pwd(t_cmd *cmd)
 {
-	char	buf[PATH_MAX + 1];
-
-	(void) *cmd;
-	if (getcwd(buf, PATH_MAX))
-		printf("%s\n", buf);
-	else
-		printf("cd: error retrieving current directory: getcwd:\
-cannot access parent directories: No such file or directory\n");
+	printf("%s\n", cmd->cwd);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
+/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 17:23:49 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/22 12:50:43 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/04/28 14:43:11 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,16 @@ int	ft_unlink(t_cmd **cmd)
 
 int	ft_free_all(t_data *data)
 {
+	char	*temp;
+
+	temp = malloc(sizeof(char) * (PATH_MAX + 1));
+	getcwd(temp, PATH_MAX);
+	if (temp)
+	{
+		free(data->cwd);
+		data->cwd = ft_strdup(temp);
+		free(temp); 	
+	}
 	ft_unlink(&data->lst);
 	free_cmd_lst(data->lst);
 	lexlst_clear(&data->lexer_lst);
