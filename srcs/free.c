@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 17:23:49 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/28 14:43:11 by achansar         ###   ########.fr       */
+/*   Updated: 2023/05/01 12:21:20 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	ft_free_all(t_data *data)
 	{
 		free(data->cwd);
 		data->cwd = ft_strdup(temp);
-		free(temp); 	
+		free(temp);
 	}
 	ft_unlink(&data->lst);
 	free_cmd_lst(data->lst);

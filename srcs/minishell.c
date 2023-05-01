@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:50:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/28 16:42:54 by achansar         ###   ########.fr       */
+/*   Updated: 2023/05/01 12:21:02 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	main(int argc, char **argv, char **envp)
 	g_exit_value = 0;
 	while (1)
 	{
-		// printf("IN LOOP, PWD = %s\n", data.cwd);
 		data.line = readline("LimonShello $> ");
 		if (!data.line)
 			exit(g_exit_value);
