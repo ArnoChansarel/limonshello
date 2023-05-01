@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 17:23:49 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/28 14:43:11 by achansar         ###   ########.fr       */
+/*   Updated: 2023/05/01 13:05:27 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,26 @@ int	ft_unlink(t_cmd **cmd)
 	return (0);
 }
 
+void	update_pwd(t_data *data, char *cwd)
+{
+	t_env	*tmp;
+
+	free(data->cwd);
+	data->cwd = ft_strdup(cwd);
+	tmp = data->env;
+	while (tmp && tmp->next != 0)
+	{
+		if (ft_strncmp(tmp->key, "PWD", ft_strlen(tmp->key)) == 0)
+		{
+			free(tmp->value);
+			tmp->value = ft_strdup(cwd);
+			break ;
+		}
+		tmp = tmp->next;
+	}
+	free(cwd);
+}
+
 int	ft_free_all(t_data *data)
 {
 	char	*temp;
@@ -60,11 +80,7 @@ int	ft_free_all(t_data *data)
 	temp = malloc(sizeof(char) * (PATH_MAX + 1));
 	getcwd(temp, PATH_MAX);
 	if (temp)
-	{
-		free(data->cwd);
-		data->cwd = ft_strdup(temp);
-		free(temp); 	
-	}
+		update_pwd(data, temp);
 	ft_unlink(&data->lst);
 	free_cmd_lst(data->lst);
 	lexlst_clear(&data->lexer_lst);

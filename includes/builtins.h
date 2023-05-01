@@ -6,7 +6,7 @@
 /*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 16:45:40 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/24 17:08:49 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/05/01 12:59:39 by ade-bast         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int		ft_isalnum_(int c);
 int		ft_isalnum_plus(int c);
 int		notalphanum_(char *str);
 int		ft_isalpha_(int c);
+// int		update_pwd(t_cmd *cmd);
 
 // BUILTINS UTILS
 void	cd_home(char *home, char *pwd, t_cmd *cmd);
