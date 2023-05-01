@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
+/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 09:43:51 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/05/01 13:02:19 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/05/01 13:10:57 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,19 +73,14 @@ void	cd_go_to_directory(char *directory, char *pwd, t_cmd *cmd)
 	ft_memcpy(directory, tmp_join_bis, ft_strlen(tmp_join_bis) + 1);
 	dir = opendir(directory);
 	if (!dir)
-	{
-		ft_putstr_fd("LimonShello: cd: ", 2);
-		ft_putstr_fd(cmd->cmd[1], 2);
-		ft_putstr_fd(": Not a directory\n", 2);
-		return ;
-	}
+		printf("LimonShello: cd: : %s: Not a directory\n", cmd->cmd[1]);
 	else
 	{
 		chdir(directory);
 		if (!update_old_pwd(cmd, pwd))
 			push(&cmd->head, 1, "OLDPWD", pwd);
+		closedir(dir);
 	}
-	closedir(dir);
 	free(tmp_join);
 	free(tmp_join_bis);
 }
