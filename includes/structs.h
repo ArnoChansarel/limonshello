@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 13:38:30 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/11 16:27:08 by achansar         ###   ########.fr       */
+/*   Updated: 2023/04/28 16:47:22 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_cmd {
 	struct s_cmd	*next;
 	int				exit_status;
 	int				index;
+	char			*cwd;
 }	t_cmd;
 
 typedef struct s_process {
@@ -60,6 +61,7 @@ typedef struct s_data {
 	int			pipes;
 	t_lexlst	*lexer_lst;
 	t_env		*env;
+	char		*cwd;
 }	t_data;
 
 #endif
