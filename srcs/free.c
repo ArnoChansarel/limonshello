@@ -6,29 +6,37 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 17:23:49 by achansar          #+#    #+#             */
-/*   Updated: 2023/05/01 13:10:47 by achansar         ###   ########.fr       */
+/*   Updated: 2023/05/10 19:34:09 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+t_cmd	*free_cmd_elem(t_cmd *lst)
+{
+	int	i;
+
+	i = 0;
+	while (lst->cmd[i])
+		free(lst->cmd[i++]);
+	free(lst->cmd);
+	if (lst->rd_in)
+		free(lst->rd_in);
+	if (lst->rd_out)
+		free(lst->rd_out);
+	lst = lst->next;
+	return (lst);
+}
+
 void	free_cmd_lst(t_cmd *lst)
 {
-	int		i;
 	t_cmd	*head;
 
 	head = NULL;
 	while (lst)
 	{
-		i = 0;
 		head = lst;
-		while (head->cmd[i])
-			free(head->cmd[i++]);
-		free(head->cmd);
-		if (head->rd_in)
-			free(head->rd_in);
-		if (head->rd_out)
-			free(head->rd_out);
+		free_cmd_elem(head);
 		lst = lst->next;
 		free(head);
 	}
@@ -81,15 +89,11 @@ int	ft_free_all(t_data *data)
 	getcwd(temp, PATH_MAX);
 	if (temp)
 		update_pwd(data, temp);
-	ft_unlink(&data->lst);
+	if (data->lst)
+		ft_unlink(&data->lst);
 	free_cmd_lst(data->lst);
 	lexlst_clear(&data->lexer_lst);
-	free(data->process);
+	if (data->process)
+		free(data->process);
 	return (0);
-}
-
-int	ft_exit_failure(char *str)
-{
-	perror(str);
-	exit(EXIT_FAILURE);
 }

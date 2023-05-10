@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
+/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:25:59 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/24 17:35:14 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/05/10 18:54:24 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	child(t_process *process, t_cmd *ele, char **env, int pi)
 {
 	if (ele->rd_in || ele->rd_out)
 		if (open_redirections(process, ele))
-			exit(1);
+			return (0);
 	if (process->pipes_array)
 	{
 		if (pi == 0)

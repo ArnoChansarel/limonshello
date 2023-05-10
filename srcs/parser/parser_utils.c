@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:59:43 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/11 16:24:29 by achansar         ###   ########.fr       */
+/*   Updated: 2023/05/09 15:33:46 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,27 +81,4 @@ int	count_word_lex(t_lexlst **lex)
 		}
 	}
 	return (c);
-}
-
-int	add_rdrctn(t_cmd *p, t_lexlst *lex)
-{
-	char	*temp;
-
-	temp = NULL;
-	if (lex->word[0] == '<')
-	{
-		if (p->rd_in)
-			free(p->rd_in);
-		temp = ft_strjoin(lex->word, " ");
-		p->rd_in = ft_strjoin(temp, lex->next->word);
-	}
-	else
-	{
-		if (p->rd_out)
-			free(p->rd_out);
-		temp = ft_strjoin(lex->word, " ");
-		p->rd_out = ft_strjoin(temp, lex->next->word);
-	}
-	free(temp);
-	return (0);
 }

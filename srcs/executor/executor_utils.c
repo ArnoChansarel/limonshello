@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:53:00 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/22 16:11:46 by achansar         ###   ########.fr       */
+/*   Updated: 2023/05/10 19:32:20 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static int	write_here_doc(t_process *pro, char **line, char *eof)
 {
+	if (ft_strncmp(*line, eof, ft_strlen(eof) + 1) == 0)
+		return (0);
 	while (*line)
 	{
 		write(pro->fd1, *line, ft_strlen(*line));
@@ -44,7 +46,7 @@ static int	get_here_doc(t_process *process, char *eof, int index)
 	process->here_doc = 1;
 	process->fd1 = open(name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (process->fd1 < 0)
-		open_error(name);
+		open_error(name, 1);
 	free(name);
 	line = readline("> ");
 	if (!line)
@@ -52,8 +54,6 @@ static int	get_here_doc(t_process *process, char *eof, int index)
 		close(process->fd1);
 		return (0);
 	}
-	if (ft_strncmp(line, eof, ft_strlen(eof) + 1) == 0)
-		return (0);
 	write_here_doc(process, &line, eof);
 	free(line);
 	close(process->fd1);
@@ -85,7 +85,7 @@ int	open_outfile(t_process *process, t_cmd *ele, int i)
 		process->fd2 = open(&ele->rd_out[i],
 				O_CREAT | O_WRONLY | O_APPEND, 0644);
 		if (process->fd2 < 0)
-			open_error(&ele->rd_in[i]);
+			return (open_error(&ele->rd_in[i], 0));
 	}
 	else
 	{
@@ -93,10 +93,8 @@ int	open_outfile(t_process *process, t_cmd *ele, int i)
 		process->fd2 = open(&ele->rd_out[i],
 				O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		if (process->fd2 < 0)
-			open_error(&ele->rd_in[i]);
+			return (open_error(&ele->rd_out[i], 0));
 	}
-	if (process->fd2 < 0)
-		ft_exit_failure(&ele->rd_out[i]);
 	return (0);
 }
 
@@ -113,7 +111,7 @@ int	open_infile(t_process *process, t_cmd *ele, int i)
 		free(index);
 		process->fd1 = open(name, O_CREAT, O_RDONLY);
 		if (process->fd1 < 0)
-			open_error(name);
+			open_error(name, 1);
 		free(name);
 	}
 	else
@@ -122,7 +120,7 @@ int	open_infile(t_process *process, t_cmd *ele, int i)
 			i++;
 		process->fd1 = open(&ele->rd_in[i], O_RDONLY);
 		if (process->fd1 < 0)
-			open_error(&ele->rd_in[i]);
+			open_error(&ele->rd_in[i], 1);
 	}
 	if (process->fd1 < 0)
 		ft_exit_failure(&ele->rd_in[i]);

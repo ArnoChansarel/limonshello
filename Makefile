@@ -3,15 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+         #
+#    By: achansar <achansar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/06 14:37:56 by achansar          #+#    #+#              #
-#    Updated: 2023/05/01 13:00:43 by ade-bast         ###   ########.fr        #
+#    Updated: 2023/05/09 16:52:07 by achansar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #TARGET
 NAME = minishell
+
 #ARGUMENTS
 CC = gcc
 FLAGS = -Wall -Werror -Wextra
@@ -53,6 +54,7 @@ P_SRC = 	lexer \
 			lexer_utils \
 			parser \
 			parser_utils \
+			redirections \
 			expander \
 			expander_var \
 			expander_utils \

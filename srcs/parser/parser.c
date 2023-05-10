@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 12:55:06 by achansar          #+#    #+#             */
-/*   Updated: 2023/04/28 16:47:36 by achansar         ###   ########.fr       */
+/*   Updated: 2023/05/10 18:57:26 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,19 @@ int	get_cmd_list(t_lexlst **lex, t_cmd **parser_lst, int p, t_data *data)
 	t_lexlst	*head;
 
 	i = 0;
+	temp = NULL;
 	*parser_lst = NULL;
 	head = *lex;
 	while (i <= p)
 	{
 		temp = get_cmd_elem(&head, data, i, 0);
-		get_builtin_func(temp->cmd[0], data->env, &temp->builtin);
 		if (!temp)
+		{
+			printf("if temp is NULL\n");
+			lexlst_clear(lex);
 			return (1);
+		}
+		get_builtin_func(temp->cmd[0], data->env, &temp->builtin);
 		parserlst_addback(parser_lst, temp);
 		goto_next(&head);
 		i++;
