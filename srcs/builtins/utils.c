@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
+/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:52:21 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/04/11 13:43:37 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/05/11 13:10:05 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,14 @@ void	ft_free_array(char **tobefreed)
 	free(tobefreed);
 }
 
-void	err_(char *str)
+void	clean_newvar_plus(char *str)
 {
-	ft_putstr_fd("exit\n", 1);
-	ft_putstr_fd("minishell: exit: ", 2);
-	ft_putstr_fd(str, 2);
-	ft_putstr_fd(": numeric argument required\n", 2);
+	while (*str)
+	{
+		if (*str == '+')
+			*str = '\0';
+		str++;
+	}
 }
 
 int	notalphanum(char *str)

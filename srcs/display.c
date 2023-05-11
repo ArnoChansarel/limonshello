@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 15:02:58 by achansar          #+#    #+#             */
-/*   Updated: 2023/05/10 19:34:19 by achansar         ###   ########.fr       */
+/*   Updated: 2023/05/11 13:06:22 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,12 @@ int	ft_exit_failure(char *str)
 {
 	perror(str);
 	exit(EXIT_FAILURE);
+}
+
+void	err_(char *str)
+{
+	ft_putstr_fd("exit\n", 1);
+	ft_putstr_fd("minishell: exit: ", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd(": numeric argument required\n", 2);
 }

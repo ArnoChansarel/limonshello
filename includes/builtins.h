@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ade-bast <ade-bast@student.s19.be>         +#+  +:+       +#+        */
+/*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 16:45:40 by achansar          #+#    #+#             */
-/*   Updated: 2023/05/01 12:59:39 by ade-bast         ###   ########.fr       */
+/*   Updated: 2023/05/11 13:09:51 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,6 @@ void	get_builtin_func(char *str, t_env *env,
 			int (**builtin)(struct s_cmd *));
 void	err_(char *str);
 int		notalphanum(char *str);
+void	clean_newvar_plus(char *str);
 
 #endif

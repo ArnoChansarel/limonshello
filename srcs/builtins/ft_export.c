@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:56:58 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/05/01 12:02:13 by achansar         ###   ########.fr       */
+/*   Updated: 2023/05/11 13:09:14 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,15 @@ int	join_env_var(t_cmd *cmd, t_env *env, char *str1, char *str2)
 
 int	list_cmp_key(t_cmd *cmd, char *str1, char *str2)
 {
+	int		size;
 	t_env	*tmp;
 
 	tmp = cmd->head;
 	while (tmp != 0)
 	{
-		if (ft_strncmp(str1, tmp->key, ft_strlen(tmp->key)) == 0)
+		size = ft_strlen(tmp->key);
+		if ((ft_strncmp(str1, tmp->key, size + 1) == 0)
+			|| (ft_strncmp(str1, tmp->key, size) == 0 && str1[size] == '+'))
 		{
 			if (join_env_var(cmd, tmp, str1, str2))
 				return (1);
@@ -56,6 +59,7 @@ int	list_cmp_key(t_cmd *cmd, char *str1, char *str2)
 		}
 		tmp = tmp->next;
 	}
+	clean_newvar_plus(str1);
 	return (0);
 }
 
