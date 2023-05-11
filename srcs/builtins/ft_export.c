@@ -6,7 +6,7 @@
 /*   By: achansar <achansar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 10:56:58 by ade-bast          #+#    #+#             */
-/*   Updated: 2023/05/11 13:09:14 by achansar         ###   ########.fr       */
+/*   Updated: 2023/05/11 13:21:47 by achansar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,10 @@ void	split_on_egal(t_cmd *cmd, int i)
 	k = 0;
 	res = ft_split(cmd->cmd[i], '=');
 	if (!res[0] || !res[1])
+	{
+		ft_free_array(res);
 		return ;
+	}
 	j = ft_strlen(res[0]);
 	while (k < j - 1)
 	{
