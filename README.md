@@ -19,10 +19,33 @@ Liste des fonctionnalités implémentées.
 Loop, processus
 
 ## Parsing
+Il faut tout d'abord délivrer à l'executeur des blocs d'instructions dans un format unique que nous définissons lors du parsing.
+En suivant le fonctionnement interne de Bash, deux parties se dégagent :
 ### lexer
-:construction_worker_man: :construction_worker_woman:
+Le rôle du lexer est tout simplement de séparer chaque "mot" les uns des autres. Un mot est défini comme une suite de caractères autres que séparateurs (espaces, tabulations...). Cependant, une string définie par des doubles ou simples guillements compte comme un seul mot, guillemets inclus. C'est donc à ce moment qu'on vérifiera que chaque quote est bien fermée.
+Avant cela, fera un premier check de la place des pipes **"|"** et redirections **"<" ">" "<<" ">>"**, que plusieurs ne se suivent pas ou ne commencent/termine pas notre ligne de commande. Il faut penser à tous les cas de figure possibles.
+
+On va donc récupérer chaque mots et les ajouter dans une liste chaînée.
+
+<img src="docs/lexer_struct.png" width="100%">
+
+Chaque élément de notre liste chaînée comporte donc un pointeur vers une string que nous avons alloué dynamiquement avec **malloc()**. La difficulté aura été ici de trouver la taille de chaque malloc, spécialement dans le cas de nos quotes.
+
 ### parser
 :construction_worker_man: :construction_worker_woman:
+Une fois notre liste chaînée délivrée par le lexer, il va falloir la convertir en une seconde liste chaînée propre au parser, où chaque élément contiendra une instruction à envoyer à l'executeur par après.
+Pour faire simple, nous séparons notre liste lexer à chaque pipe **|** et classons chaque élément à l'interieur d'un groupe selon 3 catégories :
+- La commande suivie de ses arguments. Sous forme de double pointeur char, la commande sera toujours  l'index 0.
+- L'option builtin (à *NULL* par défaut) est un pointeur sur fonction. En plus de remplir le **char, si un de nos built-in est reconnu cette option permettra d'envoyer les arguments à l'une de nos fonctions.
+- L'option redirection. Cette string est composée du token de redirection, un espace et le nom de fichier spécifié.
+- Un pointeur sur notre liste d'environnement
+
+<img src="docs/lexer_to_parser.png" width="100%">
+
+
+
+*mot sur les redirections : pourquoi l'espace, comment gérer les redir succesifs ou le here_doc*
+
 ## Executor
 :construction_worker_man: :construction_worker_woman:
 ### expander
@@ -32,6 +55,7 @@ Loop, processus
 
 ## Problèmes rencontrés
 :construction_worker_man: :construction_worker_woman:
+Projet éternellement perfectible
 
 ## Documentation utilisée
 :construction_worker_man: :construction_worker_woman:
