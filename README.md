@@ -38,18 +38,35 @@ Pour faire simple, nous séparons notre liste lexer à chaque pipe **|** et clas
 - La commande suivie de ses arguments. Sous forme de double pointeur char, la commande sera toujours  l'index 0.
 - L'option builtin (à *NULL* par défaut) est un pointeur sur fonction. En plus de remplir le **char, si un de nos built-in est reconnu cette option permettra d'envoyer les arguments à l'une de nos fonctions.
 - L'option redirection. Cette string est composée du token de redirection, un espace et le nom de fichier spécifié.
-- Un pointeur sur notre liste d'environnement
 
 <img src="docs/lexer_to_parser.png" width="100%">
+> Illustration trouvée sur le github de [Maia de Graaf](https://github.com/maiadegraaf)
+
+<img src="docs/parser_struct.png" width="100%">
+> On trouve aussi un pointeur sur la liste chaînée contenant les variables d'environnement
 
 
+Après avoir malloc chaque nouvel élément de notre liste, nous entrons dans une boucle de tri jusqu'à rencontrer un pipe **|** ou la fin de notre première liste.
+Ainsi, tant qu'un token de redirection n'est pas rencontré, nous récuperons chaque mot et le stockons dans le **char. Nous ne regardons pas si les commandes ou arguments sont valides, ce sera à la partie d'execution de le faire.
 
-*mot sur les redirections : pourquoi l'espace, comment gérer les redir succesifs ou le here_doc*
+<img src="docs/get_cmd_elem.png" width="70%">
+> srcs/parser/parser.c
+
+Quand aux redirections, plusieurs problèmes se sont posés ici. En effet, et pour correspondre au comportement de bash, si l'utilisateur a entré plusieurs redirections en entrée comme en sortie, il faut:
+- tester chaque input et renvoyer une erreur si un fichier n'existe pas ou si l'utilisateur n'a pas les droits
+- tester chaque output, les créer si inexistants.
+
+On aura donc une fonction qui testera chaque redirections (sans oublier de refermer les file descriptors en sortie de fonction):
+<img src="docs/try_open_rd.png" width="70%">
+> srcs/parser/redirections.c
+
+*partie sur l'expander*
+*on pensera bien à fonction free list piur 2lists*
 
 ## Executor
 :construction_worker_man: :construction_worker_woman:
-### expander
-:construction_worker_man: :construction_worker_woman:
+
+
 ## Built-ins
 :construction_worker_man: :construction_worker_woman:
 
