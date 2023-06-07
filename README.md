@@ -27,7 +27,7 @@ Avant cela, fera un premier check de la place des pipes **"|"** et redirections 
 
 On va donc récupérer chaque mots et les ajouter dans une liste chaînée.
 
-<img src="docs/lexer_struct.png" width="100%">
+<img src="docs/lexer_struct.png" width="60%">
 
 Chaque élément de notre liste chaînée comporte donc un pointeur vers une string que nous avons alloué dynamiquement avec **malloc()**. La difficulté aura été ici de trouver la taille de chaque malloc, spécialement dans le cas de nos quotes.
 
@@ -40,9 +40,11 @@ Pour faire simple, nous séparons notre liste lexer à chaque pipe **|** et clas
 - L'option redirection. Cette string est composée du token de redirection, un espace et le nom de fichier spécifié.
 
 <img src="docs/lexer_to_parser.png" width="100%">
+
 > Illustration trouvée sur le github de [Maia de Graaf](https://github.com/maiadegraaf)
 
-<img src="docs/parser_struct.png" width="100%">
+<img src="docs/parser_struct.png" width="60%">
+
 > On trouve aussi un pointeur sur la liste chaînée contenant les variables d'environnement
 
 
@@ -50,6 +52,7 @@ Après avoir malloc chaque nouvel élément de notre liste, nous entrons dans un
 Ainsi, tant qu'un token de redirection n'est pas rencontré, nous récuperons chaque mot et le stockons dans le **char. Nous ne regardons pas si les commandes ou arguments sont valides, ce sera à la partie d'execution de le faire.
 
 <img src="docs/get_cmd_elem.png" width="70%">
+
 > srcs/parser/parser.c
 
 Quand aux redirections, plusieurs problèmes se sont posés ici. En effet, et pour correspondre au comportement de bash, si l'utilisateur a entré plusieurs redirections en entrée comme en sortie, il faut:
@@ -57,7 +60,9 @@ Quand aux redirections, plusieurs problèmes se sont posés ici. En effet, et po
 - tester chaque output, les créer si inexistants.
 
 On aura donc une fonction qui testera chaque redirections (sans oublier de refermer les file descriptors en sortie de fonction):
-<img src="docs/try_open_rd.png" width="70%">
+
+<img src="docs/try_open_rd.png" width="50%">
+
 > srcs/parser/redirections.c
 
 *partie sur l'expander*
