@@ -155,17 +155,16 @@ Projet éternellement perfectible
 ## Documentation utilisée
 
 ### Github
-[Maia de Graaf](https://github.com/maiadegraaf/minishell)
-
-[Alejandro Pérez](https://github.com/madebypixel02/minishell)
-[Swoorup Joshi](https://github.com/Swoorup/mysh)
+- [Maia de Graaf](https://github.com/maiadegraaf/minishell)
+- [Alejandro Pérez](https://github.com/madebypixel02/minishell)
+- [Swoorup Joshi](https://github.com/Swoorup/mysh)
 
 ### Docs
-[A cooking recipe](https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf)
-[A nice tutorial by Stephen Brennan](https://brennan.io/2015/01/16/write-a-shell-in-c/)
-[Understanding the syntax](https://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html)
-[About quoting](https://www.grymoire.com/Unix/Quote.html)
+- [A cooking recipe](https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf)
+- [A nice tutorial by Stephen Brennan](https://brennan.io/2015/01/16/write-a-shell-in-c/)
+- [Understanding the syntax](https://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html)
+- [About quoting](https://www.grymoire.com/Unix/Quote.html)
 
 ### Videos
-[fd, dup()/dup2() system call tutorial](https://www.youtube.com/watch?v=EqndHT606Tw)
-[Fork() system call tutorial](https://www.youtube.com/watch?v=xVSPv-9x3gk)
+- [fd, dup()/dup2() system call tutorial](https://www.youtube.com/watch?v=EqndHT606Tw)
+- [Fork() system call tutorial](https://www.youtube.com/watch?v=xVSPv-9x3gk)
