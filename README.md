@@ -12,16 +12,48 @@ Un shell, ou interpréteur de commande, permet comme son nom l'indique la traduc
 Le shell permet à l'utilisateur de lancer des programmes, effectuer des opérations de manipulation de fichiers, accéder aux répertoires et permet également d'afficher les résultats des commandes et d'interagir avec eux.
 
 ### Fonctionnalités
-:construction_worker_man: :construction_worker_woman:
-Liste des fonctionnalités implémentées.
+
+Notre version de Bash ne cherchera pas à reproduire la totalité des features du shell; les opérateurs **&&** et **||**, les wildcards ou symboles spéciaux à interpréter ne seront pas pris en compte.
+Néanmoins, voici une liste des fonctionnalités que nous allons pouvoir gérer :
+
+- Afficher un prompt en attente d'une nouvelle commande. Aucune erreur ne devrait quitter notre programme. 
+- Trouver et executer les commandes transmises par l'utilisateur.
+- Implémenter les pipes `|`.
+- Gérer les redirections telles que :
+  - `<` Input.
+  - `<<` Heredoc.
+  - `>` Output en mode simple.
+  - `>>` Output en mode *append*.
+- Gérer les quotes simples et doubles. On renverra une erreur si une quote n'est pas fermée.
+- Gérer les variables d'environnement ainsi que `$?`.
+- `ctrl-C`, `ctrl-D`, et `ctrl-\` doivent réagir exactement comme dans Bash.
+- Implémenter les built-ins suivants:
+  - `echo` avec l'option `-n`.
+  - `cd` suivi d'un chemin relatif ou absolu.
+  - `pwd`
+  - `export`
+  - `unset`
+  - `env`
+  - `exit`
+- Avoir un historique fonctionnel.
+- Avoir une solide gestion des erreurs potentiellement transmises par l'utilisateur. Donc pas de crash/segfault/leak d'aucun genre.
 
 ### Achitecture générale
-:construction_worker_man: :construction_worker_woman:
-Loop, processus
+
+Notre programme se base sur une loop principale qui tourne indéfiniment et réalise 3 grandes actions.
+1 - Tout d'abord, avec la fonction **readline()** un prompt est affiché pour que l'utilisateur puisse entrer sa ligne de commande.
+*A noter que readline() renvoie une string qui a été allouée dynamiquement.*
+
+2 - Il faut ensuite pouvoir délivrer à l'executeur des blocs d'instructions dans un format unique que nous définissons lors du parsing.
+En suivant le fonctionnement interne de Bash, deux parties se dégagent : Le lexer et le parser.
+
+3 - Enfin, on doit envoyer nos blocs d'instructions à l'executor. C'est une loop de processus enfants qui executent chacun un bloc d'instruction.
+Quand cette fonction se termine, on revient à notre loop principale et le prompt est à nouveau renvoyé en attendant la prochaine commande utilisateur.
+
+<img src="docs/Main.png" width="75%">
+
 
 ## Parsing
-Il faut tout d'abord délivrer à l'executeur des blocs d'instructions dans un format unique que nous définissons lors du parsing.
-En suivant le fonctionnement interne de Bash, deux parties se dégagent :
 ### LEXER
 Le rôle du lexer est tout simplement de séparer chaque "mot" les uns des autres. Un mot est défini comme une suite de caractères autres que séparateurs (espaces, tabulations...). Cependant, une string définie par des doubles ou simples guillements compte comme un seul mot, guillemets inclus. C'est donc à ce moment qu'on vérifiera que chaque quote est bien fermée.
 Avant cela, fera un premier check de la place des pipes **"|"** et redirections **"<" ">" "<<" ">>"**, que plusieurs ne se suivent pas ou ne commencent/termine pas notre ligne de commande. Il faut penser à tous les cas de figure possibles.
@@ -109,6 +141,8 @@ Aussi, si le pointeur builtin est different de NULL, alors nous n'enverrons pas 
 ## Executor
 :construction_worker_man: :construction_worker_woman:
 
+*Les commandes builtins ne sont pas executées dans un process forké si la command line ne comporte pas de pipe*
+*Il faut donc penser à séparer*
 
 ## Built-ins
 :construction_worker_man: :construction_worker_woman:
@@ -118,4 +152,18 @@ Aussi, si le pointeur builtin est different de NULL, alors nous n'enverrons pas 
 Projet éternellement perfectible
 
 ## Documentation utilisée
-:construction_worker_man: :construction_worker_woman:
+
+### Github
+[Maia de Graaf](https://github.com/maiadegraaf/minishell)
+[Alejandro Pérez](https://github.com/madebypixel02/minishell)
+[Swoorup Joshi](https://github.com/Swoorup/mysh)
+
+### Docs
+[A cooking recipe](https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf)
+[A nice tutorial by Stephen Brennan](https://brennan.io/2015/01/16/write-a-shell-in-c/)
+[Understanding the syntax](https://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html)
+[About quoting](https://www.grymoire.com/Unix/Quote.html)
+
+### Videos
+[fd, dup()/dup2() system call tutorial](https://www.youtube.com/watch?v=EqndHT606Tw)
+[Fork() system call tutorial](https://www.youtube.com/watch?v=xVSPv-9x3gk)
