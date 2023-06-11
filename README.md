@@ -41,13 +41,14 @@ Néanmoins, voici une liste des fonctionnalités que nous allons pouvoir gérer 
 ### Achitecture générale
 
 Notre programme se base sur une loop principale qui tourne indéfiniment et réalise 3 grandes actions.
+
 1 - Tout d'abord, avec la fonction **readline()** un prompt est affiché pour que l'utilisateur puisse entrer sa ligne de commande.
 *A noter que readline() renvoie une string qui a été allouée dynamiquement.*
 
 2 - Il faut ensuite pouvoir délivrer à l'executeur des blocs d'instructions dans un format unique que nous définissons lors du parsing.
-En suivant le fonctionnement interne de Bash, deux parties se dégagent : Le lexer et le parser.
+En suivant le fonctionnement interne de Bash, deux parties se dégagent : Le **lexer** et le **parser**.
 
-3 - Enfin, on doit envoyer nos blocs d'instructions à l'executor. C'est une loop de processus enfants qui executent chacun un bloc d'instruction.
+3 - Enfin, on doit envoyer nos blocs d'instructions à l'**executor**. C'est une loop de processus enfants qui executent chacun un bloc d'instruction.
 Quand cette fonction se termine, on revient à notre loop principale et le prompt est à nouveau renvoyé en attendant la prochaine commande utilisateur.
 
 <img src="docs/Main.png" width="75%">
@@ -65,7 +66,7 @@ On va donc récupérer chaque mots et les ajouter dans une liste chaînée.
 Chaque élément de notre liste chaînée comporte donc un pointeur vers une string que nous avons alloué dynamiquement avec **malloc()**. La difficulté aura été ici de trouver la taille de chaque malloc, spécialement dans le cas de nos quotes.
 
 ### PARSER
-:construction_worker_man: :construction_worker_woman:
+
 Une fois notre liste chaînée délivrée par le lexer, il va falloir la convertir en une seconde liste chaînée propre au parser, où chaque élément contiendra une instruction à envoyer à l'executeur par après.
 Pour faire simple, nous séparons notre liste lexer à chaque pipe **|** et classons chaque élément à l'interieur d'un groupe selon 3 catégories :
 - La commande suivie de ses arguments. Sous forme de double pointeur char, la commande sera toujours  l'index 0.
@@ -155,6 +156,7 @@ Projet éternellement perfectible
 
 ### Github
 [Maia de Graaf](https://github.com/maiadegraaf/minishell)
+
 [Alejandro Pérez](https://github.com/madebypixel02/minishell)
 [Swoorup Joshi](https://github.com/Swoorup/mysh)
 
