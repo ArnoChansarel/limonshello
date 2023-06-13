@@ -53,6 +53,7 @@ Quand cette fonction se termine, on revient à notre loop principale et le promp
 
 <img src="docs/Main.png" width="75%">
 
+> ***srcs/minishell.c***
 
 ## Parsing
 ### LEXER
@@ -62,6 +63,7 @@ Avant cela, fera un premier check de la place des pipes **"|"** et redirections 
 On va donc récupérer chaque mots et les ajouter dans une liste chaînée.
 
 <img src="docs/lexer_struct.png" width="60%">
+
 
 Chaque élément de notre liste chaînée comporte donc un pointeur vers une string que nous avons alloué dynamiquement avec **malloc()**. La difficulté aura été ici de trouver la taille de chaque malloc, spécialement dans le cas de nos quotes.
 
@@ -75,12 +77,12 @@ Pour faire simple, nous séparons notre liste lexer à chaque pipe **|** et clas
 
 <img src="docs/lexer_to_parser.png" width="100%">
 
-> **Illustration trouvée sur le github de [Maia de Graaf](https://github.com/maiadegraaf)**
+> ***Illustration trouvée sur le github de [Maia de Graaf](https://github.com/maiadegraaf)***
 
 
 <img src="docs/parser_struct.png" width="60%">
 
-> **On trouve aussi un pointeur sur la liste chaînée contenant les variables d'environnement**
+> ***On trouve aussi un pointeur sur la liste chaînée contenant les variables d'environnement***
 
 
 
@@ -89,7 +91,7 @@ Ainsi, tant qu'un token de redirection n'est pas rencontré, nous récuperons ch
 
 <img src="docs/get_cmd_elem.png" width="70%">
 
-> **srcs/parser/parser.c**
+> ***srcs/parser/parser.c***
 
 
 
@@ -102,7 +104,7 @@ Ainsi, l'executor se retrouvera soit avec la dernière redirection du bloc, soit
 
 <img src="docs/try_open_rd.png" width="60%">
 
-> **srcs/parser/redirections.c**
+> ***srcs/parser/redirections.c***
 
 
 ### EXPANDER
@@ -142,8 +144,25 @@ Aussi, si le pointeur builtin est different de NULL, alors nous n'enverrons pas 
 ## Executor
 :construction_worker_man: :construction_worker_woman:
 
-*Les commandes builtins ne sont pas executées dans un process forké si la command line ne comporte pas de pipe*
-*Il faut donc penser à séparer*
+Pour une définition des processus Unix, des commandes **fork()**, **execve()** et **dup2()** ainsi que toute la documentation relative, voir mon projet [pipex](https://github.com/ArnoChansarel/pipex). Tout l'executor est majoritairement basé sur ce projet.
+
+Première particularité cependant, on commence par regarder le nombre de commandes entrées par l'utilisateur (càd nobre de pipes). Car en effet dans Bash les commandes builtins ne sont pas executées dans un processus forké si la ligne de commande ne comporte pas de pipes. POur arriver au même résultat il faut donc faire un premier check dès qu'on entre dans notre executor.
+
+On lance notre boucle qui va créer les processus child via la fonction **fork()**, puis laisser le processus parent les attendre via **father_waits()**. Le jeu va être de bien gérer les copies de file descriptor via **dup2()**, car beaucoup de paramètres rentrent en compte. Si pipe il y a, si redirections il y a, etc... 
+
+<img src="docs/fork_n_wait.png" width="70%">
+
+> ***srcs/executor/executor.c***
+
+C'est donc dans notre fonction **child()** qu'on ouvrira la dernière redirection récupérée dans le parser et qu'on renverra une erreur si besoin. Ensuite chaque fonction notée **n_process()** a pour but les copies de file descriptor. Enfin, la fonction **execute_process()** se déroule comme suit : 
+- Retrouver notre executable de commande via la variable d'environement "PATH"
+- La vérifier avec la fonction **access()**
+- Transformer notre liste chaînée de variable d'environement en un tableau de string pour l'envoyer à **execve()**
+- Appeler **execve()** qui terminera le processus une fois la commande executée
+
+<img src="docs/child.png" width="70%">
+
+> ***srcs/executor/executor.c***
 
 ## Built-ins
 :construction_worker_man: :construction_worker_woman:
