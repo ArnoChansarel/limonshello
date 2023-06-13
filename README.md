@@ -142,7 +142,6 @@ Aussi, si le pointeur builtin est different de NULL, alors nous n'enverrons pas 
 
 
 ## Executor
-:construction_worker_man: :construction_worker_woman:
 
 Pour une définition des processus Unix, des commandes **fork()**, **execve()** et **dup2()** ainsi que toute la documentation relative, voir mon projet [pipex](https://github.com/ArnoChansarel/pipex). Tout l'executor est majoritairement basé sur ce projet.
 
@@ -165,7 +164,14 @@ C'est donc dans notre fonction **child()** qu'on ouvrira la dernière redirectio
 > ***srcs/executor/executor.c***
 
 ## Built-ins
-:construction_worker_man: :construction_worker_woman:
+
+|`cd`| Change de répertoire courant, et update les variable `PWD` et `OLDPWD`. Si aucun argument, change pour `HOME`|
+|`echo`| Affiche une ligne de texte. Si un argument `-n` est spécifié, pas de retour à la ligne.|
+|`env` | Affiche la liste de nos variables d'environnement. |
+|`exit`| Ferme le programme. Accepte un argument numérique qui sera la valeur de retour. |
+|`export`| Exporte une nouvelle variable d'environement. Si aucun argument, doit afficher la liste des variables exportées classées par ordre alphabetique.|
+|`pwd`| Affiche le répertoire courant sous forme de chemin absolu. |
+|`unset`| Supprime la variable d'environement spécifiée. |
 
 ## Problèmes rencontrés
 :construction_worker_man: :construction_worker_woman:
