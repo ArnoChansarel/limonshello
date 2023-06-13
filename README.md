@@ -165,6 +165,8 @@ C'est donc dans notre fonction **child()** qu'on ouvrira la dernière redirectio
 
 ## Built-ins
 
+| Command | Description |
+|---|---|
 |`cd`| Change de répertoire courant, et update les variable `PWD` et `OLDPWD`. Si aucun argument, change pour `HOME`|
 |`echo`| Affiche une ligne de texte. Si un argument `-n` est spécifié, pas de retour à la ligne.|
 |`env` | Affiche la liste de nos variables d'environnement. |
